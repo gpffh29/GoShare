@@ -1,11 +1,23 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>GoShare</title>
-</head>
-<body>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout=http://www.ultraq.net.nz/thymeleaf/layout
+      layout:decorate="~{layouts/footerLayout}">
 
+    <div>
+<!--        첫화면 구현-->
+<!--        첫화면 이미지 삽입-->
+        <div class="intro_image">
+            <img src="C:\workspace\Project\src\main\resources\static\images\GoShare_main.jpg" alt="GoShare">
+        </div>
 
-</body>
+<!--        로그인 하기 버튼 삽입-->
+        <div class="loginbutton">
+            <a href="/login">로그인 하기</a>
+        </div>
+<!--        자동차 구경하기 버튼 삽입-->
+        <div class="justlookbutton">
+            <a href="/board">차 둘러보기</a>
+        </div>
+
+    </div>
 </html>
