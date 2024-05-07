@@ -1,34 +1,39 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
       xmlns:layout=http://www.ultraq.net.nz/thymeleaf/layout
       layout:decorate="~{layouts/footerLayout}">
 <head>
-    <meta charset="UTF-8">
-    <title>GoShare</title>
-    <link rel="stylesheet" href="css/intro.css">
+    <title>hi</title>
 </head>
+    <th:block layout:fragment="css">
+        <link rel="stylesheet" th:href="@{/controller.css}">
+    </th:block>
+
 <body>
+<div layout:fragment="content">
     <div class="intro_container">
-<!--        첫화면 구현-->
-<!--        첫화면 이미지 삽입-->
+        <!--        첫화면 구현-->
+        <!--        첫화면 이미지 삽입-->
         <div class="intro_image">
-            <img src="C:\workspace\Project\src\main\resources\static\images\GoShare_main.jpg" alt="GoShare" width="100%">
+            <img src="/images/GoShare_main.jpg" alt="GoShare" width="100%">
         </div>
-<!--        GoShare에 대한 설명 글 추가-->
+        <!--        GoShare에 대한 설명 글 추가-->
         <div class="GoShare_text">
             <h1>GoShare</h1>
             <p>간편하게 차량을 공유하세요</p>
         </div>
         <div class="button_container">
-<!--        로그인 하기 버튼 삽입-->
+            <!--        로그인 하기 버튼 삽입-->
             <div class="loginbutton">
                 <a href="/login">로그인 하기</a>
             </div>
-<!--        자동차 구경하기 버튼 삽입-->
+            <!--        자동차 구경하기 버튼 삽입-->
             <div class="justlookbutton">
                 <a href="/board">차 둘러보기</a>
             </div>
         </div>
     </div>
+</div>
 </body>
 </html>
