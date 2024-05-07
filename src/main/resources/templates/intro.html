@@ -7,7 +7,70 @@
     <title>hi</title>
 </head>
     <th:block layout:fragment="css">
-        <link rel="stylesheet" th:href="@{/controller.css}">
+        <style>
+            *{
+                margin:0;
+                padding: 0;
+            }
+
+            .GoShare_text{
+                position: absolute;
+                top: 40%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                text-align: center;
+                color:white;
+            }
+
+            .GoShare_text h1{
+                font-size: 36px;
+            }
+
+            .GoShare_text p{
+                font-size: 18px;
+                margin-top: 10px;
+            }
+
+            .intro_container{
+                position: relative;
+            }
+
+            a{
+                text-decoration: none;
+                color: inherit;}
+
+            .button_container{
+                position: absolute;
+                top: 65%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+            }
+
+            .loginbutton, .justlookbutton{
+                display: inline-block;
+                color: black;
+                border-radius: 7px;
+                height: auto;
+                min-height: 30px;
+                width: 100px;
+                padding: 10px 20px;
+                font-family:pretendard, sans-serif;
+                font-size: 18px;
+                font-weight: 600;
+                text-decoration: none;
+                text-align: center;
+                margin: 10px;
+                border: none;
+            }
+
+            .loginbutton{
+                background-color: rgba(0, 74, 173, 0.7);
+            }
+
+            .justlookbutton{
+                background-color: rgba(0, 102, 239, 0.7);
+            }
+        </style>
     </th:block>
 
 <body>
