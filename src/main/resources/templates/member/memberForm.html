@@ -4,31 +4,33 @@
     <meta charset="UTF-8">
     <title>GoShare_member</title>
     <link rel="stylesheet" href="C:\workspace\GoShare\src\main\resources\static\css\memberForm.css">
+    <script src="/static/js/memberForm.js"></script>
 </head>
 <body>
 <!--    회원 가입 화면 구현-->
-    <div class="memberFormContainer">
-<!--        GoShare 로고 삽입-->
-        <div class="logoContainer">
-            <img src="C:\workspace\GoShare\src\main\resources\static\images\GoShare로고.png" alt="logo" class="logo">
-            <h2>회원가입</h2>
+    <form action="/members/new" role="form" method="post" th:object="${memberFormDto}">
+        <div class="memberFormContainer">
+    <!--        GoShare 로고 삽입-->
+            <div class="logoContainer">
+                <img src="C:\workspace\GoShare\src\main\resources\static\images\GoShare_logo.png" alt="logo" class="logo">
+                <h2>회원가입</h2>
+            </div>
+            <div class="memberForm">
+                <label for="username">이름</label>
+                <input type="text" id="username" required>
+                <br>
+                <label for="email">이메일</label>
+                <input type="text" id="email" required>
+                <br>
+                <label for="password">비밀번호</label>
+                <input type="text" id="password" required>
+                <br>
+                <label for="phone">전화번호</label>
+                <input type="text" id="phone" required>
+                <br>
+                <button onclick="">면허증 증명하기</button>
+            </div>
         </div>
-        <div class="memberForm">
-            <label for="username">이름</label>
-            <input type="text" id="username" required>
-            <br>
-            <label for="email">이메일</label>
-            <input type="text" id="email" required>
-            <br>
-            <label for="password">비밀번호</label>
-            <input type="text" id="password" required>
-            <br>
-            <label for="phonenumber">전화번호</label>
-            <input type="text" id="phonenumber" required>
-            <br>
-            <button onclick="">면허증 증명하기</button>
-        </div>
-    </div>
-
+    </form>
 </body>
 </html>
