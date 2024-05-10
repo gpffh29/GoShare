@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>GoShare_member</title>
+    <title>회원가입</title>
     <link rel="stylesheet" href="/css/memberForm.css">
     <script src="/static/js/memberForm.js"></script>
 </head>
@@ -16,19 +16,26 @@
                 <h2>회원가입</h2>
             </div>
             <div class="memberForm">
-                <label for="username">이름</label>
-                <input type="text" id="username" required>
+                <label th:for="name">이름</label>
+                <input type="text" th:field="*{name}" class="form-control" placeholder="이름을 입력해주세요">
+                <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="fieldError">Incorrect data</p>
                 <br>
-                <label for="email">이메일</label>
-                <input type="text" id="email" required>
+                <label th:for="email">이메일</label>
+                <input type="text" th:field="*{email}" class="form-control" placeholder="이메일을 입력해주세요">
+                <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="fieldError">Incorrect data</p>
                 <br>
-                <label for="password">비밀번호</label>
-                <input type="text" id="password" required>
+                <label th:for="password">비밀번호</label>
+                <input type="text" th:field="*{password}" class="form-control" placeholder="비밀번호를 입력해주세요">
+                <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="fieldError">Incorrect data</p>
                 <br>
-                <label for="phone">전화번호</label>
-                <input type="text" id="phone" required>
+                <label th:for="phone">전화번호</label>
+                <input type="text" th:field="*{phone}" class="form-control" placeholder="전화번호를 입력해주세요('-'없이 이어 표기)">
+                <p th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}" class="fieldError">Incorrect data</p>
                 <br>
-                <button onclick="">면허증 증명하기</button>
+                <div style="text-align: center">
+                    <button type="submit" class="btn btn-primary" style="">가입</button>
+                </div>
+                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
             </div>
         </div>
     </form>
