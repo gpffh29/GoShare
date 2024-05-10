@@ -2,11 +2,14 @@ package com.GoShare.controller;
 
 
 import com.GoShare.dto.MemberFormDto;
+import com.GoShare.entity.Member;
 import com.GoShare.service.MemberService;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.ui.Model;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @RequestMapping("/members")
@@ -15,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class MemberController {
 
     private final MemberService memberService;
+    private final PasswordEncoder passwordEncoder;
 
 //    회원가입 컨트롤러
     @GetMapping(value = "/new")
@@ -35,5 +39,13 @@ public class MemberController {
     public String loginError(Model model){
         model.addAttribute("loginErrorMsg", "아이디 또는 비밀번호를 확인해주세요");
         return "/member/memberLoginForm";
+    }
+
+    @PostMapping(value = "/new")
+    public String memberForm(MemberFormDto memberFormDto){
+        Member member = Member.createMember(memberFormDto, passwordEncoder);
+        memberService.saveMember(member);
+
+        return "redirect:/";
     }
 }

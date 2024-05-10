@@ -1,25 +1,47 @@
-//package com.GoShare.config;
-//
-//import org.springframework.context.annotation.Bean;
-//import org.springframework.context.annotation.Configuration;
-//import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-//import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-//import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-//import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-//import org.springframework.security.crypto.password.PasswordEncoder;
-//
-//
-//@Configuration
-//@EnableWebSecurity
-//public class SecurityConfig extends WebSecurityConfigurerAdapter{
-//
-//    @Override
-//    protected void configure(HttpSecurity http) throws Exception{
-//
-//    }
-//
-//    @Bean
-//    public PasswordEncoder passwordEncoder(){
-//        return new BCryptPasswordEncoder();
-//    }
-//}
+package com.GoShare.config;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.SecurityFilterChain;
+
+
+@Configuration
+@EnableWebSecurity
+public class SecurityConfig{
+
+    @Bean
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+//        http
+//                .formLogin(form -> form
+//                        .loginPage("/member/memberForm")
+//                        .defaultSuccessUrl("/")
+//                        .usernameParameter("email")
+//                        .failureUrl("/members/login/error")
+//                )
+//                .logout(logout -> logout
+//                        .logoutUrl("/members/logout")
+//                        .logoutSuccessUrl("/")
+//                )
+//                .authorizeRequests(auth -> auth
+//                        .antMatchers("/css/**", "/js/**", "/images/**").permitAll()
+//                        .antMatchers("/", "/members/**", "/item/**", "/images/**").permitAll()
+//                        .antMatchers("/admin/**").hasRole("ADMIN")
+//                        .anyRequest().authenticated()
+//                )
+//                .exceptionHandling(exceptions -> exceptions
+//                        .authenticationEntryPoint(new CustomAuthenticationEntryPoint())
+//                );
+
+        return http.build();
+    }
+
+
+    @Bean
+    public PasswordEncoder passwordEncoder(){
+        return new BCryptPasswordEncoder();
+    }
+}
