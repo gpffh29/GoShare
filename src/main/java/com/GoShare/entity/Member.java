@@ -1,6 +1,7 @@
 package com.GoShare.entity;
 
 
+import com.GoShare.constant.Role;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -30,6 +31,9 @@ public class Member {
 
     private String phone;
 
+    @Enumerated(EnumType.STRING)
+    private Role role;
+
     public static Member createMember(MemberFormDto memberFormDto, PasswordEncoder passwordEncoder){
         Member member = new Member();
         member.setName(memberFormDto. getName());
@@ -37,6 +41,7 @@ public class Member {
         member.setPhone(memberFormDto.getPhone());
         String password = passwordEncoder.encode(memberFormDto.getPassword());
         member.setPassword(password);
+        member.setRole(Role.USER);
 
         return member;
     }
