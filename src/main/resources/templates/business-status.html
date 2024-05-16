@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Business Status</title>
+</head>
+<body>
+<h1>Business Status</h1>
+
+<form action="#" th:action="@{/business-status}" method="post">
+  <label for="reqIdentity">Req Identity:</label>
+  <input type="text" id="reqIdentity" name="reqIdentity" required>
+  <button type="submit">Submit</button>
+</form>
+
+<div th:if="${businessStatus != null}">
+  <h2>Business Status Result</h2>
+  <p th:text="'Code: ' + ${businessStatus.result.code}"></p>
+  <p th:text="'Message: ' + ${businessStatus.result.message}"></p>
+</div>
+
+<div th:if="${error != null}">
+  <p th:text="${error}"></p>
+</div>
+</body>
+</html>
