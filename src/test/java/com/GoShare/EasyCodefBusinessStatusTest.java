@@ -64,21 +64,21 @@ public class EasyCodefBusinessStatusTest {
          */
         HashMap<String, Object> parameterMap = new HashMap<String, Object>();
         parameterMap.put("organization", "0004");
-
         List<HashMap<String, String>> reqIdentityList = new ArrayList<HashMap<String, String>>();
 
-        HashMap<String, String> reqIdentityMap = new HashMap<String, String>();
-        reqIdentityMap.put("reqIdentity", "3333344444");
-        reqIdentityList.add(reqIdentityMap);
+        HashMap<String, String> reqIdentityMap1 = new HashMap<String, String>();
+        reqIdentityMap1.put("reqIdentity", "3333344444");
+        reqIdentityList.add(reqIdentityMap1);
 
         parameterMap.put("reqIdentityList", reqIdentityList);
+
 
         /**
          * #6.코드에프 정보 조회 요청
          * - 서비스타입(API:정식, DEMO:데모, SANDBOX:샌드박스)
          */
-        String productUrl = "https://api.codef.io/v1/kr/public/nt/business/status" +" ";	// (예시)사업자등록상태(휴폐업조회) URL
-        String result = codef.requestProduct(productUrl, EasyCodefServiceType.SANDBOX, parameterMap);
+        String productUrl = "/v1/kr/public/nt/business/status"+" ";	// (예시)사업자등록상태(휴폐업조회) URL
+        String result = codef.requestProduct(productUrl, EasyCodefServiceType.DEMO, parameterMap);
 
         /**	#7.코드에프 정보 결과 확인	*/
         System.out.println(result);
@@ -86,6 +86,6 @@ public class EasyCodefBusinessStatusTest {
         HashMap<String, Object> responseMap = new ObjectMapper().readValue(result, HashMap.class);
         HashMap<String, Object> resultMap = (HashMap<String, Object>)responseMap.get("result");
 
-        assertEquals("코드에프 상품 요청 결과 실패(반환된 코드와 메시지 확인 필요)", "CF-00000", (String)resultMap.get("code"));
+        assertEquals("CF-00000", "CF-00000", (String)resultMap.get("code"));
     }
 }

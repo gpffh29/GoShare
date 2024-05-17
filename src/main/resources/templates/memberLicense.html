@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>사업자 등록 번호 검증</title>
+</head>
+<body>
+<h1>사업자 등록 번호 검증</h1>
+<form th:action="@{/member/License}" th:object="${ApiDto}" method="post">
+    <label for="businessNumber">사업자 등록 번호:</label>
+    <input type="text" id="businessNumber" name="businessNumber" th:field="*{businessNumber}" required>
+    <button type="submit">검증</button>
+</form>
+</body>
+</html>
