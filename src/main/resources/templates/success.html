@@ -4,8 +4,13 @@
     <title>Business License Result</title>
 </head>
 <body>
-<h1>Business License Result</h1>
+<h1>인증 완료 후 확인 버튼을 눌러주세요</h1>
+<h1>Select an Option</h1>
 <p th:text="${result}"></p>
-<a th:href="@{/member/License}">Try again</a>
+<form th:action="@{/member/License_result}" method="post">
+    <button type="submit" name="buttonValue" value="0">인증 취소</button>
+    <button type="submit" name="buttonValue" value="1">인증 완료</button>
+</form>
+
 </body>
 </html>

@@ -81,11 +81,10 @@ public class EasyCodefBusinessStatusTest {
         String result = codef.requestProduct(productUrl, EasyCodefServiceType.DEMO, parameterMap);
 
         /**	#7.코드에프 정보 결과 확인	*/
-        System.out.println(result);
 
         HashMap<String, Object> responseMap = new ObjectMapper().readValue(result, HashMap.class);
         HashMap<String, Object> resultMap = (HashMap<String, Object>)responseMap.get("result");
 
-        assertEquals("CF-00000", "CF-00000", (String)resultMap.get("code"));
+        assertEquals("CF-00000", (String)resultMap.get("code"), "Codef Business Status");
     }
 }

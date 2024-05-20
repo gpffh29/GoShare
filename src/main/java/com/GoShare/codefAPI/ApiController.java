@@ -1,13 +1,17 @@
 package com.GoShare.codefAPI;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.util.HashMap;
 
 @Controller
 public class ApiController {
@@ -25,13 +29,23 @@ public class ApiController {
     }
 
     @PostMapping("/member/License")
-    public String License_post(@Valid ApiDto apiDto, BindingResult bindingResult, Model model) throws IOException, InterruptedException {
-        if(bindingResult.hasErrors()){
-            return "memberLicense";
-        }
-        String businessNumber = apiDto.getBusinessNumber();
-        String result=apiService.getBusinessStatus(businessNumber);
+    public String License_post(ApiDto apiDto, HttpSession session){
+        HashMap<String, Object> resultmap=apiService.Driver_License(apiDto);
+        session.setAttribute("resultmap", resultmap);
+        return "success";
+    }
+
+
+    @PostMapping("/member/License_result")
+    public String License_result(@RequestParam("buttonValue") String simpleAuth, HttpSession session, Model model) throws UnsupportedEncodingException, JsonProcessingException, InterruptedException {
+        HashMap<String, Object> parameterMap = (HashMap<String, Object>) session.getAttribute("resultmap");
+        System.out.println(parameterMap);
+        parameterMap.put("simpleAuth", (String)simpleAuth);
+        String result = apiService.TwoWay(parameterMap);
+        System.out.println(parameterMap);
         model.addAttribute("result", result);
         return "success";
     }
+
+
 }
