@@ -2,14 +2,12 @@ package com.GoShare.codefAPI;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import jakarta.servlet.http.HttpSession;
-import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 
@@ -25,14 +23,14 @@ public class ApiController {
     @GetMapping("/member/License")
     public String License_verification(Model model){
         model.addAttribute("ApiDto", new ApiDto());
-        return "memberLicense";
+        return "member/memberLicense";
     }
 
     @PostMapping("/member/License")
     public String License_post(ApiDto apiDto, HttpSession session){
         HashMap<String, Object> resultmap=apiService.Driver_License(apiDto);
         session.setAttribute("resultmap", resultmap);
-        return "success";
+        return "member/success";
     }
 
 
@@ -44,7 +42,13 @@ public class ApiController {
         String result = apiService.TwoWay(parameterMap);
         System.out.println(parameterMap);
         model.addAttribute("result", result);
-        return "success";
+        return "member/success";
+    }
+
+    @GetMapping("/member/License")
+    public String License_verification2(Model model){
+        model.addAttribute("ApiDto", new ApiDto());
+        return "popupexample";
     }
 
 
