@@ -1,0 +1,111 @@
+package com.GoShare.controller;
+
+import com.GoShare.dto.AddBoardRequest;
+import com.GoShare.entity.Board;
+import com.GoShare.repository.BoardRepository;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import jakarta.transaction.Transactional;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
+import org.springframework.test.context.TestPropertySource;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.ResultActions;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.web.context.WebApplicationContext;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+
+
+//글 등록 테스트
+@SpringBootTest
+@AutoConfigureMockMvc
+@Transactional
+@TestPropertySource(locations="classpath:application-test.properties")
+class BoardApiControllerTest {
+
+    @Autowired
+    protected MockMvc mockMvc;
+
+    @Autowired
+    protected ObjectMapper objectMapper;
+
+    @Autowired
+    private WebApplicationContext context;
+
+    @Autowired
+    BoardRepository boardRepository;
+
+    @BeforeEach
+    public void mockMvcSetUp(){
+        this.mockMvc = MockMvcBuilders.webAppContextSetup(context).build();
+        boardRepository.deleteAll();
+    }
+
+    @DisplayName("addBoard: 글 추가에 성공")
+    @Test
+    public void addBoard() throws Exception {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        final String url = "/board/post";
+        final String carImg = "carImg";
+        final String content = "content";
+        final String region = "region";
+        final Date startDate = dateFormat.parse("2024-05-06");
+        final Date lastDate = dateFormat.parse("2024-05-10");
+        final Integer price = 50000;
+        final AddBoardRequest userRequest = new AddBoardRequest(carImg,content,region,startDate,lastDate,price);
+
+
+//        json으로 직렬화
+        final String requestBody = objectMapper.writeValueAsString(userRequest);
+
+        ResultActions result = mockMvc.perform(post(url).contentType(MediaType.APPLICATION_JSON_VALUE).content(requestBody));
+
+        result.andExpect(status().isCreated());
+
+        List<Board> boards = boardRepository.findAll();
+
+        assertEquals(1, boards.size());
+        assertEquals(carImg, boards.get(0).getCarImg());
+        assertEquals(content, boards.get(0).getContent());
+        assertEquals(region, boards.get(0).getRegion());
+        assertEquals(startDate, boards.get(0).getStartDate());
+        assertEquals(lastDate, boards.get(0).getLastDate());
+        assertEquals(price, boards.get(0).getPrice());
+
+    }
+
+    @DisplayName("findAllBoards: 글 목록 조회에 성공")
+    @Test
+    public void findAllBoards() throws Exception {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        final String url = "/api/boards";
+        final String carImg = "carImg";
+        final String content = "content";
+        final String region = "region";
+        final Date startDate = dateFormat.parse("2024-05-06");
+        final Date lastDate = dateFormat.parse("2024-05-10");
+        final Integer price = 50000;
+
+        boardRepository.save(Board.builder().carImg(carImg).content(content).region(region).startDate(startDate).lastDate(lastDate).price(price).build());
+
+        final ResultActions resultActions = mockMvc.perform(get(url).accept(MediaType.APPLICATION_JSON));
+
+        resultActions.andExpect(status().isOk()).andExpect(jsonPath("$[0].price").value(price)).andExpect(jsonPath("$[0].lastDate").value(lastDate))
+                .andExpect(jsonPath("$[0].startDate").value(startDate)).andExpect(jsonPath("$[0].region").value(region))
+                .andExpect(jsonPath("$[0].content").value(content)).andExpect(jsonPath("$[0].carImg").value(carImg));
+    }
+
+}
