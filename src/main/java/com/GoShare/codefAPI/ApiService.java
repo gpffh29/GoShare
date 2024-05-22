@@ -114,7 +114,9 @@ public class ApiService {
         }
         
         // 인증을 완료하지 않고 확인 버튼을 누를 시
-        else if(code.equals("CF-03002")){}
+        else if(code.equals("CF-03002")) {
             return "3";
+        }
+        else return "0";
     }
 }
