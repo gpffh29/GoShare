@@ -17,10 +17,13 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -52,12 +55,18 @@ class BoardApiControllerTest {
     public void mockMvcSetUp(){
         this.mockMvc = MockMvcBuilders.webAppContextSetup(context).build();
         boardRepository.deleteAll();
+
+        // ObjectMapper 설정
+        objectMapper.registerModule(new JavaTimeModule());
+        objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+
     }
 
     @DisplayName("addBoard: 글 추가에 성공")
     @Test
     public void addBoard() throws Exception {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
         final String url = "/board/post";
         final String carImg = "carImg";
         final String content = "content";
@@ -91,6 +100,7 @@ class BoardApiControllerTest {
     @Test
     public void findAllBoards() throws Exception {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
         final String url = "/api/boards";
         final String carImg = "carImg";
         final String content = "content";
@@ -103,8 +113,8 @@ class BoardApiControllerTest {
 
         final ResultActions resultActions = mockMvc.perform(get(url).accept(MediaType.APPLICATION_JSON));
 
-        resultActions.andExpect(status().isOk()).andExpect(jsonPath("$[0].price").value(price)).andExpect(jsonPath("$[0].lastDate").value(lastDate))
-                .andExpect(jsonPath("$[0].startDate").value(startDate)).andExpect(jsonPath("$[0].region").value(region))
+        resultActions.andExpect(status().isOk()).andExpect(jsonPath("$[0].price").value(price)).andExpect(jsonPath("$[0].lastDate").value(dateFormat.format(lastDate)))
+                .andExpect(jsonPath("$[0].startDate").value(dateFormat.format(startDate))).andExpect(jsonPath("$[0].region").value(region))
                 .andExpect(jsonPath("$[0].content").value(content)).andExpect(jsonPath("$[0].carImg").value(carImg));
     }
 
