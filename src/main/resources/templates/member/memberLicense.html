@@ -22,35 +22,35 @@
                 <br>
 
                 <label for="identity">주민등록번호:</label>
-                <input type="text" id="identity" name="identity" th:field="*{identity}" required>
+                <input type="text" maxlength="13" placeholder="'-'없이 13자 작성" id="identity" name="identity" th:field="*{identity}" required>
                 <br>
 
                 <label for="phoneNo">전화번호:</label>
-                <input type="text" id="phoneNo" name="phoneNo" th:field="*{phoneNo}" required>
+                <input type="text" maxlength="11" placeholder="'-'없이 작성" id="phoneNo" name="phoneNo" th:field="*{phoneNo}" required>
                 <br>
 
                 <label for="birthDate">생년월일:</label>
-                <input type="text" id="birthDate" name="birthDate" th:field="*{birthDate}" required>
+                <input type="text" maxlength="8" placeholder="ex)19990101" id="birthDate" name="birthDate" th:field="*{birthDate}" required>
                 <br>
 
-                <label for="LicenseNo01">면허증1:</label>
-                <input type="text" id="LicenseNo01" name="LicenseNo01" th:field="*{licenseNo01}" required>
+                <label for="LicenseNo01">운전 면허번호01 (지역):</label>
+                <input type="text" maxlength="2" id="LicenseNo01" name="LicenseNo01" th:field="*{licenseNo01}" required>
                 <br>
 
-                <label for="LicenseNo02">면허증2:</label>
-                <input type="text" id="LicenseNo02" name="LicenseNo02" th:field="*{licenseNo02}" required>
+                <label for="LicenseNo02">운전 면허번호02 (년도):</label>
+                <input type="text" maxlength="2" id="LicenseNo02" name="LicenseNo02" th:field="*{licenseNo02}" required>
                 <br>
 
-                <label for="LicenseNo03">면허증3:</label>
-                <input type="text" id="LicenseNo03" name="LicenseNo03" th:field="*{licenseNo03}" required>
+                <label for="LicenseNo03">운전 면허번호03:</label>
+                <input type="text" maxlength="6" id="LicenseNo03" name="LicenseNo03" th:field="*{licenseNo03}" required>
                 <br>
 
-                <label for="LicenseNo04">면허증4:</label>
-                <input type="text" id="LicenseNo04" name="LicenseNo04" th:field="*{licenseNo04}" required>
+                <label for="LicenseNo04">운전 면허번호04:</label>
+                <input type="text" maxlength="2" id="LicenseNo04" name="LicenseNo04" th:field="*{licenseNo04}" required>
                 <br>
 
                 <label for="serialNo">일련번호:</label>
-                <input type="text" id="serialNo" name="serialNo" th:field="*{serialNo}" required>
+                <input type="text" maxlength="6" id="serialNo" name="serialNo" th:field="*{serialNo}" required>
                 <br>
                 <button type="submit" class="btn btn-primary">인증 요청</button>
             </div>

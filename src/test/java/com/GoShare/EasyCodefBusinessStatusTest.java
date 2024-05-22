@@ -62,22 +62,27 @@ public class EasyCodefBusinessStatusTest {
          * #5.요청 파라미터 설정
          * - 각 상품별 파라미터를 설정(https://developer.codef.io/products)
          */
-        HashMap<String, Object> parameterMap = new HashMap<String, Object>();
-        parameterMap.put("organization", "0004");
-        List<HashMap<String, String>> reqIdentityList = new ArrayList<HashMap<String, String>>();
-
-        HashMap<String, String> reqIdentityMap1 = new HashMap<String, String>();
-        reqIdentityMap1.put("reqIdentity", "3333344444");
-        reqIdentityList.add(reqIdentityMap1);
-
-        parameterMap.put("reqIdentityList", reqIdentityList);
+        HashMap<String, Object> parameterMap = new HashMap<>();
+        parameterMap.put("organization", "0001");
+        parameterMap.put("loginType", "5");
+        parameterMap.put("loginUserName","홍길동");
+        parameterMap.put("identity","8012311234567");
+        parameterMap.put("loginTypeLevel","1");
+        parameterMap.put("phoneNo","010********");
+        parameterMap.put("birthDate","19800123");
+        parameterMap.put("licenseNo01","23");
+        parameterMap.put("licenseNo02","08");
+        parameterMap.put("licenseNo03","000000");
+        parameterMap.put("licenseNo04","61");
+        parameterMap.put("serialNo","NO9PTP");
+        parameterMap.put("userName","홍길동");
 
 
         /**
          * #6.코드에프 정보 조회 요청
          * - 서비스타입(API:정식, DEMO:데모, SANDBOX:샌드박스)
          */
-        String productUrl = "/v1/kr/public/nt/business/status"+" ";	// (예시)사업자등록상태(휴폐업조회) URL
+        String productUrl = "v1/kr/public/ef/driver-license/status"+" ";	// (예시)사업자등록상태(휴폐업조회) URL
         String result = codef.requestProduct(productUrl, EasyCodefServiceType.DEMO, parameterMap);
 
         /**	#7.코드에프 정보 결과 확인	*/
@@ -85,6 +90,8 @@ public class EasyCodefBusinessStatusTest {
         HashMap<String, Object> responseMap = new ObjectMapper().readValue(result, HashMap.class);
         HashMap<String, Object> resultMap = (HashMap<String, Object>)responseMap.get("result");
 
-        assertEquals("CF-00000", (String)resultMap.get("code"), "Codef Business Status");
+        System.out.println(result);
+
+        assertEquals("CF-00000", (String)resultMap.get("code"), "Codef driver-license Status");
     }
 }

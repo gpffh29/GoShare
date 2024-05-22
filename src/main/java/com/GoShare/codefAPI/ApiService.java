@@ -93,20 +93,28 @@ public class ApiService {
         //추가인증 요청 시에는 이지코드에프.requestCertification 으로 호출
         result = codef.requestCertification(productUrl, EasyCodefServiceType.DEMO, parameterMap);
 
+        //결과값 확인
+        System.out.println("추가인증(result) : " + result);
+
         HashMap<String, Object> TwoWayResponseMap = null;
         try {
             TwoWayResponseMap = new ObjectMapper().readValue(result, HashMap.class);
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }
+        HashMap<String, Object> resultMap = (HashMap<String, Object>)TwoWayResponseMap.get("result");
+        String code = (String)resultMap.get("code");
+        if(code.equals("CF-00000")){
+            //결과값에서 추가 인증에 필요한 데이터 추출 및 저장하여 리턴
+            HashMap<String, Object> dataMap = (HashMap<String, Object>)TwoWayResponseMap.get("data");
 
-        //결과값에서 추가 인증에 필요한 데이터 추출 및 저장하여 리턴
-        HashMap<String, Object> dataMap = (HashMap<String, Object>)TwoWayResponseMap.get("data");
+            String resAuthenticity = dataMap.get("resAuthenticity").toString();
 
-        String resAuthenticity = dataMap.get("resAuthenticity").toString();
-
-        //결과값 확인
-        System.out.println("추가인증(result) : " + result);
-        return resAuthenticity;
+            return resAuthenticity;
+        }
+        
+        // 인증을 완료하지 않고 확인 버튼을 누를 시
+        else if(code.equals("CF-03002")){}
+            return "3";
     }
 }

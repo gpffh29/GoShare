@@ -5,6 +5,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -35,7 +36,7 @@ public class ApiController {
     }
 
     @PostMapping("/member/License_form")
-    public String LicenseForm_post(@ModelAttribute ApiDto apiDto, HttpSession session, Model model) throws NoSuchPaddingException, IllegalBlockSizeException, NoSuchAlgorithmException, InvalidKeySpecException, BadPaddingException, InvalidKeyException {
+    public String LicenseForm_post(@ModelAttribute ApiDto apiDto, BindingResult bindingResult, HttpSession session, Model model) throws NoSuchPaddingException, IllegalBlockSizeException, NoSuchAlgorithmException, InvalidKeySpecException, BadPaddingException, InvalidKeyException {
         HashMap<String, Object> resultmap=apiService.Driver_License(apiDto);
         session.setAttribute("resultmap", resultmap);
         model.addAttribute("ApiDto", apiDto);
@@ -52,7 +53,12 @@ public class ApiController {
             model.addAttribute("memberFormDto", new MemberFormDto());
             return "member/memberForm";
         }
-        else {
+        else if(resAuthenticity.equals("3")){
+            model.addAttribute("ApiDto", new ApiDto());
+            model.addAttribute("failAuth", "인증을 완료한 뒤 확인 버튼을 눌러주세요");
+            return "member/memberLicense";
+        }
+        else{
             model.addAttribute("ApiDto", new ApiDto());
             model.addAttribute("failAuth", "면허 번호를 확인해주세요");
             return "member/memberLicense";
