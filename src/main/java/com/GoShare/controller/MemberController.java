@@ -21,12 +21,12 @@ public class MemberController {
     private final MemberService memberService;
     private final PasswordEncoder passwordEncoder;
 
-//    회원가입 컨트롤러
-    @GetMapping(value = "/new")
-    public String memberForm(Model model){
-        model.addAttribute("memberFormDto", new MemberFormDto());
-        return "member/memberForm";
-    }
+////    회원가입 컨트롤러
+//    @GetMapping(value = "/new")
+//    public String memberForm(Model model){
+//        model.addAttribute("memberFormDto", new MemberFormDto());
+//        return "member/memberForm";
+//    }
 
 //    로그인 컨트롤러
     @GetMapping(value="/login")

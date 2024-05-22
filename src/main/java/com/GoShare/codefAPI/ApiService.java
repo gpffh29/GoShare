@@ -6,7 +6,13 @@ import io.codef.api.EasyCodef;
 import io.codef.api.EasyCodefServiceType;
 import org.springframework.stereotype.Service;
 
+import javax.crypto.BadPaddingException;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
 import java.io.UnsupportedEncodingException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 import java.util.HashMap;
 
 @Service
@@ -16,7 +22,7 @@ public class ApiService {
     String productUrl = "/v1/kr/public/ef/driver-license/status";
 
     /**운전 면허 진위 여부를 위한 정보를 가져오는 메서드**/
-    public HashMap<String, Object> Driver_License(ApiDto apiDto){
+    public HashMap<String, Object> Driver_License(ApiDto apiDto) throws NoSuchPaddingException, IllegalBlockSizeException, NoSuchAlgorithmException, InvalidKeySpecException, BadPaddingException, InvalidKeyException {
         EasyCodef codef = new EasyCodef();
         codef.setClientInfoForDemo(CodefClientInfo.DEMO_CLIENT_ID, CodefClientInfo.DEMO_CLIENT_SECRET);
         codef.setClientInfo(CodefClientInfo.CLIENT_ID, CodefClientInfo.CLIENT_SECRET);
@@ -28,7 +34,7 @@ public class ApiService {
         parameterMap.put("organization", "0001");
         parameterMap.put("loginType", "5");
         parameterMap.put("loginUserName",apiDto.getLoginUserName());
-        parameterMap.put("identity", apiDto.getIdentity());
+        parameterMap.put("identity",apiDto.getIdentity());
         parameterMap.put("loginTypeLevel","1");
         parameterMap.put("phoneNo",apiDto.getPhoneNo());
         parameterMap.put("birthDate",apiDto.getBirthDate());
@@ -39,14 +45,16 @@ public class ApiService {
         parameterMap.put("serialNo",apiDto.getSerialNo());
         parameterMap.put("userName",apiDto.getLoginUserName());
 
+//        parameterMap.put("identity", EasyCodefUtil.encryptRSA("user_identity", codef.getPublicKey()));
+//        parameterMap.put("licenseNo01",EasyCodefUtil.encryptRSA("user_licenseNo01", codef.getPublicKey()));
+//        parameterMap.put("licenseNo02",EasyCodefUtil.encryptRSA("user_licenseNo02", codef.getPublicKey()));
+//        parameterMap.put("licenseNo03",EasyCodefUtil.encryptRSA("user_licenseNo03", codef.getPublicKey()));
+//        parameterMap.put("licenseNo04",EasyCodefUtil.encryptRSA("user_licenseNo04", codef.getPublicKey()));
+
         //API 요청
         try {
             result = codef.requestProduct(productUrl, EasyCodefServiceType.DEMO, parameterMap);
-        } catch (UnsupportedEncodingException e) {
-            throw new RuntimeException(e);
-        } catch (JsonProcessingException e) {
-            throw new RuntimeException(e);
-        } catch (InterruptedException e) {
+        } catch (UnsupportedEncodingException | JsonProcessingException | InterruptedException e) {
             throw new RuntimeException(e);
         }
 
@@ -85,8 +93,20 @@ public class ApiService {
         //추가인증 요청 시에는 이지코드에프.requestCertification 으로 호출
         result = codef.requestCertification(productUrl, EasyCodefServiceType.DEMO, parameterMap);
 
+        HashMap<String, Object> TwoWayResponseMap = null;
+        try {
+            TwoWayResponseMap = new ObjectMapper().readValue(result, HashMap.class);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
+
+        //결과값에서 추가 인증에 필요한 데이터 추출 및 저장하여 리턴
+        HashMap<String, Object> dataMap = (HashMap<String, Object>)TwoWayResponseMap.get("data");
+
+        String resAuthenticity = dataMap.get("resAuthenticity").toString();
+
         //결과값 확인
         System.out.println("추가인증(result) : " + result);
-        return result;
+        return resAuthenticity;
     }
 }

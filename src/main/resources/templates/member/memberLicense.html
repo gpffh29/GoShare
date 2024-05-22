@@ -1,48 +1,123 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>면허증 확인</title>
+    <title>회원가입</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/memberForm.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </head>
 <body>
-<h1>면허증 확인</h1>
-<form th:action="@{/member/License}" th:object="${ApiDto}" method="post">
-    <label for="loginUserName">성명:</label>
-    <input type="text" id="loginUserName" name="loginUserName" th:field="*{loginUserName}" required>
-    <br>
+<div class="container">
+    <!-- Form to submit data -->
+    <form id="dataForm" th:action="@{/member/License_form}" th:object="${ApiDto}" method="post">
+        <div class="memberFormContainer">
+            <div class="logoContainer">
+                <img src="/images/GoShare_logo.png" alt="logo" class="logo">
+                <h2>면허증 확인</h2>
+            </div>
+                <div class="memberForm">
+                <label for="loginUserName">성명:</label>
+                <input type="text" id="loginUserName" name="loginUserName" th:field="*{loginUserName}" required>
+                <br>
 
-    <label for="identity">주민등록번호:</label>
-    <input type="text" id="identity" name="identity" th:field="*{identity}" required>
-    <br>
+                <label for="identity">주민등록번호:</label>
+                <input type="text" id="identity" name="identity" th:field="*{identity}" required>
+                <br>
 
-    <label for="phoneNo">전화번호:</label>
-    <input type="text" id="phoneNo" name="phoneNo" th:field="*{phoneNo}" required>
-    <br>
+                <label for="phoneNo">전화번호:</label>
+                <input type="text" id="phoneNo" name="phoneNo" th:field="*{phoneNo}" required>
+                <br>
 
-    <label for="birthDate">생년월일:</label>
-    <input type="text" id="birthDate" name="birthDate" th:field="*{birthDate}" required>
-    <br>
+                <label for="birthDate">생년월일:</label>
+                <input type="text" id="birthDate" name="birthDate" th:field="*{birthDate}" required>
+                <br>
 
-    <label for="LicenseNo01">면허증1:</label>
-    <input type="text" id="LicenseNo01" name="LicenseNo01" th:field="*{licenseNo01}" required>
-    <br>
+                <label for="LicenseNo01">면허증1:</label>
+                <input type="text" id="LicenseNo01" name="LicenseNo01" th:field="*{licenseNo01}" required>
+                <br>
 
-    <label for="LicenseNo02">면허증2:</label>
-    <input type="text" id="LicenseNo02" name="LicenseNo02" th:field="*{licenseNo02}" required>
-    <br>
+                <label for="LicenseNo02">면허증2:</label>
+                <input type="text" id="LicenseNo02" name="LicenseNo02" th:field="*{licenseNo02}" required>
+                <br>
 
-    <label for="LicenseNo03">면허증3:</label>
-    <input type="text" id="LicenseNo03" name="LicenseNo03" th:field="*{licenseNo03}" required>
-    <br>
+                <label for="LicenseNo03">면허증3:</label>
+                <input type="text" id="LicenseNo03" name="LicenseNo03" th:field="*{licenseNo03}" required>
+                <br>
 
-    <label for="LicenseNo04">면허증4:</label>
-    <input type="text" id="LicenseNo04" name="LicenseNo04" th:field="*{licenseNo04}" required>
-    <br>
+                <label for="LicenseNo04">면허증4:</label>
+                <input type="text" id="LicenseNo04" name="LicenseNo04" th:field="*{licenseNo04}" required>
+                <br>
 
-    <label for="serialNo">일련번호:</label>
-    <input type="text" id="serialNo" name="serialNo" th:field="*{serialNo}" required>
-    <br>
+                <label for="serialNo">일련번호:</label>
+                <input type="text" id="serialNo" name="serialNo" th:field="*{serialNo}" required>
+                <br>
+                <button type="submit" class="btn btn-primary">인증 요청</button>
+            </div>
+            <p th:text="${failAuth}"></p>
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+        </div>
+    </form>
+</div>
 
-    <button type="submit">검증</button>
-</form>
+<!-- Modal -->
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">본인 인증</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p>카카오톡 보인 인증 완료 후 완료 버튼을 눌러주세요.</p>
+            </div>
+            <div class="modal-footer">
+                <form th:action="@{/member/License}" method="post">
+                    <button type="submit" class="btn btn-primary" name="buttonValue" value="1">완료</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function() {
+        $('#dataForm').on('submit', function (event) {
+            event.preventDefault(); // 폼의 기본 제출 동작을 막습니다.
+            $.ajax({
+                type: 'POST',
+                url: $(this).attr('action'),
+                data: $(this).serialize(),
+                success: function (response) {
+                    // 서버 응답이 성공적이면 모달을 표시합니다.
+                    $('#myModal').modal('show');
+                },
+                error: function (xhr, status, error) {
+                    alert('올바른 정보를 입력해주세요: ' + error);
+                }
+            });
+        });
+        // 모달 내부의 폼 처리
+        $('#modalForm').on('submit', function(event){
+            event.preventDefault(); // 폼의 기본 제출 동작을 막습니다.
+
+            $.ajax({
+                type: 'POST',
+                url: $(this).attr('action'),
+                data: $(this).serialize(),
+                success: function(response) {
+                    // 서버 응답이 성공적이면 모달을 닫거나 다른 처리를 합니다.
+                    alert('폼 제출 완료');
+                    $('#myModal').modal('hide');
+                },
+                error: function(xhr, status, error) {
+                    alert('폼 제출 중 오류가 발생했습니다: ' + error);
+                }
+            });
+        });
+    });
+</script>
+
 </body>
 </html>
