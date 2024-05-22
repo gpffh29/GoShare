@@ -19,6 +19,7 @@ public class BoardApiController {
 
     private final BoardService boardService;
 
+//   글 작성
     @PostMapping("/board/post")
     public ResponseEntity<Board> addBoard(@RequestBody AddBoardRequest request){
         Board savedBoard = boardService.save(request);
@@ -28,6 +29,7 @@ public class BoardApiController {
                 .body(savedBoard);
     }
 
+//    메인 보드
     @GetMapping("/api/boards")
     public ResponseEntity<List<BoardResponse>> findAllBoards() {
         List<BoardResponse> boards = boardService.findAll()
@@ -39,6 +41,7 @@ public class BoardApiController {
                 .body(boards);
     }
 
+//    특정 글 보기
     @GetMapping("/api/boards/{id}")
     public ResponseEntity<BoardResponse> findBoardById(@PathVariable long id){
         Board board = boardService.findById(id);
@@ -46,6 +49,8 @@ public class BoardApiController {
         return ResponseEntity.ok().body(new BoardResponse(board));
     }
 
+
+//    글 삭제
     @DeleteMapping("/api/boards/{id}")
     public ResponseEntity<Void> deleteBoard(@PathVariable long id){
         boardService.delete(id);
@@ -54,6 +59,8 @@ public class BoardApiController {
                 .build();
     }
 
+
+//    글 수정
     @PutMapping("/api/boards/{id}")
     public ResponseEntity<Board> updateBoard(@PathVariable long id, @RequestBody UpdateBoardRequest request){
         Board updatedBoard = boardService.update(id, request);

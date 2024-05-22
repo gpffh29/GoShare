@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/headerfooterLayout}">
+<head>
+    <meta charset="UTF-8">
+    <title>GoShareBoard</title>
+    <link rel="stylesheet" href="/css/mainBoard.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+    <script src="/js/mainBoard.js"></script>
+
+</head>
+
+<body>
+<div layout:fragment="content">
+    <!--    메인보드 상단 이미지 삽입 -->
+    <div class="mainBoardImg">
+        <div class="mainBoardTop">
+            <img class="mainImg" src="/images/GoShare_up.jpg" alt="메인 이미지">
+        </div>
+    </div>
+
+    <!--    검색 창 구현 -->
+    <div class="searchBar">
+        <!--        지역 선택 -->
+        <select class="form-control">
+            <option value="seoul">서울</option>
+            <option value="gg">경기도</option>
+            <option value="gw">강원도</option>
+            <option value="chungbuk">충청북도</option>
+            <option value="chungnam">충청남도</option>
+            <option value="gb">경상북도</option>
+            <option value="gyeongnam">경상남도</option>
+            <option value="jeonbuk">전라북도</option>
+            <option value="jeonnam">전라남도</option>
+            <option value="jeju">제주도</option>
+        </select>
+
+        <!--        대여 시작일 선택 -->
+        <input class="form-control" id="startDate" placeholder="대여 시작일 선택">
+
+
+        <!--        반납일 선택 -->
+
+        <input class="form-control" id="lastDate" placeholder="반납일 선택">
+
+
+        <!--        차종 선택 -->
+        <select class="form-control">
+            <option value="small">소형</option>
+            <option value="medium">중형</option>
+            <option value="large">대형</option>
+
+        </select>
+        <!--        검색 버튼 -->
+        <button id="searchBtn" type="submit" class="searchButton">검색</button>
+
+    </div>
+
+    <!--    게시판 화면 구현 -->
+    <div class="row">
+        <th:block th:each="board : ${boards}">
+            <div class="board_main">
+                <div class="card">
+                    <a class="board_card">
+                        <img th:src="${board.imgUrl}" class="card_img">
+                        <div class="card_body">
+                            <p class="startDate" th:text="${board.startDate}"></p>
+                            <p class="lastDate" th:text="${board.lastDate}"></p>
+                            <h4 class="price" th:text="${board.price}"></h4>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </th:block>
+    </div>
+
+</div>
+</body>
+</html>

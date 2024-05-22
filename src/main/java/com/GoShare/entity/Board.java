@@ -19,7 +19,7 @@ public class Board {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", updatable = false)
+    @Column(name = "board_id", updatable = false)
     private Long id;
 
     @Column(name = "carImg", nullable = false)
