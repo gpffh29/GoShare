@@ -3,15 +3,13 @@ package com.GoShare.controller;
 
 import com.GoShare.dto.AddBoardRequest;
 import com.GoShare.dto.BoardResponse;
+import com.GoShare.dto.UpdateBoardRequest;
 import com.GoShare.entity.Board;
 import com.GoShare.service.BoardService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -39,5 +37,28 @@ public class BoardApiController {
 
         return ResponseEntity.ok()
                 .body(boards);
+    }
+
+    @GetMapping("/api/boards/{id}")
+    public ResponseEntity<BoardResponse> findBoardById(@PathVariable long id){
+        Board board = boardService.findById(id);
+
+        return ResponseEntity.ok().body(new BoardResponse(board));
+    }
+
+    @DeleteMapping("/api/boards/{id}")
+    public ResponseEntity<Void> deleteBoard(@PathVariable long id){
+        boardService.delete(id);
+
+        return ResponseEntity.ok()
+                .build();
+    }
+
+    @PutMapping("/api/boards/{id}")
+    public ResponseEntity<Board> updateBoard(@PathVariable long id, @RequestBody UpdateBoardRequest request){
+        Board updatedBoard = boardService.update(id, request);
+
+        return ResponseEntity.ok()
+                .body(updatedBoard);
     }
 }

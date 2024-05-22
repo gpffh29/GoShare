@@ -1,6 +1,7 @@
 package com.GoShare.dto;
 
 import com.GoShare.entity.Board;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,7 +16,9 @@ public class AddBoardRequest {
     private String carImg;
     private String content;
     private String region;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "UTC")
     private Date startDate;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "UTC")
     private Date lastDate;
     private Integer price;
 

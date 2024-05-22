@@ -1,6 +1,7 @@
 package com.GoShare.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -31,9 +32,11 @@ public class Board {
     private String region;
 
     @Column(name = "startDate", nullable = false)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "UTC")
     private Date startDate;
 
     @Column(name = "lastDate", nullable = false)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "UTC")
     private Date lastDate;
 
     @Column(name = "price", nullable = false)
@@ -41,6 +44,16 @@ public class Board {
 
     @Builder
     public Board(String carImg, String content, String region, Date startDate, Date lastDate, Integer price) {
+        this.carImg = carImg;
+        this.content = content;
+        this.region = region;
+        this.startDate = startDate;
+        this.lastDate = lastDate;
+        this.price = price;
+    }
+
+//    글 수정
+    public void update(String carImg, String content, String region, Date startDate, Date lastDate, Integer price) {
         this.carImg = carImg;
         this.content = content;
         this.region = region;
