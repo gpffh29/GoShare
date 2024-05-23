@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>회원가입</title>
+    <title>차량 등록</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/memberForm.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -10,15 +10,15 @@
 <body>
 <div class="container">
     <!-- Form to submit data -->
-    <form id="dataForm" th:action="@{/member/License_form}" th:object="${LicenseInputDto}" method="post">
+    <form id="dataForm" th:action="@{/car/registration_form}" th:object="${CarInputDto}" method="post">
         <div class="memberFormContainer">
             <div class="logoContainer">
                 <img src="/images/GoShare_logo.png" alt="logo" class="logo">
                 <h2>면허증 확인</h2>
             </div>
-                <div class="memberForm">
-                <label for="loginUserName">성명:</label>
-                <input type="text" id="loginUserName" name="loginUserName" th:field="*{loginUserName}" required>
+            <div class="memberForm">
+                <label for="userName">성명:</label>
+                <input type="text" id="userName" name="userName" th:field="*{userName}" required>
                 <br>
 
                 <label for="identity">주민등록번호:</label>
@@ -29,32 +29,11 @@
                 <input type="text" maxlength="11" placeholder="'-'없이 작성" id="phoneNo" name="phoneNo" th:field="*{phoneNo}" required>
                 <br>
 
-                <label for="birthDate">생년월일:</label>
-                <input type="text" maxlength="8" placeholder="ex)19990101" id="birthDate" name="birthDate" th:field="*{birthDate}" required>
-                <br>
-
-                <label for="LicenseNo01">운전 면허번호01 (지역):</label>
-                <input type="text" maxlength="2" id="LicenseNo01" name="LicenseNo01" th:field="*{licenseNo01}" required>
-                <br>
-
-                <label for="LicenseNo02">운전 면허번호02 (년도):</label>
-                <input type="text" maxlength="2" id="LicenseNo02" name="LicenseNo02" th:field="*{licenseNo02}" required>
-                <br>
-
-                <label for="LicenseNo03">운전 면허번호03:</label>
-                <input type="text" maxlength="6" id="LicenseNo03" name="LicenseNo03" th:field="*{licenseNo03}" required>
-                <br>
-
-                <label for="LicenseNo04">운전 면허번호04:</label>
-                <input type="text" maxlength="2" id="LicenseNo04" name="LicenseNo04" th:field="*{licenseNo04}" required>
-                <br>
-
-                <label for="serialNo">일련번호:</label>
-                <input type="text" maxlength="6" id="serialNo" name="serialNo" th:field="*{serialNo}" required>
+                <label for="carNo">차량 번호:</label>
+                <input type="text" maxlength="" placeholder="" id="carNo" name="carNo" th:field="*{carNo}" required>
                 <br>
                 <button type="submit" class="btn btn-primary">인증 요청</button>
             </div>
-            <p th:text="${failAuth}"></p>
             <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
         </div>
     </form>
@@ -73,7 +52,7 @@
                 <p>카카오톡 보인 인증 완료 후 완료 버튼을 눌러주세요.</p>
             </div>
             <div class="modal-footer">
-                <form th:action="@{/member/License}" method="post">
+                <form th:action="@{/car/registration}" method="post">
                     <button type="submit" class="btn btn-primary" name="buttonValue" value="1">완료</button>
                 </form>
             </div>

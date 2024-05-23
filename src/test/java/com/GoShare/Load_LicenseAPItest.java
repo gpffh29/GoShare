@@ -2,9 +2,7 @@ package com.GoShare;
 
 
 import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 import com.GoShare.codefAPI.CodefClientInfo;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -27,7 +25,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  * @Date    : Jun 26, 2020 3:42:23 PM
  * @Version : 1.0.1
  */
-public class EasyCodefBusinessStatusTest {
+public class Load_LicenseAPItest {
 
     @SuppressWarnings("unchecked")
     @Test

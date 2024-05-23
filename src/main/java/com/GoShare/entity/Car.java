@@ -5,11 +5,12 @@ import lombok.*;
 
 @Entity
 @Getter @Setter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor
 @AllArgsConstructor
 public class Car {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "car_id", updatable = false, unique = true)
     private String car_id;
 

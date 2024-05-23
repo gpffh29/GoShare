@@ -2,11 +2,10 @@ package com.GoShare.codefAPI;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.validator.constraints.Length;
 
 @Getter
 @Setter
-public class ApiDto {
+public class LicenseInputDto {
 
     private String loginUserName;
 
