@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.codef.api.EasyCodef;
 import io.codef.api.EasyCodefServiceType;
+import io.codef.api.EasyCodefUtil;
 import org.springframework.stereotype.Service;
 
 import javax.crypto.BadPaddingException;
@@ -57,7 +58,7 @@ public class ApiService {
         } catch (UnsupportedEncodingException | JsonProcessingException | InterruptedException e) {
             throw new RuntimeException(e);
         }
-
+        System.out.println(result);
         //결과값을 Hashmap으로 형변환
         HashMap<String, Object> responseMap = null;
         try {
