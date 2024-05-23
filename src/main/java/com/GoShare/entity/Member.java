@@ -9,6 +9,8 @@ import lombok.ToString;
 import com.GoShare.dto.MemberFormDto;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import java.util.List;
+
 
 @Entity
 @Table(name="member")
@@ -33,6 +35,9 @@ public class Member {
 
     @Enumerated(EnumType.STRING)
     private Role role;
+
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
+    private List<Car> cars;
 
     public static Member createMember(MemberFormDto memberFormDto, PasswordEncoder passwordEncoder){
         Member member = new Member();
