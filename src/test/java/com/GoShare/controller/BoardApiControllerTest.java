@@ -67,14 +67,13 @@ class BoardApiControllerTest {
     public void addBoard() throws Exception {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
-        final String url = "/board/post";
-        final String carImg = "carImg";
+        final String url = "/boards/post";
         final String content = "content";
         final String region = "region";
         final Date startDate = dateFormat.parse("2024-05-06");
         final Date lastDate = dateFormat.parse("2024-05-10");
         final Integer price = 50000;
-        final AddBoardRequest userRequest = new AddBoardRequest(carImg,content,region,startDate,lastDate,price);
+        final AddBoardRequest userRequest = new AddBoardRequest(content,region,startDate,lastDate,price);
 
 
 //        json으로 직렬화
@@ -87,7 +86,6 @@ class BoardApiControllerTest {
         List<Board> boards = boardRepository.findAll();
 
         assertEquals(1, boards.size());
-        assertEquals(carImg, boards.get(0).getCarImg());
         assertEquals(content, boards.get(0).getContent());
         assertEquals(region, boards.get(0).getRegion());
         assertEquals(startDate, boards.get(0).getStartDate());
@@ -102,14 +100,14 @@ class BoardApiControllerTest {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
         final String url = "/api/boards";
-        final String carImg = "carImg";
+
         final String content = "content";
         final String region = "region";
         final Date startDate = dateFormat.parse("2024-05-06");
         final Date lastDate = dateFormat.parse("2024-05-10");
         final Integer price = 50000;
 
-        boardRepository.save(Board.builder().carImg(carImg).content(content).region(region).startDate(startDate).lastDate(lastDate).price(price).build());
+        boardRepository.save(Board.builder().content(content).region(region).startDate(startDate).lastDate(lastDate).price(price).build());
 
         final ResultActions resultActions = mockMvc.perform(get(url).accept(MediaType.APPLICATION_JSON));
 
@@ -118,8 +116,7 @@ class BoardApiControllerTest {
                 .andExpect(jsonPath("$[0].lastDate").value(dateFormat.format(lastDate)))
                 .andExpect(jsonPath("$[0].startDate").value(dateFormat.format(startDate)))
                 .andExpect(jsonPath("$[0].region").value(region))
-                .andExpect(jsonPath("$[0].content").value(content))
-                .andExpect(jsonPath("$[0].carImg").value(carImg));
+                .andExpect(jsonPath("$[0].content").value(content));
     }
 
     @DisplayName("findBoard: 글 조회에 성공")
@@ -128,14 +125,13 @@ class BoardApiControllerTest {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
         final String url = "/api/boards/{id}";
-        final String carImg = "carImg";
         final String content = "content";
         final String region = "region";
         final Date startDate = dateFormat.parse("2024-05-06");
         final Date lastDate = dateFormat.parse("2024-05-10");
         final Integer price = 50000;
 
-        Board savedBoard = boardRepository.save(Board.builder().carImg(carImg).content(content).region(region).startDate(startDate).lastDate(lastDate).price(price).build());
+        Board savedBoard = boardRepository.save(Board.builder().content(content).region(region).startDate(startDate).lastDate(lastDate).price(price).build());
 
 
         final ResultActions resultActions = mockMvc.perform(get(url, savedBoard.getId()));
@@ -146,8 +142,7 @@ class BoardApiControllerTest {
                 .andExpect(jsonPath("$.lastDate").value(dateFormat.format(lastDate)))
                 .andExpect(jsonPath("$.startDate").value(dateFormat.format(startDate)))
                 .andExpect(jsonPath("$.region").value(region))
-                .andExpect(jsonPath("$.content").value(content))
-                .andExpect(jsonPath("$.carImg").value(carImg));
+                .andExpect(jsonPath("$.content").value(content));
 
     }
 
@@ -157,14 +152,14 @@ class BoardApiControllerTest {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
         final String url = "/api/boards/{id}";
-        final String carImg = "carImg";
+
         final String content = "content";
         final String region = "region";
         final Date startDate = dateFormat.parse("2024-05-06");
         final Date lastDate = dateFormat.parse("2024-05-10");
         final Integer price = 50000;
 
-        Board savedBoard = boardRepository.save(Board.builder().carImg(carImg).content(content).region(region).startDate(startDate).lastDate(lastDate).price(price).build());
+        Board savedBoard = boardRepository.save(Board.builder().content(content).region(region).startDate(startDate).lastDate(lastDate).price(price).build());
 
         mockMvc.perform(delete(url, savedBoard.getId())).andExpect(status().isOk());
 
@@ -180,7 +175,6 @@ class BoardApiControllerTest {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
         final String url = "/api/boards/{id}";
-        final String carImg = "carImg";
         final String content = "content";
         final String region = "region";
         final Date startDate = dateFormat.parse("2024-05-06");
@@ -188,7 +182,7 @@ class BoardApiControllerTest {
         final Integer price = 50000;
 
 
-        Board savedBoard = boardRepository.save(Board.builder().carImg(carImg).content(content).region(region).startDate(startDate).lastDate(lastDate).price(price).build());
+        Board savedBoard = boardRepository.save(Board.builder().content(content).region(region).startDate(startDate).lastDate(lastDate).price(price).build());
 
         final String newCarImg = "newCarImg";
         final String newContent = "newContent";
@@ -197,7 +191,7 @@ class BoardApiControllerTest {
         final Date newLastDate = dateFormat.parse("2024-05-15");
         final Integer newPrice = 100000;
 
-        UpdateBoardRequest request = new UpdateBoardRequest(newCarImg, newContent, newRegion, newStartDate, newLastDate, newPrice);
+        UpdateBoardRequest request = new UpdateBoardRequest(newContent, newRegion, newStartDate, newLastDate, newPrice);
 
         ResultActions result = mockMvc.perform(put(url, savedBoard.getId()).contentType(MediaType.APPLICATION_JSON_VALUE).content(objectMapper.writeValueAsString(request)).accept(MediaType.APPLICATION_JSON));
 
@@ -205,7 +199,6 @@ class BoardApiControllerTest {
 
         Board board = boardRepository.findById(savedBoard.getId()).get();
 
-        assertEquals(board.getCarImg(), newCarImg);
         assertEquals(board.getContent(), newContent);
         assertEquals(board.getRegion(), newRegion);
         assertEquals(board.getStartDate(), newStartDate);

@@ -43,7 +43,7 @@ public class BoardService {
     public Board update(long id, UpdateBoardRequest request){
         Board board = boardRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("not found: " + id));
 
-        board.update(request.getCarImg(), request.getContent(), request.getRegion(), request.getStartDate(), request.getLastDate(), request.getPrice());
+        board.update(request.getContent(), request.getRegion(), request.getStartDate(), request.getLastDate(), request.getPrice());
 
         return board;
     }

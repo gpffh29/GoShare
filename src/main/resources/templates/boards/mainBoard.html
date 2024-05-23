@@ -64,8 +64,9 @@
         <th:block th:each="board : ${boards}">
             <div class="board_main">
                 <div class="card">
-                    <a class="board_card">
-                        <img th:src="${board.imgUrl}" class="card_img">
+                    <a class="board_card" th:href="@{/boards/{id}(id=${board.id})}">
+<!--                        이미지 추가 -->
+<!--                        <img th:src="${board.imgUrl}" class="card_img">-->
                         <div class="card_body">
                             <p class="startDate" th:text="${board.startDate}"></p>
                             <p class="lastDate" th:text="${board.lastDate}"></p>

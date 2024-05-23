@@ -11,8 +11,6 @@ import java.util.Date;
 @Getter
 public class BoardListViewResponse {
 
-    private final String carImg;
-
     private final Date startDate;
 
     private final Date lastDate;
@@ -20,7 +18,7 @@ public class BoardListViewResponse {
     private final Integer price;
 
     public BoardListViewResponse(Board board) {
-        this.carImg = board.getCarImg();
+
         this.startDate = board.getStartDate();
         this.lastDate = board.getLastDate();
         this.price = board.getPrice();

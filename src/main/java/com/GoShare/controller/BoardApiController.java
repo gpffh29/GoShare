@@ -20,7 +20,7 @@ public class BoardApiController {
     private final BoardService boardService;
 
 //   글 작성
-    @PostMapping("/board/post")
+    @PostMapping("/api/boards")
     public ResponseEntity<Board> addBoard(@RequestBody AddBoardRequest request){
         Board savedBoard = boardService.save(request);
 

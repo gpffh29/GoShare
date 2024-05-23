@@ -13,7 +13,6 @@ import java.util.Date;
 @Getter
 public class AddBoardRequest {
 
-    private String carImg;
     private String content;
     private String region;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "UTC")
@@ -24,7 +23,6 @@ public class AddBoardRequest {
 
     public Board toEntity(){
         return Board.builder()
-                .carImg(carImg)
                 .content(content)
                 .region(region)
                 .startDate(startDate)

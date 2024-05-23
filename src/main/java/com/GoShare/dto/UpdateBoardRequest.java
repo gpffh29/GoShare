@@ -13,7 +13,6 @@ import java.util.Date;
 @AllArgsConstructor
 @Getter
 public class UpdateBoardRequest {
-    private String carImg;
     private String content;
     private String region;
     private Date startDate;

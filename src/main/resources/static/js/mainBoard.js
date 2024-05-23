@@ -1,4 +1,3 @@
-
 <!-- 날짜 선택 시 캘린더 제공 -->
 $(function () {
     var today = new Date();
