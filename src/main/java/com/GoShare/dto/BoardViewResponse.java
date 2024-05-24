@@ -2,6 +2,7 @@ package com.GoShare.dto;
 
 
 import com.GoShare.entity.Board;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -16,7 +17,9 @@ public class BoardViewResponse {
     private Long id;
 
     private String region;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private Date startDate;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private Date lastDate;
     private Integer price;
     private String content;

@@ -67,7 +67,7 @@ class BoardApiControllerTest {
     public void addBoard() throws Exception {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
-        final String url = "/boards/post";
+        final String url = "/api/boards";
         final String content = "content";
         final String region = "region";
         final Date startDate = dateFormat.parse("2024-05-06");
@@ -146,7 +146,7 @@ class BoardApiControllerTest {
 
     }
 
-    @DisplayName("delteeBoard: 글 삭제에 성공")
+    @DisplayName("deleteBoard: 글 삭제에 성공")
     @Test
     public void deleteBoard() throws Exception {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");

@@ -15,7 +15,7 @@ if (deleteButton){
 }
 
 //수정 기능
-const modifyButton = document.getElementById('modify-btn');
+const modifyButton= document.getElementById('modify-btn');
 
 if (modifyButton){
     modifyButton.addEventListener('click', event => {
@@ -47,19 +47,26 @@ $(function () {
     var today = new Date();
 
     $("#startDate").datepicker({
-
-        dateFormat: "yy-mm-dd",
+        dateFormat: "yyyy-mm-dd",
         minDate: today,
         onClose: function (selectedDate) {
             $("#lastDate").datepicker("option", "minDate", selectedDate);
         }
+        // onSelect: function(selectedDate) {
+        //     var startDate = new Date(selectedDate);
+        //     // 여기서 startDate를 사용하여 필요한 작업을 수행할 수 있습니다.
+        // }
     });
     $("#lastDate").datepicker({
-        dateFormat: "yy-mm-dd",
+        dateFormat: "yyyy-mm-dd",
         minDate: today,
         onClose: function (selectedDate) {
             $("#startDate").datepicker("option", "maxDate", selectedDate);
         }
+        // onSelect: function(selectedDate) {
+        //     var startDate = new Date(selectedDate);
+        //     // 여기서 startDate를 사용하여 필요한 작업을 수행할 수 있습니다.
+        // }
     });
 });
 
