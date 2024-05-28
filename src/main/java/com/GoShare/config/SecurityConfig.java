@@ -25,18 +25,17 @@ public class SecurityConfig{
         http
                 .formLogin(form -> form
                         .loginPage("/members/login")
-                        .defaultSuccessUrl("/")
+                        .defaultSuccessUrl("/boards")
                         .usernameParameter("email")
                         .failureUrl("/members/login/error")
                 )
                 .logout(logout -> logout
-                        .logoutUrl("/")
+                        .invalidateHttpSession(true)
                         .logoutSuccessUrl("/boards")
-                        .permitAll()
                 )
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/css/**", "/js/**", "/images/**").permitAll()
-                        .requestMatchers("/**", "/members/**").permitAll()
+                        .requestMatchers("/", "/boards", "/members/**", "/member/**").permitAll()
                         .requestMatchers("/admin/**").hasRole("ADMIN")
                         .anyRequest().authenticated()
                 );

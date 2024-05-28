@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <!--header 영역입니다.-->
 <div th:fragment="header">
     <nav class="navbar" style="background-color: #4494ff; padding: 15px; align-items: center; display: flex; justify-content: space-between">
@@ -11,7 +12,8 @@
 <!--        내비게이션 버튼-->
         <a class="navbutton" href="/board/post" style="margin-left: auto; text-decoration: none; color: black; padding: 8px 16px; background-color:#004aad; border: none; border-radius: 4px; cursor: pointer;">글 등록하기</a>
         <a class="navbutton" href="/car/registration" style="margin-left: 5px; text-decoration: none; color: black; padding: 8px 16px; background-color:#004aad; border: none; border-radius: 4px; cursor: pointer;">내 차 등록</a>
-        <a class="navbutton" href="/members/logout" style="margin-left: 5px; text-decoration: none; color: black; padding: 8px 16px; background-color:#004aad; border: none; border-radius: 4px; cursor: pointer;">로그아웃</a>
+        <a class="navbutton" sec:authorize="isAnonymous()" href="/members/login" style="margin-left: 5px; text-decoration: none; color: black; padding: 8px 16px; background-color:#004aad; border: none; border-radius: 4px; cursor: pointer;">로그인</a>
+        <a class="navbutton" sec:authorize="isAuthenticated()" href="/members/logout" style="margin-left: 5px; text-decoration: none; color: black; padding: 8px 16px; background-color:#004aad; border: none; border-radius: 4px; cursor: pointer;">로그아웃</a>
         <a class="navbutton" href="/introduce" style="margin-left: 5px; text-decoration: none; color: black; padding: 8px 16px; background-color:#004aad; border: none; border-radius: 4px; cursor: pointer;">개발자 소개</a>
     </nav>
 </div>
