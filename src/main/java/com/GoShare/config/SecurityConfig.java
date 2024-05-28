@@ -28,7 +28,6 @@ public class SecurityConfig{
                 )
                 .logout(logout -> logout
                         .invalidateHttpSession(true)
-                        .logoutSuccessUrl("/boards")
                 )
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/css/**", "/js/**", "/images/**").permitAll()
