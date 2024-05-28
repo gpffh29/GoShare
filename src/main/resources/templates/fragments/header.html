@@ -10,7 +10,7 @@
             <img src="/images/navbar_logo.png" alt="로고" style="width: 120px; height: 50px; ">
         </a>
 <!--        내비게이션 버튼-->
-        <a class="navbutton" href="/board/post" style="margin-left: auto; text-decoration: none; color: black; padding: 8px 16px; background-color:#004aad; border: none; border-radius: 4px; cursor: pointer;">글 등록하기</a>
+        <a class="navbutton" th:onclick="|location.href='@{/boards/post}'|" style="margin-left: auto; text-decoration: none; color: black; padding: 8px 16px; background-color:#004aad; border: none; border-radius: 4px; cursor: pointer;">글 등록하기</a>
         <a class="navbutton" href="/car/registration" style="margin-left: 5px; text-decoration: none; color: black; padding: 8px 16px; background-color:#004aad; border: none; border-radius: 4px; cursor: pointer;">내 차 등록</a>
         <a class="navbutton" sec:authorize="isAnonymous()" href="/members/login" style="margin-left: 5px; text-decoration: none; color: black; padding: 8px 16px; background-color:#004aad; border: none; border-radius: 4px; cursor: pointer;">로그인</a>
         <a class="navbutton" sec:authorize="isAuthenticated()" href="/members/logout" style="margin-left: 5px; text-decoration: none; color: black; padding: 8px 16px; background-color:#004aad; border: none; border-radius: 4px; cursor: pointer;">로그아웃</a>

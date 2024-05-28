@@ -4,19 +4,8 @@
     <meta charset="UTF-8">
     <title>회원가입</title>
     <link rel="stylesheet" href="/css/memberForm.css">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
-<script>
-    $(document).ready(function () {
-        // Thymeleaf를 사용하여 서버에서 전달된 errorMessage를 JavaScript 변수에 할당
-        const errorMessage = /*[[${errorMessage}]]*/ 'null';
-
-        if (errorMessage !== 'null') {
-            alert(errorMessage);
-        }
-    });
-</script>
 <!--    회원 가입 화면 구현-->
     <form action="/members/new" role="form" method="post" th:object="${memberFormDto}">
         <div class="memberFormContainer">
