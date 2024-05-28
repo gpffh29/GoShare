@@ -1,18 +1,15 @@
-package com.GoShare.codefAPI;
+package com.GoShare.service;
 
+import com.GoShare.dto.CarInputDto;
+import com.GoShare.codefAPI.CodefClientInfo;
+import com.GoShare.dto.LicenseInputDto;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.codef.api.EasyCodef;
 import io.codef.api.EasyCodefServiceType;
 import org.springframework.stereotype.Service;
 
-import javax.crypto.BadPaddingException;
-import javax.crypto.IllegalBlockSizeException;
-import javax.crypto.NoSuchPaddingException;
 import java.io.UnsupportedEncodingException;
-import java.security.InvalidKeyException;
-import java.security.NoSuchAlgorithmException;
-import java.security.spec.InvalidKeySpecException;
 import java.util.HashMap;
 
 @Service
@@ -168,7 +165,7 @@ public class ApiService {
         return parameterMap;
     }
 
-    /** 면허증 API 추가 인증 메서드 **/
+    /** 자동차등록원부(갑) API 추가 인증 메서드 **/
     public HashMap<String, Object> TwoWay_Regstration(HashMap<String, Object> parameterMap) throws UnsupportedEncodingException, JsonProcessingException, InterruptedException {
         //쉬운 코드에프 객체 생성 및 클라이언트 정보 설정
         String productUrl = "/v1/kr/public/mw/car-registration-a/issuance";

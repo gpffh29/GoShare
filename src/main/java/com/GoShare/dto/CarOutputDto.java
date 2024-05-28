@@ -1,4 +1,4 @@
-package com.GoShare.codefAPI;
+package com.GoShare.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -12,4 +12,5 @@ public class CarOutputDto {
     String car_name;
     String car_type;
     String car_model;
+    String car_number;
 }

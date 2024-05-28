@@ -1,7 +1,7 @@
 package com.GoShare.config;
 
 import com.GoShare.service.MemberService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -14,28 +14,25 @@ import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 @EnableWebSecurity
+@RequiredArgsConstructor
 public class SecurityConfig{
-
-    @Autowired
-    MemberService memberService;
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 .formLogin(form -> form
                         .loginPage("/members/login")
-                        .defaultSuccessUrl("/")
+                        .defaultSuccessUrl("/boards")
                         .usernameParameter("email")
                         .failureUrl("/members/login/error")
                 )
                 .logout(logout -> logout
-                        .logoutUrl("/")
-                        .logoutSuccessUrl("/")
-                        .permitAll()
+                        .invalidateHttpSession(true)
+                        .logoutSuccessUrl("/boards")
                 )
-                .authorizeRequests(auth -> auth
+                .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/css/**", "/js/**", "/images/**").permitAll()
-                        .requestMatchers("/**", "/members/**").permitAll()
+                        .requestMatchers("/", "/boards", "/members/**", "/member/**").permitAll()
                         .requestMatchers("/admin/**").hasRole("ADMIN")
                         .anyRequest().authenticated()
                 );
