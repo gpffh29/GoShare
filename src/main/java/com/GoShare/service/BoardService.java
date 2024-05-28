@@ -19,11 +19,13 @@ public class BoardService {
 
 //    글 추가 메서드
     public Board save(AddBoardRequest request){
+        System.out.println(request+"글 등록 확인 텍스트");
         return boardRepository.save(request.toEntity());
     }
 
 //    데이터베이스에 저장되어 있는 글을 모두 가져오는 findAll()메서드
     public List<Board> findAll(){
+        System.out.println("글 불러오는 텍스트");
         return boardRepository.findAll();
     }
 

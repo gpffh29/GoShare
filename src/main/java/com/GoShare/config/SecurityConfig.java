@@ -1,6 +1,7 @@
 package com.GoShare.config;
 
 import com.GoShare.service.MemberService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,10 +15,10 @@ import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 @EnableWebSecurity
+@RequiredArgsConstructor
 public class SecurityConfig{
 
-    @Autowired
-    MemberService memberService;
+    final MemberService memberService;
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -30,10 +31,10 @@ public class SecurityConfig{
                 )
                 .logout(logout -> logout
                         .logoutUrl("/")
-                        .logoutSuccessUrl("/")
+                        .logoutSuccessUrl("/boards")
                         .permitAll()
                 )
-                .authorizeRequests(auth -> auth
+                .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/css/**", "/js/**", "/images/**").permitAll()
                         .requestMatchers("/**", "/members/**").permitAll()
                         .requestMatchers("/admin/**").hasRole("ADMIN")

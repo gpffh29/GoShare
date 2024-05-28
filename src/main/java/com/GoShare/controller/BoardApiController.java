@@ -22,6 +22,7 @@ public class BoardApiController {
 //   글 작성
     @PostMapping("/board/post")
     public ResponseEntity<Board> addBoard(@RequestBody AddBoardRequest request){
+        System.out.println("test /api/boards");
         Board savedBoard = boardService.save(request);
 
         //요청이 성공적이면 저장된 글 정보를 응답 객체에 전송
