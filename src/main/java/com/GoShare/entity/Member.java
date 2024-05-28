@@ -36,7 +36,7 @@ public class Member {
     @Enumerated(EnumType.STRING)
     private Role role;
 
-    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Car> cars;
 
     public static Member createMember(MemberFormDto memberFormDto, PasswordEncoder passwordEncoder){

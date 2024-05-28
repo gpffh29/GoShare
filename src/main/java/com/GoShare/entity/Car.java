@@ -11,8 +11,11 @@ public class Car {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "car_id", updatable = false, unique = true)
-    private String car_id;
+    @Column(name = "car_id", updatable = false)
+    private Long car_id;
+
+    @Column(name = "car_number", nullable = false, unique = true)
+    private String car_number;
 
     @Column(name = "car_name", nullable = false)
     private String car_name;
@@ -23,7 +26,7 @@ public class Car {
     @Column(name = "car_model", nullable = false)
     private String car_model;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id", nullable = false)
     private Member member;
 

@@ -1,11 +1,18 @@
-package com.GoShare.codefAPI;
+package com.GoShare.controller;
 
+import com.GoShare.entity.Member;
+import com.GoShare.service.ApiService;
+import com.GoShare.dto.CarInputDto;
+import com.GoShare.dto.CarOutputDto;
+import com.GoShare.dto.LicenseInputDto;
 import com.GoShare.dto.MemberFormDto;
-import com.GoShare.entity.Car;
 import com.GoShare.service.CarService;
+import com.GoShare.service.MemberService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -29,6 +36,7 @@ public class ApiController {
 
     private final ApiService apiService;
     private final CarService carService;
+    private final MemberService memberService;
 
     /** 면허증 진위 여부 API 사용 컨트롤러 **/
     @GetMapping("/member/License")
@@ -38,7 +46,7 @@ public class ApiController {
     }
 
     @PostMapping("/member/License_form")
-    public String LicenseForm_post(@ModelAttribute LicenseInputDto licenseInputDto, BindingResult bindingResult, HttpSession session, Model model) throws NoSuchPaddingException, IllegalBlockSizeException, NoSuchAlgorithmException, InvalidKeySpecException, BadPaddingException, InvalidKeyException {
+    public String LicenseForm_post(@ModelAttribute LicenseInputDto licenseInputDto, HttpSession session, Model model) throws NoSuchPaddingException, IllegalBlockSizeException, NoSuchAlgorithmException, InvalidKeySpecException, BadPaddingException, InvalidKeyException {
         HashMap<String, Object> resultmap=apiService.Driver_License(licenseInputDto);
         session.setAttribute("resultmap", resultmap);
         model.addAttribute("LicenseInputDto", licenseInputDto);
@@ -99,10 +107,27 @@ public class ApiController {
             carOutputDto.setCar_name(dataMap.get("commCarName").toString());
             carOutputDto.setCar_type(dataMap.get("resCarModelType").toString());
             carOutputDto.setCar_model(dataMap.get("resCarYearModel").toString());
-            carService.saveCar(carOutputDto);
+            carOutputDto.setCar_number(dataMap.get("resCarNo").toString());
 
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            String member_email = (String) authentication.getName();
+            Member member = memberService.findMemberByEmail(member_email);
+
+            carService.saveCar(carOutputDto, member);
+            model.addAttribute("message", "차량 등록에 성공하였습니다");
             return "car/registrationSuccess";
         }
-        return "car/carForm";
+        else if(code.equals("CF-13230")){
+            model.addAttribute("message", "입력된 차량번호와 소유자명이 일치하지 않습니다");
+            return "car/registrationFail";
+        }
+        else if(code.equals("CF-13225")){
+            model.addAttribute("message", "존재하지 않는 차량번호(차대번호)입니다");
+            return "car/registrationFail";
+        }
+        else{
+            model.addAttribute("message", "인증 완료 후 확인 버튼을 눌러주세요");
+            return "car/registrationFail";
+        }
     }
 }

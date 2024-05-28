@@ -1,4 +1,4 @@
-package com.GoShare.codefAPI;
+package com.GoShare.dto;
 
 import lombok.Getter;
 import lombok.Setter;
