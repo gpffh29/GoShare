@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/headerfooterLayout}">
+<head>
+    <meta charset="UTF-8">
+    <title>board</title>
+    <link rel="stylesheet" href="/css/board.css">
+    <script src="/js/board.js"></script>
+    <meta name="_csrf" th:content="${_csrf.token}"/>
+    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="boardContainer">
+        <div class="row">
+            <board>
+                <input type="hidden" id="board-id" th:value="${board.id}">
+                <header class="header">
+<!--                    이미지 추가 -->
+<!--                    <img th:src="${board.imgUrl}" class="card_img">-->
+                    <div class="time" th:text="|Posted on${#temporals.format(board.createdAt, 'yyyy-MM-dd HH:mm')}|"></div>
+                </header>
+
+                <div class="mainContent">
+                    <p class="region" th:text="${board.region}"></p>
+                    <p class="startDate" th:text="${board.startDate}"></p>
+                    <p class="lastDate" th:text="${board.lastDate}"></p>
+                    <p class="price" th:text="${board.price}"></p>
+
+                    <p class="content" th:text="${board.content}"></p>
+                </div>
+
+                <div class="btns">
+                    <button type="button" id="modify-btn" th:onclick="|location.href='@{/boards/post?id={boardId}(boardId=${board.id})}'|" class="updateBtn">수정</button>
+                    <button type="submit" id="delete-btn" class="deleteBtn">삭제</button>
+                </div>
+
+            </board>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

@@ -20,9 +20,10 @@ public class BoardApiController {
     private final BoardService boardService;
 
 //   글 작성
-    @PostMapping("/board/post")
+    @PostMapping("/api/boards")
     public ResponseEntity<Board> addBoard(@RequestBody AddBoardRequest request){
         Board savedBoard = boardService.save(request);
+        System.out.println("test /api/boards");
 
         //요청이 성공적이면 저장된 글 정보를 응답 객체에 전송
         return ResponseEntity.status(HttpStatus.CREATED)
@@ -32,6 +33,7 @@ public class BoardApiController {
 //    메인 보드
     @GetMapping("/api/boards")
     public ResponseEntity<List<BoardResponse>> findAllBoards() {
+        System.out.println("test /api/boards");
         List<BoardResponse> boards = boardService.findAll()
                 .stream()
                 .map(BoardResponse::new)

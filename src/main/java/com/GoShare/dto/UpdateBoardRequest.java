@@ -1,6 +1,7 @@
 package com.GoShare.dto;
 
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
@@ -13,10 +14,11 @@ import java.util.Date;
 @AllArgsConstructor
 @Getter
 public class UpdateBoardRequest {
-    private String carImg;
     private String content;
     private String region;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private Date startDate;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private Date lastDate;
     private Integer price;
 }

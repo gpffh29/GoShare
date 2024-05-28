@@ -19,6 +19,7 @@ public class BoardService {
 
 //    글 추가 메서드
     public Board save(AddBoardRequest request){
+//        System.out.println("save method");  //메소드 실행 확인 test
         return boardRepository.save(request.toEntity());
     }
 
@@ -43,7 +44,7 @@ public class BoardService {
     public Board update(long id, UpdateBoardRequest request){
         Board board = boardRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("not found: " + id));
 
-        board.update(request.getCarImg(), request.getContent(), request.getRegion(), request.getStartDate(), request.getLastDate(), request.getPrice());
+        board.update(request.getContent(), request.getRegion(), request.getStartDate(), request.getLastDate(), request.getPrice());
 
         return board;
     }
