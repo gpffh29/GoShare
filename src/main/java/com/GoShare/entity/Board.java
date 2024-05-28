@@ -26,7 +26,7 @@ public class Board {
     private Long id;
 
 
-    @Column(name = "content")
+    @Column(name = "content", nullable = false)
     private String content;
 
     @Column(name = "region", nullable = false)

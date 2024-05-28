@@ -33,6 +33,7 @@ public class BoardApiController {
 //    메인 보드
     @GetMapping("/api/boards")
     public ResponseEntity<List<BoardResponse>> findAllBoards() {
+        System.out.println("test /api/boards");
         List<BoardResponse> boards = boardService.findAll()
                 .stream()
                 .map(BoardResponse::new)

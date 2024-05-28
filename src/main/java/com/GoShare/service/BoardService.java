@@ -19,6 +19,7 @@ public class BoardService {
 
 //    글 추가 메서드
     public Board save(AddBoardRequest request){
+//        System.out.println("save method");  //메소드 실행 확인 test
         return boardRepository.save(request.toEntity());
     }
 

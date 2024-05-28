@@ -49,18 +49,24 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
 
+    const csrfToken = document.querySelector('meta[name="_csrf"]').getAttribute('content');
+    const csrfHeader = document.querySelector('meta[name="_csrf_header"]').getAttribute('content');
+
     //생성 기능
     const createButton = document.getElementById("create-btn");
 
     if (createButton) {
         console.log("create button found");  //버튼이 생성되었는지 test
         createButton.addEventListener('click', (event) => {
+            event.preventDefault();  //form 제출 막기
             console.log("Create button clicked");  //버튼이 클릭되었는지 test
+
             fetch("/api/boards", {
 
-                method: "POST",
+                method: 'POST',
                 headers: {
-                    "Content-Type": "application/json"
+                    "Content-Type": "application/json",
+                    [csrfHeader]: csrfToken // CSRF 토큰 추가
                 },
                 body: JSON.stringify({
                     region: document.getElementById("region").value,
@@ -76,4 +82,5 @@ document.addEventListener('DOMContentLoaded', function() {
                 });
         });
     }
+
 });
