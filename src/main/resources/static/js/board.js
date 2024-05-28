@@ -4,14 +4,23 @@ document.addEventListener('DOMContentLoaded', function() {
     console.log("test test")
     alert ("test") ;
 
+    const csrfToken = document.querySelector('meta[name="_csrf"]').getAttribute('content');
+    const csrfHeader = document.querySelector('meta[name="_csrf_header"]').getAttribute('content');
+
     //삭제 기능
     const deleteButton = document.getElementById('delete-btn');
 
     if (deleteButton){
+        console.log("delete-btn found");
         deleteButton.addEventListener('click' ,event => {
             let id = document.getElementById('board-id').value;
+            event.preventDefault();
+            console.log("delete-btn clicked")
             fetch(`/api/boards/${id}`, {
-                method: 'DELETE'
+                method: 'DELETE',
+                headers: {
+                    [csrfHeader]: csrfToken // CSRF 토큰 추가
+                }
             })
                 .then(() => {
                     alert('삭제가 완료되었습니다.');
@@ -27,11 +36,14 @@ document.addEventListener('DOMContentLoaded', function() {
         modifyButton.addEventListener('click', event => {
             let params = new URLSearchParams(location.search);
             let id = params.get('id');
+            event.preventDefault();
+            console.log("modify button clicked");
 
             fetch(`/api/boards/${id}`, {
                 method: 'PUT',
                 headers: {
                     "Content-Type" : "application/json",
+                    [csrfHeader]: csrfToken // CSRF 토큰 추가
                 },
                 body: JSON.stringify({
                     region: document.getElementById('region').value,
@@ -43,14 +55,13 @@ document.addEventListener('DOMContentLoaded', function() {
             })
                 .then(() => {
                     alert('수정이 완료되었습니다.');
-                    location.replace(`/boards/post/${id}`);
+                    location.replace(`/boards`);
                 });
         });
     }
 
 
-    const csrfToken = document.querySelector('meta[name="_csrf"]').getAttribute('content');
-    const csrfHeader = document.querySelector('meta[name="_csrf_header"]').getAttribute('content');
+
 
     //생성 기능
     const createButton = document.getElementById("create-btn");
