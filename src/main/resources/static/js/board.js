@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', function() {
     console.log("test test")
     alert ("test") ;
 
-//삭제 기능
+    //삭제 기능
     const deleteButton = document.getElementById('delete-btn');
 
     if (deleteButton){

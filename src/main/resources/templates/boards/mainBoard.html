@@ -18,7 +18,7 @@
     <!--    메인보드 상단 이미지 삽입 -->
     <div class="mainBoardImg">
         <div class="mainBoardTop">
-            <img class="mainImg" src="/images/GoShare_up.jpg" alt="메인 이미지">
+            <img class="banner" src="/images/GoShare_up.jpg" alt="메인 이미지">
         </div>
     </div>
 
@@ -61,16 +61,16 @@
 
     <!--    게시판 화면 구현 -->
     <div class="row">
-        <th:block th:each="board : ${boards}">
-            <div class="board_main">
+        <th:block th:each="item : ${boards}">
+            <div class="col-md-4 margin">
                 <div class="card">
-                    <a class="board_card" th:href="@{/boards/{id}(id=${board.id})}">
+                    <a class="text-dark" th:href="@{/boards/{id}(id=${item.id})}">
 <!--                        이미지 추가 -->
-<!--                        <img th:src="${board.imgUrl}" class="card_img">-->
+<!--                        <img th:src="${board.imgUrl}" class="card_img-top" th:alt="${item.carName}" height="400">-->
                         <div class="card_body">
-                            <p class="startDate" th:text="${board.startDate}"></p>
-                            <p class="lastDate" th:text="${board.lastDate}"></p>
-                            <h4 class="price" th:text="${board.price}"></h4>
+                            <p class="card-text" th:text="${item.startDate}"></p>
+                            <p class="card-text" th:text="${item.lastDate}"></p>
+                            <h4 class="card-title text-danger" th:text="${item.price}"></h4>
                         </div>
                     </a>
                 </div>

@@ -12,6 +12,8 @@ import java.util.Date;
 @Getter
 public class BoardListViewResponse {
 
+    private final Long id;
+
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private final Date startDate;
 
@@ -21,7 +23,8 @@ public class BoardListViewResponse {
     private final Integer price;
 
     public BoardListViewResponse(Board board) {
-
+        
+        this.id = board.getId();
         this.startDate = board.getStartDate();
         this.lastDate = board.getLastDate();
         this.price = board.getPrice();
