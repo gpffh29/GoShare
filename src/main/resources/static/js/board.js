@@ -2,7 +2,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
     //js 실행 test
     console.log("test test")
-    alert ("test") ;
 
     const csrfToken = document.querySelector('meta[name="_csrf"]').getAttribute('content');
     const csrfHeader = document.querySelector('meta[name="_csrf_header"]').getAttribute('content');
