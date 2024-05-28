@@ -70,7 +70,7 @@ public class ApiController {
         }
         else{
             model.addAttribute("LicenseInputDto", new LicenseInputDto());
-            model.addAttribute("failAuth", "면허 번호를 확인해주세요");
+            model.addAttribute("failAuth", "면허 번호와 일련번호를 확인해주세요");
             return "member/memberLicense";
         }
     }
