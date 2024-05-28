@@ -1,9 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>회원가입</title>
     <link rel="stylesheet" href="/css/memberForm.css">
+    <script type="text/javascript" th:inline="javascript">
+        window.onload = function() {
+            if([[${errorMessage}]] != null)
+                alert([[${errorMessage}]]);
+        }
+    </script>
 </head>
 <body>
 <!--    회원 가입 화면 구현-->
