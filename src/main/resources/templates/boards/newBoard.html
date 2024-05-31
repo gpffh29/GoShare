@@ -60,6 +60,17 @@
                     </div>
 
         <!--            이미지 등록 작성-->
+<!--                    글 아이디가 없으면 이미지 생성-->
+<!--                    <div th:if="${board.id == null}">-->
+<!--                        <div class="form-group" th:each="num: ${#numbers.sequence(1,5)}">-->
+<!--                            <div class="custom-file img-div">-->
+<!--                                <input type="file" class="custom-file-input">-->
+<!--                                <label class="custom-file-label" th:text="이미지 등록 + ${num}"></label>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+
+<!--                    글 아이디가 있으면 이미지 수정-->
 
         <!--            상세 설명 -->
                     <div class="input-contentForm">
