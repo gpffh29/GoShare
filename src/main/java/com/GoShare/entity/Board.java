@@ -11,7 +11,9 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 //글 작성 Entity
 @Entity
@@ -52,14 +54,23 @@ public class Board {
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
+    @OneToMany(mappedBy = "board", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<BoardImage> images = new ArrayList<>();
+
     @Builder
-    public Board(String content, String region, Date startDate, Date lastDate, Integer price) {
+    public Board(String content, String region, Date startDate, Date lastDate, Integer price, List<BoardImage> images) {
 
         this.content = content;
         this.region = region;
         this.startDate = startDate;
         this.lastDate = lastDate;
         this.price = price;
+        if (images != null) {
+            this.images = images;
+            for (BoardImage image : images) {
+                image.setBoard(this);
+            }
+        }
     }
 
 //    글 수정
@@ -70,6 +81,18 @@ public class Board {
         this.startDate = startDate;
         this.lastDate = lastDate;
         this.price = price;
+
+    }
+
+//    이미지 수정
+    public void updateImages(List<BoardImage> newImages){
+        this.images.clear();
+        if(newImages != null){
+            this.images.addAll(newImages);
+            for(BoardImage image : newImages) {
+                image.setBoard(this);
+            }
+        }
     }
 
 }

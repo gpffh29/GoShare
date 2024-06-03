@@ -19,7 +19,7 @@
                 <input type="hidden" id="board-id" th:value="${board.id}">
                 <header class="header">
 <!--                    이미지 추가 -->
-<!--                    <img th:src="${board.imgUrl}" class="card_img">-->
+                    <img th:src="${board.images}" class="card_img">
                     <div class="time" th:text="|Posted on${#temporals.format(board.createdAt, 'yyyy-MM-dd HH:mm')}|"></div>
                 </header>
 

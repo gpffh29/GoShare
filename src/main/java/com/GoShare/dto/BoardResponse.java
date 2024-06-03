@@ -6,6 +6,8 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 
 import java.util.Date;
+import java.util.List;
+import java.util.stream.Collectors;
 
 //get 요청이 오면 응답을 위한 DTO
 @Getter
@@ -20,6 +22,8 @@ public class BoardResponse {
     private final Date lastDate;
     private final Integer price;
 
+    private final List<BoardImgResponse> images;
+
     public BoardResponse(Board board){
 
         this.content = board.getContent();
@@ -27,6 +31,9 @@ public class BoardResponse {
         this.startDate = board.getStartDate();
         this.lastDate = board.getLastDate();
         this.price = board.getPrice();
+        this.images = board.getImages().stream()
+                .map(BoardImgResponse::new)
+                .collect(Collectors.toList());
     }
 
 }

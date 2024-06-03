@@ -73,7 +73,7 @@ class BoardApiControllerTest {
         final Date startDate = dateFormat.parse("2024-05-06");
         final Date lastDate = dateFormat.parse("2024-05-10");
         final Integer price = 50000;
-        final AddBoardRequest userRequest = new AddBoardRequest(content,region,startDate,lastDate,price);
+        final AddBoardRequest userRequest =new AddBoardRequest(content,region,startDate,lastDate,price);
 
 
 //        json으로 직렬화
