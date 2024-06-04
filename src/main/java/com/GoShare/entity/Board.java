@@ -57,8 +57,12 @@ public class Board {
     @OneToMany(mappedBy = "board", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<BoardImage> images = new ArrayList<>();
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "member_id", nullable = false)
+    private Member member;
+
     @Builder
-    public Board(String content, String region, Date startDate, Date lastDate, Integer price, List<BoardImage> images) {
+    public Board(String content, String region, Date startDate, Date lastDate, Integer price, List<BoardImage> images, Member member) {
 
         this.content = content;
         this.region = region;
@@ -71,6 +75,7 @@ public class Board {
                 image.setBoard(this);
             }
         }
+        this.member = member;
     }
 
 //    글 수정

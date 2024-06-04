@@ -6,10 +6,13 @@ import com.GoShare.dto.BoardImgRequest;
 import com.GoShare.dto.UpdateBoardRequest;
 import com.GoShare.entity.Board;
 import com.GoShare.entity.BoardImage;
+import com.GoShare.entity.Member;
 import com.GoShare.repository.BoardRepository;
 import com.GoShare.repository.ImgRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -23,11 +26,18 @@ public class BoardService {
     private final BoardRepository boardRepository;
     private final ImgRepository imgRepository;
     private final BoardImageService boardImageService;
+    private final MemberService memberService;
 
 //    글 추가 메서드
     public Board save(AddBoardRequest request, List<MultipartFile> imgFileList) throws Exception{
 //        System.out.println("save method");  //메소드 실행 확인 test
-        Board board = request.toEntity();
+
+        //현재 세션에 있는 회원 id 가져오기
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String member_email = (String) authentication.getName();
+        Member member = memberService.findMemberByEmail(member_email);
+
+        Board board = request.toEntity(member);
         boardRepository.save(board);
         //이미지 등록
         for(int i=0; i< imgFileList.size(); i++){

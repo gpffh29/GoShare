@@ -2,6 +2,7 @@ package com.GoShare.dto;
 
 import com.GoShare.entity.Board;
 import com.GoShare.entity.BoardImage;
+import com.GoShare.entity.Member;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -27,7 +28,7 @@ public class AddBoardRequest {
     //이미지 추가
     private List<BoardImgRequest> images;
 
-    public Board toEntity(){
+    public Board toEntity(Member member){
 
         //BoardImgRequest 리스트 BoardImage 리스트로 변환
         List<BoardImage> boardImages = images.stream()
@@ -35,12 +36,14 @@ public class AddBoardRequest {
                 .collect(Collectors.toList());
 
         Board board = Board.builder()
+                .member(member)
                 .content(content)
                 .region(region)
                 .startDate(startDate)
                 .lastDate(lastDate)
                 .price(price)
                 .images(boardImages)
+                .member(member)
                 .build();
 
         //각 이미지에 Board 설정
