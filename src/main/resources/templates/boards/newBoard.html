@@ -15,7 +15,7 @@
 </head>
 <body>
 <div layout:fragment="content">
-    <form id="boardForm" enctype="multipart/form-data">
+    <form id="boardForm" enctype="multipart/form-data" th:action="@{/boards/post}" method="post">
         <div class="postTitle">
             <h2 class="title">글 등록하기</h2>
         </div>
