@@ -3,6 +3,7 @@ package com.GoShare.controller;
 
 import com.GoShare.dto.BoardListViewResponse;
 import com.GoShare.dto.BoardViewResponse;
+import com.GoShare.dto.ReservationDto;
 import com.GoShare.entity.Board;
 import com.GoShare.service.BoardService;
 import lombok.RequiredArgsConstructor;
@@ -39,7 +40,7 @@ public class BoardViewController {
     public String getBoard(@PathVariable Long id, Model model) {
         Board board = boardService.findById(id);
         model.addAttribute("board", new BoardViewResponse(board));
-
+        model.addAttribute("Reservation", new ReservationDto());
         return "boards/board";
     }
 

@@ -3,6 +3,7 @@ package com.GoShare.dto;
 
 import com.GoShare.entity.Board;
 import com.GoShare.entity.BoardImage;
+import com.GoShare.entity.Member;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -26,6 +27,7 @@ public class BoardViewResponse {
     private Date lastDate;
     private Integer price;
     private String content;
+    private String member_email;
 
     private LocalDateTime createdAt;
 
@@ -44,6 +46,7 @@ public class BoardViewResponse {
                 .map(BoardImgResponse::new)
                 .collect(Collectors.toList());
         this.repImgUrl = getRepImgUrl();
+        this.member_email=board.getMember().getEmail();
     }
 
     private String getRepImgUrl(Board board){
