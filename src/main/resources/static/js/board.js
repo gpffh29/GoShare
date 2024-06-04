@@ -72,6 +72,24 @@ document.addEventListener('DOMContentLoaded', function() {
             let form = document.getElementById('boardForm');
             let formData = new FormData(form);
 
+            let requestPayload = {
+                content: document.getElementById('content').value,
+                region: document.getElementById('region').value,
+                startDate: document.getElementById('startDate').value,
+                lastDate: document.getElementById('lastDate').value,
+                price: document.getElementById('price').value,
+                images: [] // 이미지는 MultipartFile로 전송되기 때문에 비워둡니다.
+            };
+
+            formData.append("request", new Blob([JSON.stringify(requestPayload)], {
+                type: "application/json"
+            }));
+
+            let images = document.getElementById('images').files;
+            for (let i = 0; i < images.length; i++) {
+                formData.append("images", images[i]);
+            }
+
             fetch("/api/boards", {
 
                 method: 'POST',

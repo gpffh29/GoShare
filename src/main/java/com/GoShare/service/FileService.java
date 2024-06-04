@@ -17,6 +17,13 @@ public class FileService {
         String extension = originalFileName.substring(originalFileName.lastIndexOf("."));
         String savedFileName = uuid.toString() + extension;
         String fileUploadFullUrl = uploadPath + "/" + savedFileName;
+
+        File uploadDir = new File(uploadPath);
+
+        if (!uploadDir.exists()) {
+            uploadDir.mkdirs();
+        }
+
         FileOutputStream fos = new FileOutputStream(fileUploadFullUrl);
         fos.write(fileData);
         fos.close();

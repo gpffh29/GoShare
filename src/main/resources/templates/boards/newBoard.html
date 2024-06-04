@@ -15,7 +15,7 @@
 </head>
 <body>
 <div layout:fragment="content">
-    <form id="boardForm" enctype="multipart/form-data" th:action="@{/boards/post}" method="post">
+    <form role="form" id="boardForm" enctype="multipart/form-data" method="post">
         <div class="postTitle">
             <h2 class="title">글 등록하기</h2>
         </div>
@@ -63,8 +63,8 @@
                     <div th:if="${#lists.isEmpty(board.images)}">
                         <div class="form-group" th:each="num: ${#numbers.sequence(1,5)}">
                             <div class="custom-file img-div">
-                                <input type="file" class="custom-file-input" name="images" multiple>
-                                <label class="custom-file-label" th:text="이미지 등록 + ${num}"></label>
+                                <input id="images" type="file" class="custom-file-input" name="images" multiple>
+                                <label class="custom-file-label" th:value="'이미지 등록 '+ ${num}"></label>
                             </div>
                         </div>
                     </div>

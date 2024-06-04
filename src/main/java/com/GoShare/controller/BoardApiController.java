@@ -41,16 +41,21 @@ public class BoardApiController {
     @GetMapping("/api/boards")
     public ResponseEntity<List<BoardResponse>> findAllBoards() {
         System.out.println("test /api/boards");
-        List<BoardResponse> boards = boardService.findAll()
-                .stream()
-                .map(BoardResponse::new)
-                .toList();
-
-        return ResponseEntity.ok()
-                .body(boards);
+        try {
+            List<BoardResponse> boards = boardService.findAll()
+                    .stream()
+                    .map(BoardResponse::new)
+                    .toList();
+            System.out.println("Boards found: " + boards.size());
+            return ResponseEntity.ok().body(boards);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        }
     }
 
-//    특정 글 보기
+
+    //    특정 글 보기
     @GetMapping("/api/boards/{id}")
     public ResponseEntity<BoardResponse> findBoardById(@PathVariable long id){
         Board board = boardService.findById(id);
