@@ -7,6 +7,7 @@
     <meta charset="UTF-8">
     <title>board</title>
     <link rel="stylesheet" href="/css/board.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="/js/board.js"></script>
     <meta name="_csrf" th:content="${_csrf.token}"/>
     <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
@@ -18,9 +19,11 @@
             <board>
                 <input type="hidden" id="board-id" th:value="${board.id}">
                 <header class="header">
-<!--                    이미지 추가 -->
-<!--                    <img th:src="${board.imgUrl}" class="card_img">-->
-                    <div class="time" th:text="|Posted on${#temporals.format(board.createdAt, 'yyyy-MM-dd HH:mm')}|"></div>
+                    <div class="time" th:text="|Posted on ${#temporals.format(board.createdAt, 'yyyy-MM-dd HH:mm')}|"></div>
+                    <!-- 이미지 추가 -->
+                    <div th:each="image : ${board.images}">
+                        <img th:src="@{${image.imgUrl}}" class="card_img">
+                    </div>
                 </header>
 
                 <div class="mainContent">
@@ -31,11 +34,21 @@
 
                     <p class="content" th:text="${board.content}"></p>
                 </div>
-
-                <div class="btns">
                     <button type="button" id="modify-btn" th:onclick="|location.href='@{/boards/post?id={boardId}(boardId=${board.id})}'|" class="updateBtn">수정</button>
+
+                <form th:action="@{/reservation}" role="form" method="post" th:object="${Reservation}">
+                        <input type="hidden" name="owning_email" id="owning_email" th:name="owning_email" th:value="${board.member_email}">
+
+                        <label th:for="startDate">시작 날짜:</label>
+                        <input type="date" name="startDate" id="startDate" th:field="*{startDate}" required>
+
+                        <label th:for="lastDate">종료 날짜:</label>
+                        <input type="date" name="lastDate" id="lastDate" th:field="*{lastDate}" required>
+
+                        <button type="submit"  id="reservation-btn" class="reservationBtn">예약</button>
+
+                    </form>
                     <button type="submit" id="delete-btn" class="deleteBtn">삭제</button>
-                </div>
 
             </board>
         </div>

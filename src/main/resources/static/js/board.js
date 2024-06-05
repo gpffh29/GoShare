@@ -38,19 +38,17 @@ document.addEventListener('DOMContentLoaded', function() {
             event.preventDefault();
             console.log("modify button clicked");
 
+            let form = document.getElementById('boardForm');
+            let formData = new FormData(form);
+
             fetch(`/api/boards/${id}`, {
                 method: 'PUT',
                 headers: {
-                    "Content-Type" : "application/json",
+                    // "Content-Type" : "application/json",
                     [csrfHeader]: csrfToken // CSRF 토큰 추가
                 },
-                body: JSON.stringify({
-                    region: document.getElementById('region').value,
-                    startDate: document.getElementById('startDate').value,
-                    lastDate: document.getElementById('lastDate').value,
-                    price: document.getElementById('price').value,
-                    content: document.getElementById('content').value
-                })
+                body: formData
+
             })
                 .then(() => {
                     alert('수정이 완료되었습니다.');
@@ -71,20 +69,35 @@ document.addEventListener('DOMContentLoaded', function() {
             event.preventDefault();  //form 제출 막기
             console.log("Create button clicked");  //버튼이 클릭되었는지 test
 
+            let form = document.getElementById('boardForm');
+            let formData = new FormData(form);
+
+            let requestPayload = {
+                content: document.getElementById('content').value,
+                region: document.getElementById('region').value,
+                startDate: document.getElementById('startDate').value,
+                lastDate: document.getElementById('lastDate').value,
+                price: document.getElementById('price').value,
+                images: [] // 이미지는 MultipartFile로 전송되기 때문에 비워둡니다.
+            };
+
+            formData.append("request", new Blob([JSON.stringify(requestPayload)], {
+                type: "application/json"
+            }));
+
+            let images = document.getElementById('images').files;
+            for (let i = 0; i < images.length; i++) {
+                formData.append("images", images[i]);
+            }
+
             fetch("/api/boards", {
 
                 method: 'POST',
                 headers: {
-                    "Content-Type": "application/json",
+                    // "Content-Type": "application/json",
                     [csrfHeader]: csrfToken // CSRF 토큰 추가
                 },
-                body: JSON.stringify({
-                    region: document.getElementById("region").value,
-                    startDate: document.getElementById("startDate").value,
-                    lastDate: document.getElementById("lastDate").value,
-                    price: document.getElementById("price").value,
-                    content: document.getElementById("content").value
-                }),
+                body: formData
             })
                 .then(() => {
                     alert("등록을 완료했습니다.");
@@ -92,5 +105,19 @@ document.addEventListener('DOMContentLoaded', function() {
                 });
         });
     }
+
+
+    $(".custom-file-input").on("change", function() {
+        var fileName = $(this).val().split("\\").pop();
+        var fileExt = fileName.substring(fileName.lastIndexOf(".")+1);
+        fileExt = fileExt.toLowerCase();
+
+        if(fileExt != "jpg" && fileExt != "jpeg" && fileExt != "gif" && fileExt != "png" && fileExt != "bmp"){
+            alert("이미지 파일만 등록이 가능합니다.");
+            return;
+        }
+        $(this).siblings(".custom-file-label").html(fileName);
+    });
+
 
 });

@@ -10,7 +10,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.sql.SQLOutput;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -21,30 +23,39 @@ public class BoardApiController {
 
 //   글 작성
     @PostMapping("/api/boards")
-    public ResponseEntity<Board> addBoard(@RequestBody AddBoardRequest request){
+    public ResponseEntity<Board> addBoard(@RequestPart("request") AddBoardRequest request,
+                                          @RequestPart("images") List<MultipartFile> images){
         System.out.println("test /api/boards");
-        Board savedBoard = boardService.save(request);
-        System.out.println("test /api/boards");
+        try{
+            Board savedBoard = boardService.save(request, images);
+            System.out.println("test /api/boards");
+            return ResponseEntity.status(HttpStatus.CREATED).body(savedBoard);
+        } catch (Exception e){
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        }
 
-        //요청이 성공적이면 저장된 글 정보를 응답 객체에 전송
-        return ResponseEntity.status(HttpStatus.CREATED)
-                .body(savedBoard);
     }
 
 //    메인 보드
     @GetMapping("/api/boards")
     public ResponseEntity<List<BoardResponse>> findAllBoards() {
         System.out.println("test /api/boards");
-        List<BoardResponse> boards = boardService.findAll()
-                .stream()
-                .map(BoardResponse::new)
-                .toList();
-
-        return ResponseEntity.ok()
-                .body(boards);
+        try {
+            List<BoardResponse> boards = boardService.findAll()
+                    .stream()
+                    .map(BoardResponse::new)
+                    .toList();
+            System.out.println("Boards found: " + boards.size());
+            return ResponseEntity.ok().body(boards);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        }
     }
 
-//    특정 글 보기
+
+    //    특정 글 보기
     @GetMapping("/api/boards/{id}")
     public ResponseEntity<BoardResponse> findBoardById(@PathVariable long id){
         Board board = boardService.findById(id);
@@ -65,10 +76,14 @@ public class BoardApiController {
 
 //    글 수정
     @PutMapping("/api/boards/{id}")
-    public ResponseEntity<Board> updateBoard(@PathVariable long id, @RequestBody UpdateBoardRequest request){
-        Board updatedBoard = boardService.update(id, request);
-
-        return ResponseEntity.ok()
-                .body(updatedBoard);
+    public ResponseEntity<Board> updateBoard(@PathVariable long id, @RequestPart("request") UpdateBoardRequest request,
+                                             @RequestPart("images") List<MultipartFile> images){
+        try{
+            Board updatedBoard = boardService.update(id, request, images);
+            return ResponseEntity.ok().body(updatedBoard);
+        } catch (Exception e){
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        }
     }
 }
