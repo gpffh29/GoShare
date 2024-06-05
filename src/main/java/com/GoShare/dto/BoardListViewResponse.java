@@ -5,21 +5,18 @@ package com.GoShare.dto;
 
 import com.GoShare.entity.Board;
 import com.GoShare.entity.BoardImage;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 @Getter
 public class BoardListViewResponse {
 
     private final Long id;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-    private final Date startDate;
+    private final LocalDate startDate;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-    private final Date lastDate;
+    private final LocalDate lastDate;
 
     private final Integer price;
 

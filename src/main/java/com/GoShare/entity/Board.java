@@ -9,6 +9,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -21,6 +22,7 @@ import java.util.List;
 @Getter
 @Table(name = "board")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@EntityListeners(AuditingEntityListener.class)
 public class Board {
 
     @Id
@@ -36,14 +38,11 @@ public class Board {
     private String region;
 
     @Column(name = "startDate", nullable = false)
-//    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "UTC")
-    private Date startDate;
+    private LocalDate startDate;
 
-//    private LocalDate
 
     @Column(name = "lastDate", nullable = false)
-//    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "UTC")
-    private Date lastDate;
+    private LocalDate lastDate;
 
     @Column(name = "price", nullable = false)
     private Integer price;
@@ -65,7 +64,7 @@ public class Board {
     private Member member;
 
     @Builder
-    public Board(String content, String region, Date startDate, Date lastDate, Integer price, List<BoardImage> images, Member member) {
+    public Board(String content, String region, LocalDate startDate, LocalDate lastDate, Integer price, List<BoardImage> images, Member member) {
 
         this.content = content;
         this.region = region;
@@ -82,7 +81,7 @@ public class Board {
     }
 
 //    글 수정
-    public void update(String content, String region, Date startDate, Date lastDate, Integer price) {
+    public void update(String content, String region, LocalDate startDate, LocalDate lastDate, Integer price) {
 
         this.content = content;
         this.region = region;
