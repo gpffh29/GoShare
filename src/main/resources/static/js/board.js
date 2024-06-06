@@ -1,78 +1,89 @@
 document.addEventListener('DOMContentLoaded', function() {
-
-    //js 실행 test
-    console.log("test test")
+    console.log("Page loaded");
 
     const csrfToken = document.querySelector('meta[name="_csrf"]').getAttribute('content');
     const csrfHeader = document.querySelector('meta[name="_csrf_header"]').getAttribute('content');
 
-    //삭제 기능
+    // 삭제 기능
     const deleteButton = document.getElementById('delete-btn');
-
-    if (deleteButton){
-        console.log("delete-btn found");
-        deleteButton.addEventListener('click' ,event => {
-            let id = document.getElementById('board-id').value;
+    if (deleteButton) {
+        console.log("Delete button found");
+        deleteButton.addEventListener('click', event => {
             event.preventDefault();
-            console.log("delete-btn clicked")
+            console.log("Delete button clicked");
+
+            const id = document.getElementById('board-id').value;
             fetch(`/api/boards/${id}`, {
                 method: 'DELETE',
                 headers: {
-                    [csrfHeader]: csrfToken // CSRF 토큰 추가
+                    [csrfHeader]: csrfToken
                 }
             })
                 .then(() => {
                     alert('삭제가 완료되었습니다.');
                     location.replace('/boards');
-                });
+                })
+                .catch(error => console.error('Error:', error));
         });
     }
 
-    //수정 기능
-    const modifyButton= document.getElementById('modify-btn');
-
-    if (modifyButton){
+    // 수정 기능
+    const modifyButton = document.getElementById('modify-btn');
+    if (modifyButton) {
         modifyButton.addEventListener('click', event => {
-            let params = new URLSearchParams(location.search);
-            let id = params.get('id');
             event.preventDefault();
-            console.log("modify button clicked");
+            console.log("Modify button clicked");
 
-            let form = document.getElementById('boardForm');
-            let formData = new FormData(form);
+            const params = new URLSearchParams(location.search);
+            const id = params.get('id');
+
+            const form = document.getElementById('boardForm');
+            const formData = new FormData(form);
+
+            const requestPayload = {
+                region: document.getElementById('region').value,
+                startDate: document.getElementById('startDate').value,
+                lastDate: document.getElementById('lastDate').value,
+                price: document.getElementById('price').value,
+                content: document.getElementById('content').value
+            };
+
+            formData.append("request", new Blob([JSON.stringify(requestPayload)], {
+                type: "application/json"
+            }));
+
+            const images = document.getElementById('images1').files;
+            for (let i = 0; i < images.length; i++) {
+                formData.append("images1", images[i]);
+            }
 
             fetch(`/api/boards/${id}`, {
                 method: 'PUT',
                 headers: {
-                    // "Content-Type" : "application/json",
-                    [csrfHeader]: csrfToken // CSRF 토큰 추가
+                    [csrfHeader]: csrfToken
                 },
                 body: formData
-
             })
                 .then(() => {
                     alert('수정이 완료되었습니다.');
-                    location.replace(`/boards`);
-                });
+                    location.replace('/boards');
+                })
+                .catch(error => console.error('Error:', error));
         });
     }
 
-
-
-
-    //생성 기능
-    const createButton = document.getElementById("create-btn");
-
+    // 생성 기능
+    const createButton = document.getElementById('create-btn');
     if (createButton) {
-        console.log("create button found");  //버튼이 생성되었는지 test
-        createButton.addEventListener('click', (event) => {
-            event.preventDefault();  //form 제출 막기
-            console.log("Create button clicked");  //버튼이 클릭되었는지 test
+        console.log("Create button found");
+        createButton.addEventListener('click', event => {
+            event.preventDefault();
+            console.log("Create button clicked");
 
-            let form = document.getElementById('boardForm');
-            let formData = new FormData(form);
+            const form = document.getElementById('boardForm');
+            const formData = new FormData(form);
 
-            let requestPayload = {
+            const requestPayload = {
                 content: document.getElementById('content').value,
                 region: document.getElementById('region').value,
                 startDate: document.getElementById('startDate').value,
@@ -85,39 +96,38 @@ document.addEventListener('DOMContentLoaded', function() {
                 type: "application/json"
             }));
 
-            let images = document.getElementById('images').files;
+            const images = document.getElementById('images').files;
             for (let i = 0; i < images.length; i++) {
                 formData.append("images", images[i]);
             }
 
             fetch("/api/boards", {
-
                 method: 'POST',
                 headers: {
-                    // "Content-Type": "application/json",
-                    [csrfHeader]: csrfToken // CSRF 토큰 추가
+                    [csrfHeader]: csrfToken
                 },
                 body: formData
             })
                 .then(() => {
                     alert("등록을 완료했습니다.");
                     location.replace("/boards");
-                });
+                })
+                .catch(error => console.error('Error:', error));
         });
     }
 
+    // 이미지 파일명 업데이트 및 유효성 검사
+    document.querySelectorAll('.custom-file-input').forEach(input => {
+        input.addEventListener('change', function() {
+            const fileName = this.value.split("\\").pop();
+            const fileExt = fileName.substring(fileName.lastIndexOf(".") + 1).toLowerCase();
 
-    $(".custom-file-input").on("change", function() {
-        var fileName = $(this).val().split("\\").pop();
-        var fileExt = fileName.substring(fileName.lastIndexOf(".")+1);
-        fileExt = fileExt.toLowerCase();
+            if (!['jpg', 'jpeg', 'gif', 'png', 'bmp'].includes(fileExt)) {
+                alert("이미지 파일만 등록이 가능합니다.");
+                return;
+            }
 
-        if(fileExt != "jpg" && fileExt != "jpeg" && fileExt != "gif" && fileExt != "png" && fileExt != "bmp"){
-            alert("이미지 파일만 등록이 가능합니다.");
-            return;
-        }
-        $(this).siblings(".custom-file-label").html(fileName);
+            this.nextElementSibling.innerHTML = fileName;
+        });
     });
-
-
 });

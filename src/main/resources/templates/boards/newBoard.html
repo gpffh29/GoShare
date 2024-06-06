@@ -73,7 +73,7 @@
 <!--                    이미지 수정-->
                     <div th:if="${not #lists.isEmpty(board.images)}">
                         <div class="form-group" th:each="boardImgRequest, status: ${board.images}">
-                            <input type="file" class="custom-file-input" name="images" multiple>
+                            <input type="file" id="images1" class="custom-file-input" name="images" multiple>
                             <label class="custom-file-label" th:text="${not #strings.isEmpty(boardImgRequest.oriImgName)} ? ${boardImgRequest.oriImgName} : '이미지' + ${status.index+1}"></label>
                         </div>
                     </div>
