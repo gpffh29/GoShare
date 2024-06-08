@@ -28,7 +28,6 @@ public class BoardViewController {
         List<BoardListViewResponse> boards = boardService.findAll().stream()
                 .map(BoardListViewResponse::new)
                 .toList();
-
         model.addAttribute("boards", boards);
 
 //        mainBoard.html

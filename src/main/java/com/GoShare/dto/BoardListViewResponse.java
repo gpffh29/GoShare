@@ -28,10 +28,10 @@ public class BoardListViewResponse {
         this.startDate = board.getStartDate();
         this.lastDate = board.getLastDate();
         this.price = board.getPrice();
-        this.repImgUrl = getRepImgUrl();
+        this.repImgUrl = getRepImgUrl(board);
     }
 
-    private String getRepImgUrl(Board board) {
+    public String getRepImgUrl(Board board) {
         for (BoardImage image : board.getImages()) {
             if("Y".equals(image.getRepImgYn())){
                 return image.getImgUrl();
