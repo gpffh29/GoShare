@@ -22,7 +22,7 @@
                     <div class="time" th:text="|작성일 : ${#temporals.format(board.createdAt, 'yyyy-MM-dd HH:mm')}|"></div>
                     <!-- 이미지 추가 -->
                     <div th:each="image : ${board.images}">
-                        <img th:src="@{${image.imgUrl}}" class="card_img">
+                        <img th:src="@{|/images/cars/${image.imgName}|}" class="card_img" alt="차량 사진">
                     </div>
                 </header>
 
