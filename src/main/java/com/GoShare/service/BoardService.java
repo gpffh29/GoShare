@@ -84,11 +84,11 @@ public class BoardService {
                     fileService.deleteFile(imgLocation + "/" + boardImage.getImgName());
                 }
                 imgRepository.delete(boardImage);
-                boardRepository.deleteById(id);
             } catch (Exception e) {
                 throw new RuntimeException("Failed to delete image file", e);
             }
         });
+        boardRepository.deleteById(id);
     }
 
 ////    글을 업데이트하는 update() 메서드
