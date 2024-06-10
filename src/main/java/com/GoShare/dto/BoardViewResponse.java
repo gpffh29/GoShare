@@ -33,6 +33,10 @@ public class BoardViewResponse {
     private String repImgUrl;
     private List<BoardImgResponse> images;
 
+    private String car_model;
+    private String car_name;
+    private String car_type;
+
     public BoardViewResponse(Board board){
         this.id = board.getId();
         this.region = board.getRegion();
@@ -46,6 +50,9 @@ public class BoardViewResponse {
                 .collect(Collectors.toList());
         this.repImgUrl = getRepImgUrl();
         this.member_email=board.getMember().getEmail();
+        this.car_model=board.getCarModel();
+        this.car_name=board.getCarName();
+        this.car_type=board.getCarType();
     }
 
     private String getRepImgUrl(Board board){
