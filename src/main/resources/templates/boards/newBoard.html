@@ -44,6 +44,14 @@
                             <option value="제주도">제주도</option>
                         </select>
                     </div>
+<!--                    차량 선택-->
+                    <div class="select-CarForm">
+                        <span class="CarForm">차량 선택</span>
+                        <select class="car" id="car">
+                            <option value="" disabled selected>차량을 선택하세요</option>
+                            <option th:each="car : ${cars}" id="car_id" th:value="${car.car_id}" th:text="${car.car_name}"></option>
+                        </select>
+                    </div>
 
         <!--            날짜 선택 -->
                     <div class="select-dateForm">

@@ -5,6 +5,7 @@ import com.GoShare.dto.BoardListViewResponse;
 import com.GoShare.dto.BoardViewResponse;
 import com.GoShare.dto.ReservationDto;
 import com.GoShare.entity.Board;
+import com.GoShare.entity.Car;
 import com.GoShare.entity.Member;
 import com.GoShare.service.BoardService;
 import com.GoShare.service.MemberService;
@@ -57,6 +58,12 @@ public class BoardViewController {
     public String newBoard(@RequestParam(required = false) Long id, Model model) {
 //        id가 없으면 생성
         if (id == null) {
+            //현재 세션에 있는 회원 id 가져오기
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            String member_email = (String) authentication.getName();
+            Member member=memberService.findMemberByEmail(member_email);
+            List<Car> cars = member.getCars();
+            model.addAttribute("cars", cars);
             model.addAttribute("board", new BoardViewResponse());
         } else {  //id가 있으면 수정
             Board board = boardService.findById(id);

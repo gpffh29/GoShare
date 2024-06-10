@@ -7,6 +7,8 @@ import com.GoShare.repository.CarRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @RequiredArgsConstructor
 @Service
 public class CarService {
@@ -21,5 +23,9 @@ public class CarService {
         car.setCar_number(carOutputDto.getCar_number());
         car.setMember(member);
         carRepository.save(car);
+    }
+
+    public Optional<Car> findCar(Long id){
+        return carRepository.findById(id);
     }
 }

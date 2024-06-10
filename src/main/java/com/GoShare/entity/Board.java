@@ -47,6 +47,15 @@ public class Board {
     @Column(name = "price", nullable = false)
     private Integer price;
 
+    @Column(name = "car_type")
+    private String carType;
+
+    @Column(name = "car_model")
+    private String carModel;
+
+    @Column(name = "car_name")
+    private String carName;
+
 //    글 생성, 수정 시간 추가
     @CreatedDate
     @Column(name = "created_at")
@@ -64,7 +73,7 @@ public class Board {
     private Member member;
 
     @Builder
-    public Board(String content, String region, LocalDate startDate, LocalDate lastDate, Integer price, List<BoardImage> images, Member member) {
+    public Board(String content, String region, LocalDate startDate, LocalDate lastDate, Integer price, List<BoardImage> images, Member member, String carModel, String carName, String carType) {
 
         this.content = content;
         this.region = region;
@@ -78,6 +87,9 @@ public class Board {
             }
         }
         this.member = member;
+        this.carType = carType;
+        this.carModel = carModel;
+        this.carName = carName;
     }
 
 //    글 수정

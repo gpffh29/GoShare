@@ -6,8 +6,10 @@ import com.GoShare.dto.BoardImgRequest;
 import com.GoShare.dto.UpdateBoardRequest;
 import com.GoShare.entity.Board;
 import com.GoShare.entity.BoardImage;
+import com.GoShare.entity.Car;
 import com.GoShare.entity.Member;
 import com.GoShare.repository.BoardRepository;
+import com.GoShare.repository.CarRepository;
 import com.GoShare.repository.ImgRepository;
 import io.micrometer.common.util.StringUtils;
 import jakarta.transaction.Transactional;
@@ -19,6 +21,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
@@ -30,6 +33,7 @@ public class BoardService {
     private final BoardImageService boardImageService;
     private final MemberService memberService;
     private final FileService fileService;
+    private final CarService carService;
 
     @Value("${imgLocation}")
     private String imgLocation;
@@ -43,7 +47,10 @@ public class BoardService {
         String member_email = (String) authentication.getName();
         Member member = memberService.findMemberByEmail(member_email);
 
-        Board board = request.toEntity(member);
+        //차량 정보 가져오기
+        Optional<Car> car = carService.findCar(request.getCar_id());
+
+        Board board = request.toEntity(member, car);
         boardRepository.save(board);
         //이미지 등록
         for(int i=0; i< imgFileList.size()-1; i++){

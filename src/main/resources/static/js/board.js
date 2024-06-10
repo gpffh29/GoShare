@@ -89,6 +89,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 startDate: document.getElementById('startDate').value,
                 lastDate: document.getElementById('lastDate').value,
                 price: document.getElementById('price').value,
+                car_id: document.getElementById('car_id').value,
                 images: [] // 이미지는 MultipartFile로 전송되기 때문에 비워둡니다.
             };
 
