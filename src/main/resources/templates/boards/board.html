@@ -34,9 +34,9 @@
 
                     <p class="content" th:text="${board.content}"></p>
                 </div>
-                    <button type="button" id="modify-btn" th:onclick="|location.href='@{/boards/post?id={boardId}(boardId=${board.id})}'|" class="updateBtn">수정</button>
+                    <button type="button" id="modify-btn" th:if="${board.member_email}==${Authentication}" th:onclick="|location.href='@{/boards/post?id={boardId}(boardId=${board.id})}'|" class="updateBtn">수정</button>
 
-                <form th:action="@{/reservation}" role="form" method="post" th:object="${Reservation}">
+                <form th:if="${board.member_email}!=${Authentication}" th:action="@{/reservation}" role="form" method="post" th:object="${Reservation}">
                         <input type="hidden" name="owning_email" id="owning_email" th:name="owning_email" th:value="${board.member_email}">
 
                         <label th:for="startDate">시작 날짜:</label>
@@ -45,10 +45,10 @@
                         <label th:for="lastDate">종료 날짜:</label>
                         <input type="date" name="lastDate" id="lastDate" th:field="*{lastDate}" required>
 
-                        <button type="submit"  id="reservation-btn" class="reservationBtn">예약</button>
+                        <button type="submit" th:if="${board.member_email}!=${Authentication}" id="reservation-btn" class="reservationBtn">예약</button>
 
                     </form>
-                    <button type="submit" id="delete-btn" class="deleteBtn">삭제</button>
+                    <button type="submit" id="delete-btn" th:if="${board.member_email}==${Authentication}" class="deleteBtn">삭제</button>
 
             </board>
         </div>
