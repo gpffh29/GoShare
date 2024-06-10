@@ -22,6 +22,10 @@ public class BoardListViewResponse {
 
     private final String repImgUrl;
 
+    private final String region;
+
+    private final String car_type;
+
     public BoardListViewResponse(Board board) {
         
         this.id = board.getId();
@@ -29,6 +33,8 @@ public class BoardListViewResponse {
         this.lastDate = board.getLastDate();
         this.price = board.getPrice();
         this.repImgUrl = getRepImgUrl(board);
+        this.region = board.getRegion();
+        this.car_type=board.getCarType();
     }
 
     public String getRepImgUrl(Board board) {
