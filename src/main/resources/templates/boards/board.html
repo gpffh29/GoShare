@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="/css/board.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="/js/board.js"></script>
+    <script src="/js/reservation.js"></script>
     <meta name="_csrf" th:content="${_csrf.token}"/>
     <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
 </head>
@@ -28,8 +29,8 @@
 
                 <div class="mainContent">
                     <p class="region" th:text="${board.region}"></p>
-                    <p class="startDate" th:text="${board.startDate}"></p>
-                    <p class="lastDate" th:text="${board.lastDate}"></p>
+                    <p id="boardStartDate" class="startDate" th:text="${board.startDate}"></p>
+                    <p id="boardLastDate" class="lastDate" th:text="${board.lastDate}"></p>
                     <p class="price" th:text="${board.price}"></p>
 
                     <p class="content" th:text="${board.content}"></p>
@@ -39,11 +40,11 @@
                 <form th:if="${board.member_email}!=${Authentication}" th:action="@{/reservation}" role="form" method="post" th:object="${Reservation}">
                         <input type="hidden" name="owning_email" id="owning_email" th:name="owning_email" th:value="${board.member_email}">
 
-                        <label th:for="startDate">시작 날짜:</label>
-                        <input type="date" name="startDate" id="startDate" th:field="*{startDate}" required>
+                        <label th:for="startDate">대여 시작 날짜:</label>
+                        <input type="date" name="startDate" id="inputStartDate" th:field="*{startDate}" required>
 
-                        <label th:for="lastDate">종료 날짜:</label>
-                        <input type="date" name="lastDate" id="lastDate" th:field="*{lastDate}" required>
+                        <label th:for="lastDate">대여 종료 날짜:</label>
+                        <input type="date" name="lastDate" id="inputLastDate" th:field="*{lastDate}" required>
 
                         <button type="submit" th:if="${board.member_email}!=${Authentication}" id="reservation-btn" class="reservationBtn">예약</button>
 

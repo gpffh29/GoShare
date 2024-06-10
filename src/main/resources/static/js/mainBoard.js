@@ -1,20 +1,25 @@
-<!-- 날짜 선택 시 캘린더 제공 -->
-$(function () {
-    var today = new Date();
+//캘린더 제공
+document.addEventListener('DOMContentLoaded', function() {
+    // 오늘 날짜를 yyyy-MM-dd 형식으로 반환하는 함수
+    function getTodayDate() {
+        var today = new Date();
+        var dd = String(today.getDate()).padStart(2, '0');
+        var mm = String(today.getMonth() + 1).padStart(2, '0'); // January is 0!
+        var yyyy = today.getFullYear();
 
-    $("#startDate").datepicker({
+        return yyyy + '-' + mm + '-' + dd;
+    }
 
-        dateFormat: "yy-mm-dd",
-        minDate: today,
-        onClose: function (selectedDate) {
-            $("#lastDate").datepicker("option", "minDate", selectedDate);
-        }
-    });
-    $("#lastDate").datepicker({
-        dateFormat: "yy-mm-dd",
-        minDate: today,
-        onClose: function (selectedDate) {
-            $("#startDate").datepicker("option", "maxDate", selectedDate);
-        }
+    // 오늘 날짜 이후로만 선택 가능하게 설정
+    var startDateInput = document.getElementById('startDate');
+    var lastDateInput = document.getElementById('lastDate');
+    var today = getTodayDate();
+
+    startDateInput.setAttribute('min', today);
+    lastDateInput.setAttribute('min', today);
+
+    // 시작 날짜를 선택하면 종료 날짜의 최소 날짜도 변경
+    startDateInput.addEventListener('change', function() {
+        lastDateInput.setAttribute('min', startDateInput.value);
     });
 });

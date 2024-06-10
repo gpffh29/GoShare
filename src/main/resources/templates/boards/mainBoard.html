@@ -10,7 +10,7 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
     <script src="/js/mainBoard.js"></script>
-
+    <script src="/js/search.js"></script>
 </head>
 
 <body>
@@ -26,25 +26,25 @@
     <div class="searchBar">
         <!--        지역 선택 -->
         <select class="form-control">
-            <option value="seoul">서울</option>
-            <option value="gg">경기도</option>
-            <option value="gw">강원도</option>
-            <option value="chungbuk">충청북도</option>
-            <option value="chungnam">충청남도</option>
-            <option value="gb">경상북도</option>
-            <option value="gyeongnam">경상남도</option>
-            <option value="jeonbuk">전라북도</option>
-            <option value="jeonnam">전라남도</option>
-            <option value="jeju">제주도</option>
+            <option value="서울">서울</option>
+            <option value="경기도">경기도</option>
+            <option value="강원도">강원도</option>
+            <option value="충청북도">충청북도</option>
+            <option value="충청남도">충청남도</option>
+            <option value="경상북도">경상북도</option>
+            <option value="경상남도">경상남도</option>
+            <option value="전라북도">전라북도</option>
+            <option value="전라남도">전라남도</option>
+            <option value="제주도">제주도</option>
         </select>
 
         <!--        대여 시작일 선택 -->
-        <input class="form-control" id="startDate" placeholder="대여 시작일 선택">
+        <input type="date" class="form-control" id="startDate" placeholder="대여 시작일 선택">
 
 
         <!--        반납일 선택 -->
 
-        <input class="form-control" id="lastDate" placeholder="반납일 선택">
+        <input type="date" class="form-control" id="lastDate" placeholder="반납일 선택">
 
 
         <!--        차종 선택 -->
@@ -60,12 +60,16 @@
     </div>
 
     <!--    게시판 화면 구현 -->
-    <div class="row">
+    <div class="row" id="boardContainer">
         <th:block th:each="item : ${boards}">
-            <div class="col-md-4 margin">
+            <div class="col-md-4 margin board-item"
+                 data-region="${item.region}"
+                 data-start-date="${item.startDate}"
+                 data-last-date="${item.lastDate}"
+                 data-car-type="${item.carType}">
                 <div class="card">
                     <a class="text-dark" th:href="@{/boards/{id}(id=${item.id})}">
-<!--                        이미지 추가 -->
+                        <!-- 이미지 추가 -->
                         <img th:src="@{|${item.getRepImgUrl()}|}" class="card_img-top" th:alt="${item.id}" height="400">
                         <div class="card_body">
                             <p class="card-text" th:text="|대여 시작일 : ${item.startDate}|"></p>
