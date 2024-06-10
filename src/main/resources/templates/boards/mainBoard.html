@@ -48,7 +48,7 @@
 
 
         <!--        차종 선택 -->
-        <select class="form-control">
+        <select id="carType" class="form-control">
             <option value="small">소형</option>
             <option value="medium">중형</option>
             <option value="large">대형</option>
@@ -63,7 +63,7 @@
     <div class="row" id="boardContainer">
         <th:block th:each="item : ${boards}">
             <div class="col-md-4 margin board-item"
-                 th:attr="data-start-date=${item.startDate}, data-last-date=${item.lastDate}">
+                 th:attr="data-start-date=${item.startDate}, data-last-date=${item.lastDate}, data-region=${item.region}, data-car-type=${item.car_type}">
                 <div class="card">
                     <a class="text-dark" th:href="@{/boards/{id}(id=${item.id})}">
                         <!-- 이미지 추가 -->
