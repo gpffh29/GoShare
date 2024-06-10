@@ -41,7 +41,7 @@ $(document).ready(function() {
 
             //게시물의 자동차 타입과 같은 타입만 검색
             var isCarTypeMatch = true;
-            if(selectedCarType){
+            if (selectedCarType && selectedCarType !== "전체") {
                 isCarTypeMatch = itemCarType === selectedCarType;
             }
 
