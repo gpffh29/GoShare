@@ -25,7 +25,7 @@
     <!--    검색 창 구현 -->
     <div class="searchBar">
         <!--        지역 선택 -->
-        <select class="form-control">
+        <select id="regionSelect" class="form-control">
             <option value="서울">서울</option>
             <option value="경기도">경기도</option>
             <option value="강원도">강원도</option>
@@ -63,10 +63,7 @@
     <div class="row" id="boardContainer">
         <th:block th:each="item : ${boards}">
             <div class="col-md-4 margin board-item"
-                 data-region="${item.region}"
-                 data-start-date="${item.startDate}"
-                 data-last-date="${item.lastDate}"
-                 data-car-type="${item.carType}">
+                 th:attr="data-start-date=${item.startDate}, data-last-date=${item.lastDate}">
                 <div class="card">
                     <a class="text-dark" th:href="@{/boards/{id}(id=${item.id})}">
                         <!-- 이미지 추가 -->
