@@ -9,8 +9,10 @@ import com.GoShare.entity.BoardImage;
 import com.GoShare.entity.Member;
 import com.GoShare.repository.BoardRepository;
 import com.GoShare.repository.ImgRepository;
+import io.micrometer.common.util.StringUtils;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -27,6 +29,10 @@ public class BoardService {
     private final ImgRepository imgRepository;
     private final BoardImageService boardImageService;
     private final MemberService memberService;
+    private final FileService fileService;
+
+    @Value("${imgLocation}")
+    private String imgLocation;
 
 //    글 추가 메서드
     public Board save(AddBoardRequest request, List<MultipartFile> imgFileList) throws Exception{
@@ -40,7 +46,7 @@ public class BoardService {
         Board board = request.toEntity(member);
         boardRepository.save(board);
         //이미지 등록
-        for(int i=0; i< imgFileList.size(); i++){
+        for(int i=0; i< imgFileList.size()-1; i++){
             BoardImage boardImage = new BoardImage();
             boardImage.setBoard(board);
             if(i == 0)
@@ -69,7 +75,20 @@ public class BoardService {
 
 //    글을 삭제하는 delete() 메서드
     public void delete(long id){
-        boardRepository.deleteById(id);
+        // 게시물에 연결된 이미지들 삭제
+        Board board = boardRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid board Id:" + id));
+        board.getImages().forEach(boardImage -> {
+            System.out.println(boardImage.getImgName());
+            try {
+                if (!StringUtils.isEmpty(boardImage.getImgName())) {
+                    fileService.deleteFile(imgLocation + "/" + boardImage.getImgName());
+                }
+                imgRepository.delete(boardImage);
+                boardRepository.deleteById(id);
+            } catch (Exception e) {
+                throw new RuntimeException("Failed to delete image file", e);
+            }
+        });
     }
 
 ////    글을 업데이트하는 update() 메서드

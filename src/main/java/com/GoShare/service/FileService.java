@@ -6,6 +6,9 @@ import org.springframework.stereotype.Service;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.UUID;
 
 @Service
@@ -30,14 +33,11 @@ public class FileService {
         return savedFileName;
     }
 
-    public void deleteFile(String filePath) throws Exception{
-        File deleteFile = new File(filePath);
-
-        if(deleteFile.exists()) {
-            deleteFile.delete();
-            log.info("파일을 삭제했습니다.");
-        } else{
-            log.info("파일이 존재하지 않습니다.");
+    public void deleteFile(String filePath) throws Exception {
+        Path path = Paths.get(filePath);
+        if (Files.exists(path)) {
+            System.out.println(path);
+            Files.delete(path);
         }
     }
 }
