@@ -25,6 +25,9 @@
                     <div th:each="image : ${board.images}">
                         <img th:src="@{|/images/cars/${image.imgName}|}" class="card_img" alt="차량 사진">
                     </div>
+                    <p class="car_name" th:text="${board.car_name}"></p>
+                    <p class="car_type" th:text="${board.car_type}"></p>
+                    <p class="car_model" th:text="${board.car_model}"></p>
                 </header>
 
                 <div class="mainContent">
