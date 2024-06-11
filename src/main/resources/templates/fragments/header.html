@@ -1,20 +1,27 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" th:href="@{/css/header.css}">
+</head>
+
 <!--header 영역입니다.-->
 <div th:fragment="header">
-    <nav class="navbar" style="background-color: #4494ff; padding: 15px; align-items: center; display: flex; justify-content: space-between">
+    <nav class="navbar" style="background-color: rgba(0, 102, 239, 0.3); padding: 15px; align-items: center; display: flex; justify-content: space-between">
 
         <!--        로고 삽입-->
         <a class="navlogo" href="/boards">
             <img src="/images/navbar_logo.png" alt="로고" style="width: 120px; height: 50px; ">
         </a>
 <!--        내비게이션 버튼-->
-        <a class="navbutton" th:onclick="|location.href='@{/boards/post}'|" style="margin-left: auto; text-decoration: none; color: black; padding: 8px 16px; background-color:#004aad; border: none; border-radius: 4px; cursor: pointer;">글 등록하기</a>
-        <a class="navbutton" href="/car/registration" style="margin-left: 5px; text-decoration: none; color: black; padding: 8px 16px; background-color:#004aad; border: none; border-radius: 4px; cursor: pointer;">내 차 등록</a>
-        <a class="navbutton" sec:authorize="isAnonymous()" href="/members/login" style="margin-left: 5px; text-decoration: none; color: black; padding: 8px 16px; background-color:#004aad; border: none; border-radius: 4px; cursor: pointer;">로그인</a>
-        <a class="navbutton" sec:authorize="isAuthenticated()" href="/members/logout" style="margin-left: 5px; text-decoration: none; color: black; padding: 8px 16px; background-color:#004aad; border: none; border-radius: 4px; cursor: pointer;">로그아웃</a>
-        <a class="navbutton" href="/introduce" style="margin-left: 5px; text-decoration: none; color: black; padding: 8px 16px; background-color:#004aad; border: none; border-radius: 4px; cursor: pointer;">개발자 소개</a>
+        <a class="navbutton" th:onclick="|location.href='@{/boards/post}'|" style="font-family: pretendard, sans-serif; margin-left: auto; text-decoration: none; color: white; padding: 8px 16px; background-color:#004aad; border: none; border-radius: 4px; cursor: pointer;">글 등록하기</a>
+        <a class="navbutton" href="/car/registration" style="font-family: pretendard, sans-serif; margin-left: 5px; text-decoration: none; color: white; padding: 8px 16px; background-color:#004aad; border: none; border-radius: 4px; cursor: pointer;">내 차 등록</a>
+        <a class="navbutton" sec:authorize="isAnonymous()" href="/members/login" style="font-family: pretendard, sans-serif; margin-left: 5px; text-decoration: none; color: white; padding: 8px 16px; background-color:#004aad; border: none; border-radius: 4px; cursor: pointer;">로그인</a>
+        <a class="navbutton" sec:authorize="isAuthenticated()" href="/members/logout" style="font-family: pretendard, sans-serif; margin-left: 5px; text-decoration: none; color: white; padding: 8px 16px; background-color:#004aad; border: none; border-radius: 4px; cursor: pointer;">로그아웃</a>
+        <a class="navbutton" href="/introduce" style="font-family: pretendard, sans-serif; margin-left: 5px; text-decoration: none; color: white; padding: 8px 16px; background-color:#004aad; border: none; border-radius: 4px; cursor: pointer;">개발자 소개</a>
     </nav>
 </div>
 </html>
