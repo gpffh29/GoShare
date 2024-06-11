@@ -24,19 +24,19 @@
             </div>
             <div class="memberForm">
                 <label th:for="name">이름</label>
-                <input type="text" th:field="*{name}" class="form-control" placeholder="이름을 입력해주세요">
+                <input type="text" th:field="*{name}" class="form-control" placeholder="이름을 입력해주세요" autocomplete="off">
                 <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="fieldError">Incorrect data</p>
                 <br>
                 <label th:for="email">이메일</label>
-                <input type="text" th:field="*{email}" class="form-control" placeholder="이메일을 입력해주세요">
+                <input type="text" th:field="*{email}" class="form-control" placeholder="이메일을 입력해주세요" autocomplete="off">
                 <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="fieldError">Incorrect data</p>
                 <br>
                 <label th:for="password">비밀번호</label>
-                <input type="password" th:field="*{password}" class="form-control" placeholder="비밀번호를 입력해주세요">
+                <input type="text" th:field="*{password}" class="form-control" placeholder="비밀번호를 입력해주세요" autocomplete="off">
                 <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="fieldError">Incorrect data</p>
                 <br>
                 <label th:for="phone">전화번호</label>
-                <input type="text" th:field="*{phone}" class="form-control" placeholder="'-'없이 이어 표기">
+                <input type="text" th:field="*{phone}" class="form-control" placeholder="'-'없이 이어 표기" autocomplete="off">
                 <p th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}" class="fieldError">Incorrect data</p>
                 <br>
                 <div style="text-align: center">
