@@ -34,10 +34,14 @@ document.addEventListener('DOMContentLoaded', function() {
             event.preventDefault();
             console.log("Modify button clicked");
 
+            const form = document.getElementById('boardForm');
+            if (!form.reportValidity()) {
+                return; // 폼 유효성 검사가 실패하면 함수 종료
+            }
+
             const params = new URLSearchParams(location.search);
             const id = params.get('id');
 
-            const form = document.getElementById('boardForm');
             const formData = new FormData(form);
 
             const requestPayload = {
@@ -81,6 +85,10 @@ document.addEventListener('DOMContentLoaded', function() {
             console.log("Create button clicked");
 
             const form = document.getElementById('boardForm');
+            if (!form.reportValidity()) {
+                return; // 폼 유효성 검사가 실패하면 함수 종료
+            }
+
             const formData = new FormData(form);
 
             const requestPayload = {
