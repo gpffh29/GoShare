@@ -27,15 +27,15 @@ body {
 
 #boardForm {
     display: flex;
-    flex-direction: column; /* Arrange children in a column */
-    justify-content: center; /* Center children vertically */
-    align-items: center; /* Center children horizontally */
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     width: 100%;
     max-width: 800px;
     padding: 20px;
     border: 1px solid #ccc;
     background-color: #f9f9f9;
-    margin: auto; /* Center form in the available space */
+    margin: auto;
 }
 
 h1 {

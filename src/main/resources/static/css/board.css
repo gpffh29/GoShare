@@ -1,0 +1,101 @@
+* {
+    margin : 0;
+    padding : 0;
+}
+
+html, body {
+    height: 100%;
+    font-family: pretendard, sans-serif;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+#content {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    overflow-y: auto; /* 콘텐츠 영역에 수직 스크롤을 추가합니다. */
+}
+
+div.postIntro {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 10px;
+}
+
+.postIntro .time {
+    margin-bottom: 10px;
+    font-size: 12px;
+    color: #666;
+}
+
+.boardContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    max-width: 800px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    background-color: #f9f9f9;
+    margin: auto;
+}
+
+.row {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+
+.card_img {
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 10px;
+}
+
+.car_name, .car_type, .car_model {
+    margin: 5px 0;
+}
+
+.mainContent {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 10px;
+}
+
+.region, .startDate, .lastDate, .price, .content {
+    margin: 5px 0;
+}
+
+button, label, input[type="date"] {
+    margin: 10px 0;
+}
+
+.updateBtn, .reservationBtn, .deleteBtn {
+    width: 50px;
+    padding: 10px;
+    margin: 5px;
+    background-color: #0066ef;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.updateBtn:hover, .reservationBtn:hover, .deleteBtn:hover {
+    background-color: #004aad;
+}
