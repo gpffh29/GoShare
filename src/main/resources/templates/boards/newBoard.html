@@ -18,8 +18,8 @@
 <div layout:fragment="content">
     <form role="form" id="boardForm" enctype="multipart/form-data" method="post">
         <div class="postTitle">
-            <h2 th:if="${board.id} == null" class="title">글 등록하기</h2>
-            <h2 th:if="${board.id} != null" class="title">글 수정하기</h2>
+            <h1 th:if="${board.id} == null" class="title">글 등록하기</h1>
+            <h1 th:if="${board.id} != null" class="title">글 수정하기</h1>
         </div>
         <div class="container">
             <input type="hidden" th:value="${board.id}">
@@ -82,7 +82,7 @@
                     </div>
         <!--            상세 설명 -->
                     <div class="input-contentForm">
-                        <span class="inputContent">상세 설명</span>
+                        <span class="inputContent">상세 설명</span><br>
                         <textarea class="content" rows="5" placeholder="상세 설명을 입력하세요" th:text="${board.content}" id="content"></textarea>
                     </div>
                 </div>

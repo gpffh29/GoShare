@@ -15,8 +15,8 @@ import org.thymeleaf.util.StringUtils;
 @Transactional
 public class BoardImageService {
 
-    @Value("${imgLocation}")
-    private String imgLocation;
+//    @Value("${imgLocation}")
+//    private String imgLocation;
 
     private final ImgRepository imgRepository;
 
@@ -29,7 +29,7 @@ public class BoardImageService {
 
         //파일 업로드
         if(!StringUtils.isEmpty(oriImgName)){
-            imgName = fileService.uploadFile(imgLocation, oriImgName, imgFile.getBytes());
+            imgName = fileService.uploadFile("./imgs/", oriImgName, imgFile.getBytes());
             imgUrl = "/images/cars/" + imgName;
         }
 
