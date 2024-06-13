@@ -10,6 +10,7 @@ import com.GoShare.entity.Member;
 import com.GoShare.service.BoardService;
 import com.GoShare.service.MemberService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -30,11 +31,19 @@ public class BoardViewController {
 
     //    메인 보드
     @GetMapping("/boards")
-    public String getBoards(Model model) {
-        List<BoardListViewResponse> boards = boardService.findAll().stream()
+    public String getBoards(Model model, @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "2") int size) {
+//        List<BoardListViewResponse> boards = boardService.findAll().stream()
+//                .map(BoardListViewResponse::new)
+//                .toList();
+//        model.addAttribute("boards", boards);
+        //페이징 처리
+        Page<Board> boardPage = boardService.getBoards(page, size);
+        List<BoardListViewResponse> boards = boardPage.stream()
                 .map(BoardListViewResponse::new)
                 .toList();
         model.addAttribute("boards", boards);
+        model.addAttribute("boardPage", boardPage);
+        model.addAttribute("currentPage", page);
 
 //        mainBoard.html
         return "boards/mainBoard";

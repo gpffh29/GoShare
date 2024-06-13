@@ -79,7 +79,12 @@
             </div>
         </th:block>
     </div>
-
+    <!-- Pagination -->
+    <div class="pagination">
+        <a th:if="${boardPage.hasPrevious()}" th:href="@{/boards(page=${currentPage - 1}, size=${boardPage.size})}">이전</a>
+        <span><span th:text="${currentPage + 1}"></span>/<span th:text="${boardPage.totalPages}"></span></span>
+        <a th:if="${boardPage.hasNext()}" th:href="@{/boards(page=${currentPage + 1}, size=${boardPage.size})}">다음</a>
+    </div>
 </div>
 </body>
 </html>

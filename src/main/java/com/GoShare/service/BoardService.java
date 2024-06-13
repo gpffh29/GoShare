@@ -15,6 +15,9 @@ import io.micrometer.common.util.StringUtils;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -122,5 +125,11 @@ public class BoardService {
         }
 
         return board;
+    }
+
+    //페이징 처리 메서드
+    public Page<Board> getBoards(int page, int size){
+        Pageable pageable = PageRequest.of(page, size);
+        return boardRepository.findAll(pageable);
     }
 }
