@@ -37,10 +37,6 @@ public class BoardService {
     private final MemberService memberService;
     private final FileService fileService;
     private final CarService carService;
-
-    @Value("${imgLocation}")
-    private String imgLocation;
-
 //    글 추가 메서드
     public Board save(AddBoardRequest request, List<MultipartFile> imgFileList) throws Exception{
 //        System.out.println("save method");  //메소드 실행 확인 test
@@ -91,7 +87,7 @@ public class BoardService {
             System.out.println(boardImage.getImgName());
             try {
                 if (!StringUtils.isEmpty(boardImage.getImgName())) {
-                    fileService.deleteFile(imgLocation + "/" + boardImage.getImgName());
+                    fileService.deleteFile( "./imgs/" + boardImage.getImgName());
                 }
                 imgRepository.delete(boardImage);
             } catch (Exception e) {
