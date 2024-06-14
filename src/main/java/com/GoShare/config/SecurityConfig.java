@@ -22,7 +22,7 @@ public class SecurityConfig{
         http
                 .formLogin(form -> form
                         .loginPage("/members/login")
-                        .defaultSuccessUrl("/boards")
+                        .defaultSuccessUrl("/boards", true)
                         .usernameParameter("email")
                         .failureUrl("/members/login/error")
                 )
@@ -31,7 +31,7 @@ public class SecurityConfig{
                 )
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/css/**", "/js/**", "/images/**").permitAll()
-                        .requestMatchers("/**", "/boards", "/members/**", "/member/**").permitAll()
+                        .requestMatchers("/", "/boards/**", "/members/**", "/member/**", "/images/cars", "/introducePage").permitAll()
                         .requestMatchers("/admin/**").hasRole("ADMIN")
                         .anyRequest().authenticated()
                 );
