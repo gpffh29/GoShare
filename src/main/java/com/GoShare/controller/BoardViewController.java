@@ -31,7 +31,7 @@ public class BoardViewController {
 
     //    메인 보드
     @GetMapping("/boards")
-    public String getBoards(Model model, @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "3") int size) {
+    public String getBoards(Model model, @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "12") int size) {
 //        List<BoardListViewResponse> boards = boardService.findAll().stream()
 //                .map(BoardListViewResponse::new)
 //                .toList();
