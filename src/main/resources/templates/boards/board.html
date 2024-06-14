@@ -19,7 +19,7 @@
         <div class="row">
             <board>
                 <input type="hidden" id="board-id" th:value="${board.id}">
-                <header class="header">
+                <div class="postIntro">
                     <div class="time" th:text="|작성일 : ${#temporals.format(board.createdAt, 'yyyy-MM-dd HH:mm')}|"></div>
                     <!-- 이미지 추가 -->
                     <div th:each="image : ${board.images}">
@@ -27,22 +27,24 @@
                             <img th:src="@{|/images/cars/${image.imgName}|}" class="card_img" alt="차량 사진">
                         </div>
                     </div>
-                    <p class="car_name" th:text="${board.car_name}"></p>
-                    <p class="car_type" th:text="${board.car_type}"></p>
-                    <p class="car_model" th:text="${board.car_model}"></p>
-                </header>
+                    <h2 class="car_name" th:text="|차량 이름 : ${board.car_name}|"></h2>
+                    <h3 class="car_type" th:text="|차량 종류 : ${board.car_type}|"></h3>
+                    <h3 class="car_model" th:text="|차량 연식 : ${board.car_model}|"></h3>
+                </div>
 
                 <div class="mainContent">
-                    <p class="region" th:text="${board.region}"></p>
+                    <h4 class="region" th:text="|지역 : ${board.region}|"></h4>
+                    <span>대여 시작일</span>
                     <p id="boardStartDate" class="startDate" th:text="${board.startDate}"></p>
+                    <span>대여 마감일</span>
                     <p id="boardLastDate" class="lastDate" th:text="${board.lastDate}"></p>
-                    <p class="price" th:text="${board.price}"></p>
+                    <h3 class="price" th:text="|${board.price}원(하루)|"></h3>
 
                     <p class="content" th:text="${board.content}"></p>
                 </div>
                     <button type="button" id="modify-btn" th:if="${board.member_email}==${Authentication}" th:onclick="|location.href='@{/boards/post?id={boardId}(boardId=${board.id})}'|" class="updateBtn">수정</button>
 
-                <form th:if="${board.member_email}!=${Authentication}" th:action="@{/reservation}" role="form" method="post" th:object="${Reservation}">
+                <form th:if="${Authentication != null} and ${board.member_email}!=${Authentication}" th:action="@{/reservation}" role="form" method="post" th:object="${Reservation}">
                         <input type="hidden" name="owning_email" id="owning_email" th:name="owning_email" th:value="${board.member_email}">
 
                         <label th:for="startDate">대여 시작 날짜:</label>

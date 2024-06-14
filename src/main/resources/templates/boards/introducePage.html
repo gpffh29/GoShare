@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/headerfooterLayout}">
+<head>
+    <meta charset="utf-8">
+    <title>개발자 페이지</title>
+    <meta name="_csrf" th:content="${_csrf.token}"/>
+    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+    <link rel="stylesheet" href="/css/introducePage.css">
+</head>
+<body>
+<div layout:fragment="content">
+    <div id="introduceContainer" class="introduceContainer">
+        <img src="/images/sku.jpg" alt="배경사진" class="backgroundImage">
+        <h1>GoShare 개발자 소개</h1>
+
+        <div class="skuContent">
+            <a id="sku" class="sku" href="https://www.skuniv.ac.kr/">
+                <img class="skuLogo" src="/images/sku_logo.png" alt="서경대학교">
+            </a>
+            <a id="software" class="software" href="https://cs.skuniv.ac.kr/">
+                <h3>서경대학교 소프트웨어학과</h3>
+            </a>
+        </div>
+
+        <p class="kim">2019301015 김영관</p>
+        <p class="jo">2020301073 조유정</p>
+
+    </div>
+</div>
+</body>
+</html>
