@@ -55,7 +55,11 @@ public class BoardViewController {
         Board board = boardService.findById(id);
         //현재 세션에 있는 회원 id 가져오기
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String member_email = (String) authentication.getName();
+//        String member_email = (String) authentication.getName();
+        String member_email = null;
+        if (authentication != null && authentication.isAuthenticated() && !"anonymousUser".equals(authentication.getName())) {
+            member_email = (String) authentication.getName();
+        }
         model.addAttribute("Authentication", member_email);
         model.addAttribute("board", new BoardViewResponse(board));
         model.addAttribute("Reservation", new ReservationDto());

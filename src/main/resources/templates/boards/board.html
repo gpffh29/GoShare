@@ -42,7 +42,7 @@
                 </div>
                     <button type="button" id="modify-btn" th:if="${board.member_email}==${Authentication}" th:onclick="|location.href='@{/boards/post?id={boardId}(boardId=${board.id})}'|" class="updateBtn">수정</button>
 
-                <form th:if="${board.member_email}!=${Authentication}" th:action="@{/reservation}" role="form" method="post" th:object="${Reservation}">
+                <form th:if="${Authentication != null} and ${board.member_email}!=${Authentication}" th:action="@{/reservation}" role="form" method="post" th:object="${Reservation}">
                         <input type="hidden" name="owning_email" id="owning_email" th:name="owning_email" th:value="${board.member_email}">
 
                         <label th:for="startDate">대여 시작 날짜:</label>
