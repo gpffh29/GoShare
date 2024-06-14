@@ -63,8 +63,8 @@ span{
 }
 
 .card_img {
-    max-width: 100%;
-    height: auto;
+    width: 780px;
+    height: 520px;
     margin-bottom: 10px;
 }
 
