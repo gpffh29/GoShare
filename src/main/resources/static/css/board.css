@@ -58,6 +58,9 @@ div.postIntro {
     width: 100%;
 }
 
+span{
+    font-weight: bold;
+}
 
 .card_img {
     max-width: 100%;
@@ -79,6 +82,9 @@ div.postIntro {
 
 .region, .startDate, .lastDate, .price, .content {
     margin: 5px 0;
+}
+.region {
+    padding-bottom: 5px;
 }
 
 button, label, input[type="date"] {
