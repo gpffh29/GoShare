@@ -109,7 +109,7 @@ a:hover{
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
-.card img-top {
+.card_img-top{
     max-width: 100%;
     height: auto;
     border-radius: 5px
