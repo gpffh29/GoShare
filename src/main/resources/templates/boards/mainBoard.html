@@ -68,7 +68,7 @@
                 <div class="card">
                     <a class="text-dark" th:href="@{/boards/{id}(id=${item.id})}">
                         <!-- 이미지 추가 -->
-                        <img th:src="@{|${item.getRepImgUrl()}|}" class="card_img-top" th:alt="${item.id}" height="400">
+                        <img th:src="@{|${item.getRepImgUrl()}|}" class="card_img-top" th:alt="${item.id}">
                         <div class="card_body">
                             <p class="card-text" th:text="|대여 시작일 : ${item.startDate}|"></p>
                             <p class="card-text" th:text="|대여 마감일 : ${item.lastDate}|"></p>
