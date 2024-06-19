@@ -4,6 +4,13 @@ document.addEventListener('DOMContentLoaded', function() {
     const csrfToken = document.querySelector('meta[name="_csrf"]').getAttribute('content');
     const csrfHeader = document.querySelector('meta[name="_csrf_header"]').getAttribute('content');
 
+    const priceElement = document.getElementById('price');
+    if (priceElement) {
+        const price = parseFloat(priceElement.innerText);
+        const formattedPrice = price.toLocaleString('ko-KR');
+        priceElement.innerText = formattedPrice + '원(하루)';
+    }
+
     // 삭제 기능
     const deleteButton = document.getElementById('delete-btn');
     if (deleteButton) {

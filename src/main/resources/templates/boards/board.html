@@ -38,7 +38,7 @@
                     <p id="boardStartDate" class="startDate" th:text="${board.startDate}"></p>
                     <span>대여 마감일</span>
                     <p id="boardLastDate" class="lastDate" th:text="${board.lastDate}"></p>
-                    <h3 class="price" th:text="|${board.price}원(하루)|"></h3>
+                    <h3 id="price" class="price" th:text="${board.price}"></h3>
 
                     <p class="content" th:text="${board.content}"></p>
                 </div>

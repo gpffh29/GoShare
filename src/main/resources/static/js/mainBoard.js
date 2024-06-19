@@ -1,5 +1,14 @@
 //캘린더 제공
 document.addEventListener('DOMContentLoaded', function() {
+
+    document.querySelectorAll('.price').forEach(function(priceElement) {
+        const price = parseFloat(priceElement.innerText);
+        if (!isNaN(price)) {
+            const formattedPrice = price.toLocaleString('ko-KR');
+            priceElement.innerText = formattedPrice + '원(하루)';
+        }
+    });
+
     // 오늘 날짜를 yyyy-MM-dd 형식으로 반환하는 함수
     function getTodayDate() {
         var today = new Date();

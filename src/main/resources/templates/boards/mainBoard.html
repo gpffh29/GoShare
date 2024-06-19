@@ -72,7 +72,7 @@
                         <div class="card_body">
                             <p class="card-text" th:text="|대여 시작일 : ${item.startDate}|"></p>
                             <p class="card-text" th:text="|대여 마감일 : ${item.lastDate}|"></p>
-                            <h4 class="card-title text-danger" th:text="|${item.price} 원|"></h4>
+                            <h4 class="price card-title text-danger" th:text="${item.price}"></h4>
                         </div>
                     </a>
                 </div>
