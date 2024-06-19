@@ -25,7 +25,11 @@ document.addEventListener('DOMContentLoaded', function() {
     var today = getTodayDate();
 
     startDateInput.setAttribute('min', today);
+    //기본 세팅 오늘 날짜
+    startDateInput.value = today;
     lastDateInput.setAttribute('min', today);
+    //기본 세팅 오늘 날짜
+    lastDateInput.value = today;
 
     // 시작 날짜를 선택하면 종료 날짜의 최소 날짜도 변경
     startDateInput.addEventListener('change', function() {
