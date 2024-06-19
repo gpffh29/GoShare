@@ -11,6 +11,24 @@ document.addEventListener('DOMContentLoaded', function() {
         priceElement.innerText = formattedPrice + '원(하루)';
     }
 
+    // 슬라이드 쇼 기능
+    var slides = document.querySelectorAll("#slideShow .slides");
+    var current = 0;
+
+    function showSlide() {
+
+        for (let i = 0; i < slides.length; i++) {
+            slides[i].style.display = "none";
+        }
+        current++;
+        if (current > slides.length)
+            current = 1;
+        slides[current - 1].style.display = "block";
+        setTimeout(showSlide, 5000);
+    }
+
+    showSlide();
+
     // 삭제 기능
     const deleteButton = document.getElementById('delete-btn');
     if (deleteButton) {
