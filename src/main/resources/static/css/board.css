@@ -1,6 +1,6 @@
 * {
-    margin : 0;
-    padding : 0;
+    margin: 0;
+    padding: 0;
 }
 
 html, body {
@@ -25,9 +25,9 @@ body {
 
 div.postIntro {
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
+    flex-direction: row; /* row로 변경하여 이미지와 정보를 나란히 배치 */
+    align-items: flex-start;
+    text-align: left; /* 왼쪽 정렬 */
     padding: 10px;
 }
 
@@ -58,12 +58,27 @@ div.postIntro {
     width: 100%;
 }
 
-span{
+span {
     font-weight: bold;
 }
 
+.leftColumn {
+    flex: 1;
+}
+
+.rightColumn {
+    flex: 2;
+    padding-left: 20px;
+    padding-top: 200px;
+    align-items: center;
+}
+
+.reservationContent{
+    padding-top: 30px;
+}
+
 .card_img {
-    width: 700px;
+    width: 400px;
     height: auto;
     margin-bottom: 10px;
 }
@@ -75,14 +90,15 @@ span{
 .mainContent {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    text-align: center;
+    align-items: flex-start; /* 왼쪽 정렬 */
+    text-align: left; /* 왼쪽 정렬 */
     padding: 10px;
 }
 
 .region, .startDate, .lastDate, .price, .content {
     margin: 5px 0;
 }
+
 .region {
     padding-bottom: 5px;
 }
@@ -92,7 +108,7 @@ button, label, input[type="date"] {
 }
 
 .updateBtn, .reservationBtn, .deleteBtn {
-    width: 50px;
+    width: 100px; /* 버튼 너비 확장 */
     padding: 10px;
     margin: 5px;
     background-color: #0066ef;
@@ -104,4 +120,15 @@ button, label, input[type="date"] {
 
 .updateBtn:hover, .reservationBtn:hover, .deleteBtn:hover {
     background-color: #004aad;
+}
+
+.buttonContainer {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-top: 20px; /* 버튼 상단에 여백 추가 */
+}
+
+button {
+    margin: 0 10px; /* 버튼 간의 좌우 여백 추가 */
 }
