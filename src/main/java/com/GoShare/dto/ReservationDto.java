@@ -12,7 +12,8 @@ import java.util.Date;
 @Getter
 @Setter
 public class ReservationDto {
-    private String owning_email;
+    private String owner;
     private String startDate;
     private String lastDate;
+    private String loaner;
 }

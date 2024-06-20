@@ -42,6 +42,9 @@ public class Member {
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Car> cars;
 
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Reservation> reservations;
+
     public static Member createMember(MemberFormDto memberFormDto, PasswordEncoder passwordEncoder){
         Member member = new Member();
         member.setName(memberFormDto. getName());

@@ -21,7 +21,7 @@ public class EmailService {
         String rental_email = (String) authentication.getName();
 
         SimpleMailMessage message = new SimpleMailMessage();
-        String owning_email= reservationDto.getOwning_email();
+        String owning_email= reservationDto.getOwner();
         message.setTo(owning_email);
         message.setSubject("[GoShare] 차량 예약 요청 메일입니다");
         String start_date=reservationDto.getStartDate();

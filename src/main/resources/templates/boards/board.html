@@ -48,13 +48,15 @@
                             <p class="content" th:text="${board.content}"></p>
 
                             <form class="reservationContent" th:if="${Authentication != null} and ${board.member_email}!=${Authentication}" th:action="@{/reservation}" role="form" method="post" th:object="${Reservation}">
-                                <input type="hidden" name="owning_email" id="owning_email" th:name="owning_email" th:value="${board.member_email}">
+                                <input type="hidden" name="owner" id="owner" th:name="owner" th:value="${board.member_email}">
 
                                 <label th:for="startDate">대여 시작 날짜:</label>
                                 <input type="date" name="startDate" id="inputStartDate" th:field="*{startDate}" required><br>
 
                                 <label th:for="lastDate">대여 종료 날짜:</label>
                                 <input type="date" name="lastDate" id="inputLastDate" th:field="*{lastDate}" required>
+
+                                <input type="hidden" name="loaner" id="loaner" th:name="loaner" th:value="${Authentication}">
 
                                 <button type="submit" th:if="${board.member_email}!=${Authentication}" id="reservation-btn" class="reservationBtn">예약</button>
 
