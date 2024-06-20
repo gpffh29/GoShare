@@ -57,6 +57,7 @@
                                 <input type="date" name="lastDate" id="inputLastDate" th:field="*{lastDate}" required>
 
                                 <input type="hidden" name="loaner" id="loaner" th:name="loaner" th:value="${Authentication}">
+                                <input type="hidden" name="carName" id="carName" th:name="carName" th:value="${board.car_name}">
 
                                 <button type="submit" th:if="${board.member_email}!=${Authentication}" id="reservation-btn" class="reservationBtn">예약</button>
 

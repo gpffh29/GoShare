@@ -1,5 +1,6 @@
 package com.GoShare.dto;
 
+import com.GoShare.entity.Reservation;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,4 +17,8 @@ public class ReservationDto {
     private String startDate;
     private String lastDate;
     private String loaner;
+    private String carName;
+
+    public ReservationDto(Reservation reservation) {
+    }
 }

@@ -26,6 +26,9 @@ public class Reservation {
     @Column(name = "loaner", nullable = false)
     private String loaner;
 
+    @Column(name = "car_name", nullable = false)
+    private String carName;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id", nullable = false)
     private Member member;
