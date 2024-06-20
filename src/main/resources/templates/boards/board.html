@@ -58,6 +58,7 @@
 
                                 <input type="hidden" name="loaner" id="loaner" th:name="loaner" th:value="${Authentication}">
                                 <input type="hidden" name="carName" id="carName" th:name="carName" th:value="${board.car_name}">
+                                <input type="hidden" name="board_id" id="board_id" th:name="board_id" th:value="${board.id}">
 
                                 <button type="submit" th:if="${board.member_email}!=${Authentication}" id="reservation-btn" class="reservationBtn">예약</button>
 

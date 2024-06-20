@@ -72,6 +72,9 @@ public class Board {
     @JoinColumn(name = "member_id", nullable = false)
     private Member member;
 
+    @OneToMany(mappedBy = "board", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Reservation> reservations = new ArrayList<>();
+
     @Builder
     public Board(String content, String region, LocalDate startDate, LocalDate lastDate, Integer price, List<BoardImage> images, Member member, String carModel, String carName, String carType) {
 

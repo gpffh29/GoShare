@@ -18,6 +18,7 @@ public class ReservationService {
 
     private final ReservationRepository reservationRepository;
     private final MemberRepository memberRepository;
+    private final BoardService boardService;
 
     public void saveReservation(ReservationDto reservationDto) {
         Member member = memberRepository.findByEmail(reservationDto.getLoaner());
@@ -28,6 +29,7 @@ public class ReservationService {
         reservation.setStartDate(reservationDto.getStartDate());
         reservation.setLastDate(reservationDto.getLastDate());
         reservation.setCarName(reservationDto.getCarName());
+        reservation.setBoard(boardService.findById(reservationDto.getBoard_id()));
 
         reservationRepository.save(reservation);
     }

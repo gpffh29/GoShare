@@ -18,6 +18,7 @@ public class ReservationDto {
     private String lastDate;
     private String loaner;
     private String carName;
+    private Long board_id;
 
     public ReservationDto(Reservation reservation) {
     }

@@ -22,7 +22,7 @@
                 <div class="card-body">
                     <p class="card-text" th:text="${item.getStartDate()}"></p>
                     <p class="card-text" th:text="${item.getLastDate()}"></p>
-<!--                    <a href="#" class="btn btn-primary">보러 가기</a>-->
+                    <a th:href="@{/boards/{id}(id=${item.board.id})}" class="btn btn-primary">보러 가기</a>
                 </div>
             </div>
         </div>
