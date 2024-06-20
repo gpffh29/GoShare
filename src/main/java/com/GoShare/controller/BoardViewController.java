@@ -75,7 +75,14 @@ public class BoardViewController {
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
             String member_email = (String) authentication.getName();
             Member member=memberService.findMemberByEmail(member_email);
+
+            //user가 차량을 소지하지 않으면 차량 등록페이지로 리다이렉션
+            if(member.getCars().isEmpty()) {
+                model.addAttribute("EmptyCar", "등록된 차량이 존재하지 않습니다 차량을 먼저 등록해주세요!");
+            }
+
             List<Car> cars = member.getCars();
+
             model.addAttribute("cars", cars);
             model.addAttribute("board", new BoardViewResponse());
         } else {  //id가 있으면 수정
