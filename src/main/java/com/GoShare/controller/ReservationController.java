@@ -26,10 +26,11 @@ public class ReservationController {
     private final MemberService memberService;
 
     @PostMapping(value = "/reservation")
-    public String SendEmail(ReservationDto reservationDto){
+    public String SendEmail(ReservationDto reservationDto, Model model){
         reservationService.saveReservation(reservationDto);
         emailService.sendSimpleEmail(reservationDto);
-        return "redirect:/boards";
+        model.addAttribute("reservation", reservationDto);
+        return "reservation/reservationSuccess";
     }
 
     @GetMapping(value = "/reservation/status")
