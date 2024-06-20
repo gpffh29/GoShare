@@ -13,6 +13,20 @@
     <script src="/js/board.js"></script>
     <meta name="_csrf" th:content="${_csrf.token}"/>
     <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+
+<!--    user가 차량이 없을 시 차량 등록페이지로 리다이렉션-->
+    <script type="text/javascript" th:inline="javascript">
+        window.onload = function() {
+            // EmptyCar 데이터 확인
+            const EmptyCar = /*[[${EmptyCar}]]*/ [];
+            if (EmptyCar.length > 0) {
+                // emptyCar 데이터가 존재하면 alert 창으로 메시지 출력
+                alert(EmptyCar);
+                // 다른 링크로 리다이렉션
+                window.location.href = "/car/registration";
+            }
+        }
+    </script>
 </head>
 <body>
 <div layout:fragment="content">
