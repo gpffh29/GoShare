@@ -23,9 +23,10 @@
     </div>
 
     <!--    검색 창 구현 -->
-    <div class="searchBar">
+    <form th:action="@{/boards}" th:object="${searchDto}" class="searchBar">
         <!--        지역 선택 -->
-        <select id="regionSelect" class="form-control">
+        <select name="region" th:field="*{region}" id="regionSelect" class="form-control">
+            <option value="">전체</option>
             <option value="서울">서울</option>
             <option value="경기도">경기도</option>
             <option value="강원도">강원도</option>
@@ -39,36 +40,33 @@
         </select>
 
         <!--        대여 시작일 선택 -->
-        <input type="date" class="form-control" id="startDate" placeholder="대여 시작일 선택">
-
+        <input type="date" th:field="*{startDate}" class="form-control" id="startDate" placeholder="대여 시작일 선택">
 
         <!--        반납일 선택 -->
-
-        <input type="date" class="form-control" id="lastDate" placeholder="반납일 선택">
-
+        <input type="date" th:field="*{endDate}" class="form-control" id="lastDate" placeholder="반납일 선택">
 
         <!--        차종 선택 -->
-        <select id="carType" class="form-control">
-            <option value="전체">전체</option>
+        <select name="car_type" th:field="*{car_type}" id="carType" class="form-control">
+            <option value="">전체</option>
             <option value="승용 소형">소형</option>
             <option value="승용 중형">중형</option>
             <option value="승용 대형">대형</option>
-
         </select>
+
         <!--        검색 버튼 -->
         <button id="searchBtn" type="submit" class="searchButton">검색</button>
 
-    </div>
+    </form>
 
     <!--    게시판 화면 구현 -->
     <div class="row" id="boardContainer">
         <th:block th:each="item : ${boards}">
             <div class="col-md-4 margin board-item"
-                 th:attr="data-start-date=${item.startDate}, data-last-date=${item.lastDate}, data-region=${item.region}, data-car-type=${item.car_type}">
+                 th:attr="data-start-date=${item.startDate}, data-last-date=${item.lastDate}, data-region=${item.region}, data-car-type=${item.carType}">
                 <div class="card">
                     <a class="text-dark" th:href="@{/boards/{id}(id=${item.id})}">
                         <!-- 이미지 추가 -->
-                        <img th:src="@{|${item.getRepImgUrl()}|}" class="card_img-top" th:alt="${item.id}">
+                        <img th:src="@{|${item.getImages().get(0).imgUrl}|}" class="card_img-top" th:alt="${item.id}">
                         <div class="card_body">
                             <p class="card-text" th:text="|대여 시작일 : ${item.startDate}|"></p>
                             <p class="card-text" th:text="|대여 마감일 : ${item.lastDate}|"></p>
@@ -81,9 +79,9 @@
     </div>
     <!-- Pagination -->
     <div class="pagination">
-        <a th:if="${boardPage.hasPrevious()}" th:href="@{/boards(page=${currentPage - 1}, size=${boardPage.size})}">이전</a>
-        <span><span th:text="${currentPage + 1}"></span>/<span th:text="${boardPage.totalPages}"></span></span>
-        <a th:if="${boardPage.hasNext()}" th:href="@{/boards(page=${currentPage + 1}, size=${boardPage.size})}">다음</a>
+        <a th:if="${boards.hasPrevious()}" th:href="@{/boards(page=${currentPage - 1}, size=${boards.size})}">이전</a>
+        <span><span th:text="${currentPage + 1}"></span>/<span th:text="${boards.totalPages}"></span></span>
+        <a th:if="${boards.hasNext()}" th:href="@{/boards(page=${currentPage + 1}, size=${boards.size})}">다음</a>
     </div>
 </div>
 </body>

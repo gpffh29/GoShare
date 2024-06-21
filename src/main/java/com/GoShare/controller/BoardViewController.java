@@ -4,6 +4,7 @@ package com.GoShare.controller;
 import com.GoShare.dto.BoardListViewResponse;
 import com.GoShare.dto.BoardViewResponse;
 import com.GoShare.dto.ReservationDto;
+import com.GoShare.dto.SearchDto;
 import com.GoShare.entity.Board;
 import com.GoShare.entity.Car;
 import com.GoShare.entity.Member;
@@ -11,6 +12,9 @@ import com.GoShare.service.BoardService;
 import com.GoShare.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -18,7 +22,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 
+import java.time.LocalDate;
 import java.util.List;
 
 //글 전체 리스트를 담은 뷰 반환
@@ -31,21 +37,31 @@ public class BoardViewController {
 
     //    메인 보드
     @GetMapping("/boards")
-    public String getBoards(Model model, @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "12") int size) {
+    public String getBoards(
+            @RequestParam(required = false) String region,
+            @RequestParam(required = false)  @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
+            @RequestParam(required = false)  @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate,
+            @RequestParam(required = false) String car_type,
+            Model model,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "12") int size) {
 //        List<BoardListViewResponse> boards = boardService.findAll().stream()
 //                .map(BoardListViewResponse::new)
 //                .toList();
 //        model.addAttribute("boards", boards);
         //페이징 처리
-        Page<Board> boardPage = boardService.getBoards(page, size);
-        List<BoardListViewResponse> boards = boardPage.stream()
-                .map(BoardListViewResponse::new)
-                .toList();
+        Pageable pageable = PageRequest.of(page, size);
+        System.out.println(startDate);
+        Page<Board> boards;
+//        if (region == null && startDate == null && endDate == null && car_type == null) {
+//            boards = boardService.findAll(pageable);
+//        } else {
+            boards = boardService.searchBoards(region, car_type, startDate, endDate, pageable);
+//        }
         model.addAttribute("boards", boards);
-        model.addAttribute("boardPage", boardPage);
+        model.addAttribute("searchDto", new SearchDto(region, car_type, startDate, endDate));
         model.addAttribute("currentPage", page);
-
-//        mainBoard.html
+        model.addAttribute("totalPages", boards.getTotalPages());
         return "boards/mainBoard";
     }
 

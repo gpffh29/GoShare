@@ -7,6 +7,7 @@ import com.GoShare.dto.UpdateBoardRequest;
 import com.GoShare.entity.Board;
 import com.GoShare.service.BoardService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -38,21 +39,21 @@ public class BoardApiController {
     }
 
 //    메인 보드
-    @GetMapping("/api/boards")
-    public ResponseEntity<List<BoardResponse>> findAllBoards() {
-        System.out.println("test /api/boards");
-        try {
-            List<BoardResponse> boards = boardService.findAll()
-                    .stream()
-                    .map(BoardResponse::new)
-                    .toList();
-            System.out.println("Boards found: " + boards.size());
-            return ResponseEntity.ok().body(boards);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
-        }
-    }
+//    @GetMapping("/api/boards")
+//    public ResponseEntity<List<BoardResponse>> findAllBoards() {
+//        System.out.println("test /api/boards");
+//        try {
+//            List<BoardResponse> boards = boardService.findAll()
+//                    .stream()
+//                    .map(BoardResponse::new)
+//                    .toList();
+//            System.out.println("Boards found: " + boards.size());
+//            return ResponseEntity.ok().body(boards);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+//        }
+//    }
 
 
     //    특정 글 보기

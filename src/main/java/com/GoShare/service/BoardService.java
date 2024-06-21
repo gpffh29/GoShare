@@ -2,30 +2,26 @@ package com.GoShare.service;
 
 
 import com.GoShare.dto.AddBoardRequest;
-import com.GoShare.dto.BoardImgRequest;
 import com.GoShare.dto.UpdateBoardRequest;
 import com.GoShare.entity.Board;
 import com.GoShare.entity.BoardImage;
 import com.GoShare.entity.Car;
 import com.GoShare.entity.Member;
 import com.GoShare.repository.BoardRepository;
-import com.GoShare.repository.CarRepository;
 import com.GoShare.repository.ImgRepository;
 import io.micrometer.common.util.StringUtils;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
@@ -69,8 +65,12 @@ public class BoardService {
     }
 
 //    데이터베이스에 저장되어 있는 글을 모두 가져오는 findAll()메서드
-    public List<Board> findAll(){
-        return boardRepository.findAll();
+    public Page<Board> findAll(Pageable pageable){
+        return boardRepository.findAll(pageable);
+    }
+
+    public Page<Board> searchBoards(String region, String car_type, LocalDate startDate, LocalDate endDate, Pageable pageable){
+        return boardRepository.findByCriteria(region, car_type, startDate, endDate, pageable);
     }
 
 //    글 하나를 조회하는 findById() 메서드
@@ -121,11 +121,5 @@ public class BoardService {
         }
 
         return board;
-    }
-
-    //페이징 처리 메서드
-    public Page<Board> getBoards(int page, int size){
-        Pageable pageable = PageRequest.of(page, size);
-        return boardRepository.findAll(pageable);
     }
 }
