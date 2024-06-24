@@ -22,6 +22,8 @@ $(function () {
     else
         minDate = boardStartDate;
 
+    inputStartDate.value=today;
+    inputLastDate.value=today;
     inputStartDate.setAttribute('min', minDate);
     inputStartDate.setAttribute('max', boardLastDate);
 

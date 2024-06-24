@@ -24,8 +24,8 @@
                 </div>
                 <div class="card-body">
                     <input type="hidden" id="reservation-id" th:value="${item.id}">
-                    <p class="card-text" th:text="${item.getStartDate()}"></p>
-                    <p class="card-text" th:text="${item.getLastDate()}"></p>
+                    <p class="card-text" th:text="'대여 시작일 : '+${item.getStartDate()}"></p>
+                    <p class="card-text" th:text="'대여 마감일 : '+${item.getLastDate()}"></p>
                     <a th:href="@{/boards/{id}(id=${item.board.id})}" class="btn btn-primary">보러 가기</a>
                     <button type="button" class="btn btn-danger delete-btn" th:data-reservation-id="${item.id}">예약 취소</button>
                 </div>
@@ -40,8 +40,8 @@
                 <div class="card-header" th:text="${item.getCarName()}">
                 </div>
                 <div class="card-body">
-                    <p class="card-text" th:text="${item.getStartDate()}"></p>
-                    <p class="card-text" th:text="${item.getLastDate()}"></p>
+                    <p class="card-text" th:text="'대여 시작일 : '+${item.getStartDate()}"></p>
+                    <p class="card-text" th:text="'대여 마감일 : '+${item.getLastDate()}"></p>
                     <a th:href="@{/boards/{id}(id=${item.board.id})}" class="btn btn-primary">보러 가기</a>
                 </div>
             </div>

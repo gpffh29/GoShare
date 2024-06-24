@@ -32,7 +32,7 @@ public class EmailService {
         String last_date=reservationDto.getLastDate();
         String carName=reservationDto.getCarName();
 
-        message.setText("예약자 이메일 : "+rental_email+"\n차종 : "+carName+"\n대여 시작일 : "+start_date+"\n대여 종료일 : "+last_date+"\nhttp://210.178.50.79/GoShare/reservation/status");
+        message.setText("예약자 이메일 : "+rental_email+"\n차종 : "+carName+"\n대여 시작일 : "+start_date+"\n대여 종료일 : "+last_date+"\nhttp://210.178.40.79:8080/GoShare/reservation/status");
 
         mailSender.send(message);
     }
