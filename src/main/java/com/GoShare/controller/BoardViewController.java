@@ -83,7 +83,7 @@ public class BoardViewController {
     }
 
     //    글 수정, 생성 페이지
-    @GetMapping("/boards/post")
+    @GetMapping("/board/post")
     public String newBoard(@RequestParam(required = false) Long id, Model model) {
 //        id가 없으면 생성
         if (id == null) {
