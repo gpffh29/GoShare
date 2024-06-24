@@ -69,7 +69,7 @@ public class ApiController {
             return "member/memberLicense";
         } else if (resAuthenticity.equals("4")) {
             model.addAttribute("LicenseInputDto", new LicenseInputDto());
-            model.addAttribute("failAuth", "성명과 주민등록번호 또는 전화번호를 확인해주세요");
+            model.addAttribute("failAuth", "사용자 정보(이름, 전화번호, 주민등록번호)를 확인해주세요");
             return "member/memberLicense";
         } else{
             model.addAttribute("LicenseInputDto", new LicenseInputDto());

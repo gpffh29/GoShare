@@ -111,7 +111,7 @@ public class ApiService {
         }
 
         // 이름과 주민등록번호가 다를 시
-        else if(code.equals("CF-12837") || code.equals("CF-00025")) {
+        else if(code.equals("CF-12837")) {
             return "4";
         }
         else return "0";
