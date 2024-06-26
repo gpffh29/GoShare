@@ -1,0 +1,160 @@
+*{
+    margin:0;
+    padding: 0;
+}
+.mainBoardImg{
+    position: relative;
+    width: 100%;
+    height: 500px;
+    overflow: hidden;
+}
+
+.mainBoardImg img{
+    display: block;
+    width:100%;
+    height: auto;
+    max-height: initial;
+}
+
+/* 검색바 */
+.searchBar {
+    width: 50%;
+    margin: 20px auto;
+    background-color: rgba(0, 102, 239, 0.3);
+    padding: 20px;
+    border-radius: 5px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: center;
+}
+
+.form-control {
+    flex: 1;
+    min-width: 100px;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.searchButton {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+/* Datepicker 배경 색상 설정 */
+.ui-datepicker {
+    background: white; /* 배경 색상 설정 */
+    border: none;/* 테두리 색상 설정 */
+    padding: 10px; /* 내부 여백 설정 */
+    z-index: 1000; /* z-index 설정 */
+}
+
+/*header랑 footer?*/
+.margin{
+    margin-bottom: 30px;
+}
+
+.banner{
+    height: 300px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+}
+
+/*메인 보드*/
+a{
+    text-decoration: none;  /*밑줄 제거*/
+    color: black;
+}
+
+a:hover{
+    text-decoration: none;
+    color: #007bff;
+}
+.center{
+    text-align: center;
+}
+
+#boardContainer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between; /* 각 카드 사이에 간격 추가 */
+    padding: 20px;
+    width: 50%;
+    margin: 0 auto;
+}
+
+/* 각 게시물 아이템 스타일 설정 */
+.board-item {
+    flex: 0 0 30%; /* 각 아이템이 한 줄에 3개씩 차지하도록 설정 (약 30%씩) */
+    box-sizing: border-box;
+    margin-bottom: 20px; /* 아래쪽 간격 추가 */
+}
+
+/* 카드 스타일 조정 */
+.card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+.card_img-top {
+    max-width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 5px
+}
+
+.card_body {
+    padding: 10px 0;
+}
+
+.card-title {
+    margin-top: 10px;
+}
+
+/*페이지 네비게이션 css*/
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.pagination a,
+.pagination span {
+    margin: 0 5px;
+    padding: 10px 15px;
+    text-decoration: none;
+    color: #007bff;
+    background-color: #ffffff;
+    transition: background-color 0.2s, color 0.2s;
+    border: none; /* 테두리 제거 */
+    border-radius: 0.25rem;
+}
+
+.pagination a:hover {
+    background-color: #007bff;
+    color: #ffffff;
+}
+
+.pagination a[disabled],
+.pagination a[disabled]:hover {
+    color: #6c757d;
+    pointer-events: none;
+    background-color: #ffffff;
+}
+
+.pagination span {
+    background-color: #ffffff;
+}

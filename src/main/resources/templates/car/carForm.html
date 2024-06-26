@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>차량 등록</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/carForm.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="container">
+    <!-- Form to submit data -->
+    <form id="dataForm" th:action="@{/car/registration_form}" th:object="${CarInputDto}" method="post">
+        <div class="memberFormContainer">
+            <div class="logoContainer">
+                <a href="/boards">
+                    <img src="/images/GoShare_logo.png" alt="logo" class="logo">
+                </a>
+                <h2>차량 등록</h2>
+            </div>
+            <div class="memberForm">
+                <label for="userName">성명:</label>
+                <input type="text" id="userName" name="userName" th:field="*{userName}" required>
+                <br>
+
+                <label for="identity">주민등록번호:</label>
+                <input type="password" maxlength="13" placeholder="'-'없이 13자 작성" id="identity" name="identity" th:field="*{identity}" required>
+                <br>
+
+                <label for="phoneNo">전화번호:</label>
+                <input type="text" maxlength="11" placeholder="'-'없이 작성" id="phoneNo" name="phoneNo" th:field="*{phoneNo}" required>
+                <br>
+
+                <label for="carNo">차량 번호:</label>
+                <input type="text" maxlength="" placeholder="" id="carNo" name="carNo" th:field="*{carNo}" required>
+                <br>
+                <button type="submit" class="btn btn-primary">인증 요청</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">본인 인증</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p>카카오톡 본인 인증 완료 후 완료 버튼을 눌러주세요.</p>
+            </div>
+            <div class="modal-footer">
+                <form th:action="@{/car/registration}" method="post">
+                    <button type="submit" class="btn btn-primary" name="buttonValue" value="1">완료</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function() {
+        $('#dataForm').on('submit', function (event) {
+            event.preventDefault(); // 폼의 기본 제출 동작을 막습니다.
+            $.ajax({
+                type: 'POST',
+                url: $(this).attr('action'),
+                data: $(this).serialize(),
+                success: function (response) {
+                    // 서버 응답이 성공적이면 모달을 표시합니다.
+                    $('#myModal').modal('show');
+                },
+                error: function (xhr, status, error) {
+                    alert('올바른 정보를 입력해주세요: ' + error);
+                }
+            });
+        });
+        // 모달 내부의 폼 처리
+        $('#modalForm').on('submit', function(event){
+            event.preventDefault(); // 폼의 기본 제출 동작을 막습니다.
+
+            $.ajax({
+                type: 'POST',
+                url: $(this).attr('action'),
+                data: $(this).serialize(),
+                success: function(response) {
+                    // 서버 응답이 성공적이면 모달을 닫거나 다른 처리를 합니다.
+                    alert('폼 제출 완료');
+                    $('#myModal').modal('hide');
+                },
+                error: function(xhr, status, error) {
+                    alert('폼 제출 중 오류가 발생했습니다: ' + error);
+                }
+            });
+        });
+    });
+</script>
+
+</body>
+</html>

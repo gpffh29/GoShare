@@ -2,14 +2,11 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
-    <meta charst="UTF-8">
-    <title>GoShare</title>
-
-    <th:block layout:fragment="script"></th:block>
-    <th:block layout:fragment="css"></th:block>
+    <meta charset="UTF-8">
+    <title></title>
 </head>
 <body>
     <div layout:fragment="content"></div>
-<div th:replace="fragments/footer::footer"></div>
+    <div th:replace="~{fragments/footer::footer}"></div>
 </body>
 </html>

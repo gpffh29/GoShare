@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/headerfooterLayout}">
+<head>
+    <meta charset="UTF-8">
+    <title>board</title>
+    <link rel="stylesheet" href="/css/board.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="/js/board.js"></script>
+    <script src="/js/reservation.js"></script>
+    <script src="/js/imgSlide.js"></script>
+    <meta name="_csrf" th:content="${_csrf.token}"/>
+    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="boardContainer">
+        <div class="row">
+            <board>
+                <input type="hidden" id="board-id" th:value="${board.id}">
+                <div class="postIntro">
+                    <div class="leftColumn">
+                        <div class="time" th:text="|작성일 : ${#temporals.format(board.createdAt, 'yyyy-MM-dd HH:mm')}|"></div>
+                        <!-- 이미지 추가 -->
+                        <div id="slideShow">
+                            <div class="slides" th:each="image : ${board.images}">
+                                <div th:if="${image.imgName != null && !image.imgName.isEmpty()}">
+                                    <img th:src="@{|/images/cars/${image.imgName}|}" class="card_img" alt="차량 사진">
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="rightColumn">
+                        <h2 class="car_name" th:text="|차량 이름 : ${board.car_name}|"></h2>
+                        <h3 class="car_type" th:text="|차량 종류 : ${board.car_type}|"></h3>
+                        <h3 class="car_model" th:text="|차량 연식 : ${board.car_model}|"></h3>
+                        <div class="mainContent">
+                            <h4 class="region" th:text="|지역 : ${board.region}|"></h4>
+                            <span>대여 시작일</span>
+                            <p id="boardStartDate" class="startDate" th:text="${board.startDate}"></p>
+                            <span>대여 마감일</span>
+                            <p id="boardLastDate" class="lastDate" th:text="${board.lastDate}"></p>
+                            <h3 id="price" class="price" th:text="${board.price}"></h3>
+
+                            <p class="content" th:text="${board.content}"></p>
+
+                            <form class="reservationContent" th:if="${Authentication != null} and ${board.member_email}!=${Authentication}" th:action="@{/reservation}" role="form" method="post" th:object="${Reservation}">
+                                <input type="hidden" name="owner" id="owner" th:name="owner" th:value="${board.member_email}">
+
+                                <label th:for="startDate">대여 시작 날짜:</label>
+                                <input type="date" name="startDate" id="inputStartDate" th:field="*{startDate}" required><br>
+
+                                <label th:for="lastDate">대여 종료 날짜:</label>
+                                <input type="date" name="lastDate" id="inputLastDate" th:field="*{lastDate}" required>
+
+                                <input type="hidden" name="loaner" id="loaner" th:name="loaner" th:value="${Authentication}">
+                                <input type="hidden" name="carName" id="carName" th:name="carName" th:value="${board.car_name}">
+                                <input type="hidden" name="board_id" id="board_id" th:name="board_id" th:value="${board.id}">
+
+                                <button type="submit" th:if="${board.member_email}!=${Authentication}" id="reservation-btn" class="reservationBtn">예약</button>
+
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="buttonContainer">
+                    <button type="button" id="modify-btn" th:if="${board.member_email}==${Authentication}" th:onclick="|location.href='@{/boards/post?id={boardId}(boardId=${board.id})}'|" class="updateBtn">수정</button>
+                    <button type="submit" id="delete-btn" th:if="${board.member_email}==${Authentication}" class="deleteBtn">삭제</button>
+                </div>
+
+
+
+            </board>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

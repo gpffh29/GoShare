@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>회원가입</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/memberLicense.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="container">
+    <!-- Form to submit data -->
+    <form id="dataForm" th:action="@{/member/License_form}" th:object="${LicenseInputDto}" method="post">
+        <div class="memberFormContainer">
+            <div class="logoContainer">
+                <a href="/boards">
+                    <img src="/images/GoShare_logo.png" alt="logo" class="logo">
+                </a>
+                <h2>면허증 확인</h2>
+            </div>
+                <div class="memberForm">
+                <label for="loginUserName">성명:</label>
+                <input type="text" placeholder="ex) 홍길동" id="loginUserName" name="loginUserName" th:field="*{loginUserName}" required>
+                <br>
+
+                <label for="identity">주민등록번호:</label>
+                <input type="password" maxlength="13" placeholder="'-'없이 13자 작성" id="identity" name="identity" th:field="*{identity}" autocomplete="off" required>
+                <br>
+
+                <label for="phoneNo">전화번호:</label>
+                <input type="text" maxlength="11" placeholder="'-'없이 작성" id="phoneNo" name="phoneNo" autocomplete="off" th:field="*{phoneNo}" required>
+                <br>
+
+                <label for="birthDate">생년월일:</label>
+                <input type="text" maxlength="8" placeholder="ex)19990101" id="birthDate" name="birthDate" autocomplete="off" th:field="*{birthDate}" required>
+                <br>
+
+                <label for="LicenseNo01" style="font-size: 13px">운전 면허번호01:</label>
+                <input type="password" maxlength="2" placeholder="지역코드: 2자리 숫자" id="LicenseNo01" name="LicenseNo01" autocomplete="off" th:field="*{licenseNo01}" required>
+                <br>
+
+                <label for="LicenseNo02" style="font-size: 13px">운전 면허번호02:</label>
+                <input type="password" maxlength="2" placeholder="년도: 2자리 숫자" id="LicenseNo02" name="LicenseNo02" autocomplete="off" th:field="*{licenseNo02}" required>
+                <br>
+
+                <label for="LicenseNo03" style="font-size: 13px">운전 면허번호03:</label>
+                <input type="password" maxlength="6" placeholder="6자리 숫자" id="LicenseNo03" name="LicenseNo03" autocomplete="off" th:field="*{licenseNo03}" required>
+                <br>
+
+                <label for="LicenseNo04" style="font-size: 13px">운전 면허번호04:</label>
+                <input type="password" maxlength="2" placeholder="2자리 숫자" id="LicenseNo04" name="LicenseNo04" autocomplete="off" th:field="*{licenseNo04}" required>
+                <br>
+
+                <label for="serialNo">일련번호:</label>
+                <input type="password" maxlength="6" placeholder="6자리or5자리 문자+숫자" id="serialNo" name="serialNo" autocomplete="off" th:field="*{serialNo}" required>
+                <p style="font-size: 12px">*일련번호는 면허증 우측 작은 사진 밑에 있습니다.</p>
+                    <br>
+                <button type="submit" class="btn btn-primary">인증 요청</button>
+            </div>
+            <p th:text="${failAuth}"></p>
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+        </div>
+    </form>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">본인 인증</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p>카카오톡 본인 인증 완료 후 완료 버튼을 눌러주세요.</p>
+            </div>
+            <div class="modal-footer">
+                <form th:action="@{/member/License}" method="post">
+                    <button type="submit" class="btn btn-primary" name="buttonValue" value="1">완료</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function() {
+        $('#dataForm').on('submit', function (event) {
+            event.preventDefault(); // 폼의 기본 제출 동작을 막습니다.
+            $.ajax({
+                type: 'POST',
+                url: $(this).attr('action'),
+                data: $(this).serialize(),
+                success: function (response) {
+                    // 서버 응답이 성공적이면 모달을 표시합니다.
+                    $('#myModal').modal('show');
+                },
+                error: function (xhr, status, error) {
+                    alert('올바른 정보를 입력해주세요: ' + error);
+                }
+            });
+        });
+        // 모달 내부의 폼 처리
+        $('#modalForm').on('submit', function(event){
+            event.preventDefault(); // 폼의 기본 제출 동작을 막습니다.
+
+            $.ajax({
+                type: 'POST',
+                url: $(this).attr('action'),
+                data: $(this).serialize(),
+                success: function(response) {
+                    // 서버 응답이 성공적이면 모달을 닫거나 다른 처리를 합니다.
+                    alert('폼 제출 완료');
+                    $('#myModal').modal('hide');
+                },
+                error: function(xhr, status, error) {
+                    alert('폼 제출 중 오류가 발생했습니다: ' + error);
+                }
+            });
+        });
+    });
+</script>
+
+</body>
+</html>

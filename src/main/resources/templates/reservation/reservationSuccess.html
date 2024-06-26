@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Fail</title>
+    <script type="text/javascript" th:inline="javascript">
+        window.onload = function() {
+            alert("차량 예약을 성공하였습니다.\n"+
+                "차종 : "+[[${reservation.getCarName()}]]+"\n"+
+                "예약 날짜 : " + [[${reservation.getStartDate()}]]+"  ~  "+[[${reservation.getLastDate()}]]);
+            window.location.href = "/reservation/status";
+        }
+    </script>
+</head>
+<body>
+</body>
+</html>

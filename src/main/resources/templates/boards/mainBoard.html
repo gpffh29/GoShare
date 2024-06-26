@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/headerfooterLayout}">
+<head>
+    <meta charset="UTF-8">
+    <title>GoShareBoard</title>
+    <link rel="stylesheet" href="/css/mainBoard.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+    <script src="/js/mainBoard.js"></script>
+    <script src="/js/search.js"></script>
+</head>
+
+<body>
+<div layout:fragment="content">
+    <!--    메인보드 상단 이미지 삽입 -->
+    <div class="mainBoardImg">
+        <div class="mainBoardTop">
+            <img class="banner" src="/images/GoShare_up.jpg" alt="메인 이미지">
+        </div>
+    </div>
+
+    <!--    검색 창 구현 -->
+    <form th:action="@{/boards}" th:object="${searchDto}" class="searchBar">
+        <!--        지역 선택 -->
+        <select name="region" th:field="*{region}" id="regionSelect" class="form-control">
+            <option value="">전체</option>
+            <option value="서울">서울</option>
+            <option value="경기도">경기도</option>
+            <option value="강원도">강원도</option>
+            <option value="충청북도">충청북도</option>
+            <option value="충청남도">충청남도</option>
+            <option value="경상북도">경상북도</option>
+            <option value="경상남도">경상남도</option>
+            <option value="전라북도">전라북도</option>
+            <option value="전라남도">전라남도</option>
+            <option value="제주도">제주도</option>
+        </select>
+
+        <!--        대여 시작일 선택 -->
+        <input type="date" th:field="*{startDate}" class="form-control" id="startDate" placeholder="대여 시작일 선택">
+
+        <!--        반납일 선택 -->
+        <input type="date" th:field="*{endDate}" class="form-control" id="lastDate" placeholder="반납일 선택">
+
+        <!--        차종 선택 -->
+        <select name="car_type" th:field="*{car_type}" id="carType" class="form-control">
+            <option value="">전체</option>
+            <option value="승용 소형">소형</option>
+            <option value="승용 중형">중형</option>
+            <option value="승용 대형">대형</option>
+        </select>
+
+        <!--        검색 버튼 -->
+        <button id="searchBtn" type="submit" class="searchButton">검색</button>
+
+    </form>
+
+    <!--    게시판 화면 구현 -->
+    <div class="row" id="boardContainer">
+        <th:block th:each="item : ${boards}">
+            <div class="col-md-4 margin board-item"
+                 th:attr="data-start-date=${item.startDate}, data-last-date=${item.lastDate}, data-region=${item.region}, data-car-type=${item.carType}">
+                <div class="card">
+                    <a class="text-dark" th:href="@{/boards/{id}(id=${item.id})}">
+                        <!-- 이미지 추가 -->
+                        <img th:src="@{|${item.getImages().get(0).imgUrl}|}" class="card_img-top" th:alt="${item.id}">
+                        <div class="card_body">
+                            <p class="card-text" th:text="|대여 시작일 : ${item.startDate}|"></p>
+                            <p class="card-text" th:text="|대여 마감일 : ${item.lastDate}|"></p>
+                            <h4 class="price card-title text-danger" th:text="${item.price}"></h4>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </th:block>
+    </div>
+    <!-- Pagination -->
+    <div class="pagination">
+        <a th:if="${boards.hasPrevious()}" th:href="@{/boards(page=${currentPage - 1}, size=${boards.size})}">이전</a>
+        <span><span th:text="${currentPage + 1}"></span>/<span th:text="${boards.totalPages}"></span></span>
+        <a th:if="${boards.hasNext()}" th:href="@{/boards(page=${currentPage + 1}, size=${boards.size})}">다음</a>
+    </div>
+</div>
+</body>
+</html>

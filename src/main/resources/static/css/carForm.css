@@ -1,0 +1,50 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+html, body {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: pretendard, sans-serif;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+}
+
+.memberFormContainer {
+    text-align: center;
+    background-color: rgba(68, 148, 255, 0.5);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.memberForm {
+    border: 2px solid #004aad;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+label, input {
+    display: inline-block;
+    vertical-align: top;
+    margin: 10px;
+}
+
+label {
+    width: 100px;
+    text-align: right;
+    margin-right: 5px;
+}
+
+button {
+    margin: 10px;
+}

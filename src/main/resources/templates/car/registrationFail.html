@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Fail</title>
+    <script type="text/javascript" th:inline="javascript">
+        window.onload = function() {
+            alert(/*[[${message}]]*/ 'Default message');
+            window.location.href = "/car/registration";
+        }
+    </script>
+</head>
+<body>
+</body>
+</html>

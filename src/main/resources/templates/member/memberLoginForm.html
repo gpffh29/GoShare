@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/footerLayout}">
+<head>
+    <meta charset="UTF-8">
+    <title>GoShareLogin</title>
+    <link rel="stylesheet" href="/css/memberLoginForm.css">
+</head>
+<body>
+<div layout:fragment="content">
+    <form role="form" method="post" action="/members/login">
+        <div class="loginContainer">
+            <div class="logoContainer">
+                <a href="/boards">
+                    <img src="/images/GoShare_logo.png" alt="logo" class="logo">
+                </a>
+                <h2>로그인</h2>
+            </div>
+            <div class="loginForm">
+
+                <label th:for="email">이메일(아이디)</label>
+<!--                input type을 email로 할 시 email형식으로 로그인하면 "/"로 리다이렉션됨-->
+                <input type="text" id="email" name="email" autocomplete="off" class="login">
+                <br>
+                <label th:for="password">비밀번호</label>
+                <input type="password" name="password" id="password" class="login">
+
+                <div class="button">
+                    <!--        로그인 에러 메시지 출력 -->
+                    <p th:if="${loginErrorMsg}" class="error" th:text="${loginErrorMsg}"></p>
+                    <!--            회원 가입 버튼 -->
+                    <button type="button" class="newMember" onClick="location.href='/member/License'">회원가입</button>
+                    <!--            로그인 버튼 -->
+                    <button class="loginbutton" onClick="location.href='/'">로그인</button>
+                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+</body>
+</html>

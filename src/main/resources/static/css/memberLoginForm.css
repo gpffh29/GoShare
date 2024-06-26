@@ -1,0 +1,59 @@
+*{
+    margin:0;
+    padding:0;
+}
+
+form{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 73vh;
+    font-family:pretendard, sans-serif;
+
+}
+
+.loginContainer{
+    text-align: center;
+    background-color: rgba(68, 148, 255, 0.5);
+    padding :20px;
+}
+
+.loginForm{
+    text-align: center;
+    border: 2px solid #004aad;
+    padding :20px;
+}
+
+h2{
+    padding: 10px;
+}
+
+.logoContainer{
+    text-align: center;
+}
+
+.logo{
+    display: block;
+    margin: 0 auto;
+    width: 100px;
+}
+
+
+label, input{
+    display: inline-block;
+    margin-bottom: 10px auto;
+    vertical-align: top;
+    margin: 10px;
+}
+
+label{
+    min-width: 100px;
+    text-align: right;
+    margin-right: 5px;
+}
+
+
+button{
+    margin: 10px;
+    padding: 5px;
+}
